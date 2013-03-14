@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.db import models
 
 # Create your models here.
@@ -16,16 +17,7 @@ class FeedRss(models.Model):
     timestamp = models.DateTimeField(auto_now=True, auto_created=True)
 
 
-class FeedInfo(models.Model):
-    sort = models.ForeignKey(Sort)
-    title = models.CharField(max_length=200)
-    tags = models.ForeignKey(Tags)
-    douban = models.ForeignKey(Douban)
-    sub_list = models.ForeignKey(SubList)
-    now_playing = models.SmallIntegerField(default=0)
-
-
-class Tags(models.Model):
+class FeedTags(models.Model):
     STYLE_CHOICES = (
         ('TM', '字幕组'),
         ('TL', '作品名'),
@@ -36,7 +28,7 @@ class Tags(models.Model):
     sort = models.ForeignKey(Sort)
     title = models.CharField(max_length=200)
     style = models.CharField(max_length=2, choices=STYLE_CHOICES)
-    Tags = models.CharField(max_length=2000)
+    tags = models.CharField(max_length=2000)
 
 
 class Douban(models.Model):
@@ -51,5 +43,19 @@ class Douban(models.Model):
 
 class SubList(models.Model):
     sort = models.ForeignKey(Sort)
-    feed_info = models.ForeignKey(FeedInfo);
+    tm = models.SmallIntegerField(default=0)
+    tl = models.SmallIntegerField(default=0)
+    cl = models.SmallIntegerField(default=0)
+    fm = models.SmallIntegerField(default=0)
+    lg = models.SmallIntegerField(default=0)
+
+
+class FeedInfo(models.Model):
+    sort = models.ForeignKey(Sort)
+    title = models.CharField(max_length=200)
+    tags = models.ForeignKey(FeedTags)
+    douban = models.ForeignKey(Douban)
+    sub_list = models.ForeignKey(SubList)
+    now_playing = models.SmallIntegerField(default=0)
+
 
