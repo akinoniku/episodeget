@@ -53,9 +53,9 @@ class SubList(models.Model):
 class FeedInfo(models.Model):
     sort = models.ForeignKey(Sort)
     title = models.CharField(max_length=200)
-    tags = models.ForeignKey(FeedTags)
+    feed_tags = models.ForeignKey(FeedTags)
     douban = models.ForeignKey(Douban)
-    sub_list = models.ForeignKey(SubList)
+    sub_list = models.ManyToManyField(SubList)
     now_playing = models.SmallIntegerField(default=0)
 
 
