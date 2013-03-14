@@ -2,19 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="79562bd1-c938-4f70-9f5a-0ff766c02d7e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/feeds_analysis/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/episodeget.iml" afterPath="$PROJECT_DIR$/.idea/episodeget.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/feeds_analysis/models.py" afterPath="$PROJECT_DIR$/feeds_analysis/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/episodeget/settings.py" afterPath="$PROJECT_DIR$/episodeget/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="episodeget.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/settings.py" changelist="79562bd1-c938-4f70-9f5a-0ff766c02d7e" time="1363273104764" ignored="false" />
     <file path="/models.py" changelist="79562bd1-c938-4f70-9f5a-0ff766c02d7e" time="1363273219014" ignored="false" />
-    <file path="/Dummy.txt" changelist="79562bd1-c938-4f70-9f5a-0ff766c02d7e" time="1363276441320" ignored="false" />
+    <file path="/Dummy.txt" changelist="79562bd1-c938-4f70-9f5a-0ff766c02d7e" time="1363276606477" ignored="false" />
     <file path="/a.dummy" changelist="79562bd1-c938-4f70-9f5a-0ff766c02d7e" time="1363189918449" ignored="false" />
     <file path="/admin.py" changelist="79562bd1-c938-4f70-9f5a-0ff766c02d7e" time="1363274593173" ignored="false" />
     <file path="/Python Console" changelist="79562bd1-c938-4f70-9f5a-0ff766c02d7e" time="1363276146591" ignored="false" />
@@ -347,7 +341,11 @@
       <created>1363232695177</created>
       <updated>1363232695177</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="build db">
+      <created>1363276610228</created>
+      <updated>1363276610228</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -374,6 +372,7 @@
     <frame x="59" y="22" width="1621" height="1028" extended-state="6" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26703298" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299435" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -388,7 +387,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
