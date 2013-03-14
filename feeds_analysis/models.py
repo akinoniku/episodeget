@@ -43,11 +43,12 @@ class Douban(models.Model):
 
 class SubList(models.Model):
     sort = models.ForeignKey(Sort)
-    tm = models.SmallIntegerField(default=0)
-    tl = models.SmallIntegerField(default=0)
-    cl = models.SmallIntegerField(default=0)
-    fm = models.SmallIntegerField(default=0)
-    lg = models.SmallIntegerField(default=0)
+    feed_rss = models.ForeignKey(FeedRss)
+    tm = models.ManyToManyField(FeedTags, related_name="tm+")
+    tl = models.ManyToManyField(FeedTags, related_name="tl+")
+    cl = models.ManyToManyField(FeedTags, related_name="cl+")
+    fm = models.ManyToManyField(FeedTags, related_name="fm+")
+    lg = models.ManyToManyField(FeedTags, related_name="lg+")
 
 
 class FeedInfo(models.Model):
