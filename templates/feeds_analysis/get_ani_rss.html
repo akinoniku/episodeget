@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    {% for rss in rss_json %}
+        <p>{{ rss.title }}</p>
+        <p>{{ rss.url }}</p>
+        <p>{{ rss.hash }}</p>
+    {% endfor %}
+</body>
+</html>
