@@ -63,7 +63,7 @@ class Douban(models.Model):
     genres = models.CharField(max_length=100)
     images = models.URLField()
     douban_id = models.BigIntegerField()
-    average = models.SmallIntegerField(max_length=2)
+    average = models.FloatField()
     episodes_count = models.SmallIntegerField(max_length=3)
     summary = models.CharField(max_length=6000)
     year = models.SmallIntegerField()

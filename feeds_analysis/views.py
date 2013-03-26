@@ -1,7 +1,6 @@
 import urllib2
 import json
 from django.shortcuts import render_to_response
-from django.template.defaultfilters import pprint
 from feeds_analysis.models import FeedRss, Douban, FeedInfo
 
 
@@ -71,6 +70,9 @@ def get_douban_by_title(request):
         if not get_douban_result:
             feeds.douban = -1
             feeds.save()
+        else:
+            feeds.douban = get_douban_result
+            feeds.save()
     return render_to_response('feeds_analysis/get_ani_rss.html', {'rss_json': ''})
 
 
@@ -86,23 +88,22 @@ def get_douban_info(search_title):
         douban_subject = urllib2.urlopen('http://api.douban.com/v2/movie/subject/%s' % douban_id).read()
         douban_subject = json.loads(douban_subject)
         new_douban = Douban(
-            title=douban_subject['title'],
+            title=douban_subject['title'] if douban_subject['title'] else 0,
             aka=json.dumps(douban_subject['aka']),
-            original_title=douban_subject['original_title'],
-            alt=douban_subject['alt'],
+            original_title=douban_subject['original_title'] if douban_subject['original_title'] else 0,
+            alt=douban_subject['alt'] if douban_subject['alt'] else 0,
             countries=json.dumps(douban_subject['countries']),
             current_season=douban_subject['current_season'] if douban_subject['current_season'] else 1,
-            directors=douban_subject['directors'],
+            directors=douban_subject['directors'] if douban_subject else 0,
             genres=json.dumps(douban_subject['genres']),
-            images=douban_subject['images']['large'],
+            images=douban_subject['images']['large'] if douban_subject['images']['large'] else 0,
             douban_id=douban_subject['id'],
-            average=int(douban_subject['rating']['average']),
+            average=douban_subject['rating']['average'],
             episodes_count=douban_subject['episodes_count'] if douban_subject['episodes_count'] else 0,
-            summary=douban_subject['summary'],
-            year=douban_subject['year'],
+            summary=douban_subject['summary'] if douban_subject['summary'] else 0,
+            year=douban_subject['year'] if douban_subject['year'] else 0,
         )
-        r_douban = new_douban.save()
-        print(r_douban)
-        return r_douban
+        new_douban.save()
+        return new_douban.douban_id
     else:
         return False
