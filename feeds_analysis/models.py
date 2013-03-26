@@ -22,6 +22,8 @@ class FeedInfo(models.Model):
     feed_tags = models.IntegerField()
     douban = models.IntegerField()
     sub_list = models.IntegerField()
+    weekday = models.SmallIntegerField()
+    bgm_count = models.IntegerField()
     now_playing = models.SmallIntegerField(default=0)
 
     def __unicode__(self):
