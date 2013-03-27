@@ -39,7 +39,7 @@ def get_ani_new(request):
     ani_json = urllib2.urlopen('http://www.bilibili.tv/index/bangumi.json').read()
     ani_json = json.loads(ani_json)
     loopToStoreAni(ani_json)
-    return
+    return render_to_response('feeds_analysis/get_ani_rss.html', {'rss_json': ''})
 
 
 def loopToStoreAni(ani_json):
@@ -49,9 +49,6 @@ def loopToStoreAni(ani_json):
             new_ani = FeedInfo(
                 sort='AN',
                 title=ani['title'],
-                feed_tags=0,
-                douban=0,
-                sub_list=0,
                 weekday=ani['weekday'],
                 bgm_count=ani['bgmcount'],
                 now_playing=1,
@@ -64,14 +61,14 @@ def loopToStoreAni(ani_json):
 
 
 def get_douban_by_title(request):
-    no_douban_feeds = FeedInfo.objects.filter(douban=0)[:5]
+    no_douban_feeds = FeedInfo.objects.filter(douban=None)[:5]
     for feeds in no_douban_feeds:
         get_douban_result = get_douban_info(feeds.title)
         if not get_douban_result:
             feeds.douban = -1
             feeds.save()
         else:
-            feeds.douban = get_douban_result
+            feeds.douban = Douban.objects.get(pk=get_douban_result)
             feeds.save()
     return render_to_response('feeds_analysis/get_ani_rss.html', {'rss_json': ''})
 
@@ -104,6 +101,6 @@ def get_douban_info(search_title):
             year=douban_subject['year'] if douban_subject['year'] else 0,
         )
         new_douban.save()
-        return new_douban.douban_id
+        return new_douban.id
     else:
         return False

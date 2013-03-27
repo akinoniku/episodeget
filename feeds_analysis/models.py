@@ -19,9 +19,8 @@ SORT_CHOICES = (
 class FeedInfo(models.Model):
     sort = models.CharField(max_length=2, choices=SORT_CHOICES)
     title = models.CharField(max_length=200)
-    feed_tags = models.IntegerField()
-    douban = models.IntegerField()
-    sub_list = models.IntegerField()
+    feed_tags = models.ForeignKey('FeedTags', blank=True, null=True)
+    douban = models.ForeignKey('Douban', blank=True, null=True)
     weekday = models.SmallIntegerField()
     bgm_count = models.IntegerField()
     now_playing = models.SmallIntegerField(default=0)
@@ -37,6 +36,7 @@ class FeedRss(models.Model):
     hash_code = models.CharField(max_length=45)
     episode_id = models.SmallIntegerField(max_length=4)
     timestamp = models.DateTimeField(auto_now=True, auto_created=True)
+    sub_list = models.ForeignKey('SubList', null=True, blank=True)
 
     def __unicode__(self):
         return self.title
@@ -74,13 +74,14 @@ class Douban(models.Model):
 
 class SubList(models.Model):
     sort = models.CharField(max_length=2, choices=SORT_CHOICES)
-    feed_rss = models.CharField(max_length=400)
-    feed_info = models.IntegerField()
-    tm = models.IntegerField()
-    tl = models.IntegerField()
-    cl = models.IntegerField()
-    fm = models.IntegerField()
-    lg = models.IntegerField()
+    feed_info = models.ForeignKey('FeedInfo', blank=True, null=True)
+    feed_tags = models.ManyToManyField('FeedTags', blank=True, null=True)
+    # feed_rss = models.CharField(max_length=400)
+    # tm = models.ForeignKey('FeedTags', blank=True, null=True)
+    # tl = models.ForeignKey('FeedTags', blank=True, null=True)
+    # cl = models.ForeignKey('FeedTags', blank=True, null=True)
+    # fm = models.ForeignKey('FeedTags', blank=True, null=True)
+    # lg = models.ForeignKey('FeedTags', blank=True, null=True)
 
     def __unicode__(self):
         return self.feed_info
