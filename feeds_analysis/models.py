@@ -1,5 +1,7 @@
 # coding=utf-8
+import json
 import re
+import urllib2
 from django.db import models
 
 STYLE_CHOICES = (
@@ -70,6 +72,7 @@ class Douban(models.Model):
 
     def __unicode__(self):
         return self.title
+
 
 
 class SubList(models.Model):
