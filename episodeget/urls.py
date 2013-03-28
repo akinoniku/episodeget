@@ -21,4 +21,5 @@ urlpatterns = patterns('',
                        url(r'^get_epi_rss$', get_epi_rss),
                        url(r'^get_ani_new$', get_ani_new),
                        url(r'^get_douban_by_title$', get_douban_by_title),
+                       url(r'^get_douban_by_id/(\d+)$', get_douban_by_id),
 )

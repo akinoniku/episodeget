@@ -56,19 +56,19 @@ class FeedTags(models.Model):
 
 class Douban(models.Model):
     title = models.CharField(max_length=200)
-    aka = models.CharField(max_length=300)
-    original_title = models.CharField(max_length=200)
-    alt = models.URLField()
-    countries = models.CharField(max_length=20)
-    current_season = models.SmallIntegerField()
-    directors = models.CharField(max_length=40)
-    genres = models.CharField(max_length=100)
-    images = models.URLField()
+    aka = models.CharField(max_length=300, default=0)
+    original_title = models.CharField(max_length=200, default=0)
+    alt = models.URLField(default=0)
+    countries = models.CharField(max_length=20, default=0)
+    current_season = models.SmallIntegerField(default=1)
+    directors = models.CharField(max_length=40, default=0)
+    genres = models.CharField(max_length=100, default=0)
+    images = models.URLField(default=0)
     douban_id = models.BigIntegerField()
-    average = models.FloatField()
-    episodes_count = models.SmallIntegerField(max_length=3)
-    summary = models.CharField(max_length=6000)
-    year = models.SmallIntegerField()
+    average = models.FloatField(default=0)
+    episodes_count = models.SmallIntegerField(max_length=3, default=0)
+    summary = models.CharField(max_length=6000, default=0)
+    year = models.SmallIntegerField(default=0)
 
     def __unicode__(self):
         return self.title

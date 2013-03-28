@@ -65,28 +65,35 @@ def get_douban_by_title(request):
     for feeds in no_douban_feeds:
         get_douban_result = get_douban_info(feeds.title)
         if get_douban_result:
-            feeds.douban = Douban.objects.get(pk=get_douban_result)
+            feeds.douban = get_douban_result
             feeds.save()
-        # else:
-        #     feeds.douban = -1
-        #     feeds.save()
-    return render_to_response('feeds_analysis/get_ani_rss.html', {'rss_json': ''})
+        else:
+            pass
+    return render_to_response('feeds_analysis/douban_view.html', {'douban': get_douban_result})
+
+
+def get_douban_by_id(request, douban_id):
+    new_douban = get_douban_by_douban_id(douban_id)
+    return render_to_response('feeds_analysis/douban_view.html', {'douban': new_douban})
 
 
 def get_douban_info(search_title):
     douban_api_string = 'http://api.douban.com/v2/movie/search?q=%s' % search_title
     first_result = urllib2.urlopen(douban_api_string.encode('utf-8')).read()
     first_result = json.loads(first_result)
-    if first_result['total']:
+    if first_result['total'] > 0:
         douban_id = first_result['subjects'][0]['id']
-        return save_douban_by_id(douban_id)
+        new_douban = get_douban_by_douban_id(douban_id)
+        return new_douban
     else:
         return False
 
 
-def save_douban_by_id(douban_id):
-    if Douban.objects.filter(douban_id=douban_id):
-        return douban_id
+def get_douban_by_douban_id(douban_id):
+    douban_subject = Douban.objects.filter(douban_id=douban_id)
+    if douban_subject:
+        return douban_subject[0]
+    test = 'http://api.douban.com/v2/movie/subject/%s' % douban_id;
     douban_subject = urllib2.urlopen('http://api.douban.com/v2/movie/subject/%s' % douban_id).read()
     douban_subject = json.loads(douban_subject)
     new_douban = Douban(
@@ -106,4 +113,4 @@ def save_douban_by_id(douban_id):
         year=douban_subject['year'] if douban_subject['year'] else 0,
         )
     new_douban.save()
-    return new_douban.id
+    return new_douban
