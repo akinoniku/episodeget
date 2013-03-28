@@ -71,8 +71,8 @@ class Douban(models.Model):
     year = models.SmallIntegerField(default=0)
 
     def all_tags(self):
-        from langconv import *
-        c = Converter('zh-hant')
+        import langconv
+        c = langconv.Converter('zh-hant')
 
         all_tags = ','.join([self.title, self.original_title,
                              self.aka_decode()]).split(',')
