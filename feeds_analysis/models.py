@@ -70,9 +70,17 @@ class Douban(models.Model):
     summary = models.CharField(max_length=6000, default=0)
     year = models.SmallIntegerField(default=0)
 
+    def all_tags(self):
+        return '%s,%s,%s' % (self.title, self.original_title, self.aka_decode())
+
+    def aka_decode(self):
+        return ','.join(json.loads(self.aka))
+
+    def countries_decode(self):
+        return ','.join(json.loads(self.countries))
+
     def __unicode__(self):
         return self.title
-
 
 
 class SubList(models.Model):

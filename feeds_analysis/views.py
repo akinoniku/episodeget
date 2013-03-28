@@ -61,6 +61,7 @@ def loopToStoreAni(ani_json):
 
 
 def get_douban_by_title(request):
+    get_douban_result = False
     no_douban_feeds = FeedInfo.objects.filter(douban=None)[:5]
     for feeds in no_douban_feeds:
         get_douban_result = get_douban_info(feeds.title)
@@ -93,7 +94,6 @@ def get_douban_by_douban_id(douban_id):
     douban_subject = Douban.objects.filter(douban_id=douban_id)
     if douban_subject:
         return douban_subject[0]
-    test = 'http://api.douban.com/v2/movie/subject/%s' % douban_id;
     douban_subject = urllib2.urlopen('http://api.douban.com/v2/movie/subject/%s' % douban_id).read()
     douban_subject = json.loads(douban_subject)
     new_douban = Douban(
