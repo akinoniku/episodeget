@@ -71,7 +71,23 @@ class Douban(models.Model):
     year = models.SmallIntegerField(default=0)
 
     def all_tags(self):
-        return '%s,%s,%s' % (self.title, self.original_title, self.aka_decode())
+        from langconv import *
+        c = Converter('zh-hant')
+
+        all_tags = ','.join([self.title, self.original_title,
+                             self.aka_decode()]).split(',')
+        new_tags = []
+        for tags in all_tags:
+            if tags:
+                if not tags in new_tags:
+                    new_tags.append(tags)
+
+                translated_tag = c.convert(tags)
+
+                if not translated_tag in new_tags:
+                    new_tags.append(translated_tag)
+        return ','.join(new_tags)
+
 
     def aka_decode(self):
         return ','.join(json.loads(self.aka))
