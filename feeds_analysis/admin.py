@@ -16,7 +16,7 @@ admin.site.register(Douban, DoubanAdmin)
 
 class FeedInfoAdmin(admin.ModelAdmin):
     list_display = ('sort', 'title', 'douban', 'now_playing',
-                    'feed_tags', 'weekday', 'bgm_count')
+                    'tag_created', 'weekday', 'bgm_count', 'show_tags')
     list_display_links = ('title',)
     # list_editable = ('douban',)
     actions = ['create_tag']
@@ -25,11 +25,14 @@ class FeedInfoAdmin(admin.ModelAdmin):
         infos = queryset.select_related().all()
         for info in infos:
             new_tag = FeedTags(
-                sort=info['sort'],
-                title=info['title'],
+                sort=info.sort,
+                title=info.title,
                 style='TL',
-
+                tags=info.get_tags()
             )
+            new_tag.save()
+            info.feed_tags = new_tag
+            info.save()
     create_tag.short_description = 'Create Tag'
 
 

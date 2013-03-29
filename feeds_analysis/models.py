@@ -1,8 +1,7 @@
 # coding=utf-8
 import json
-import re
-import urllib2
 from django.db import models
+from extra_app.langcov import langconv
 
 STYLE_CHOICES = (
     ('TM', '字幕组'),
@@ -26,6 +25,30 @@ class FeedInfo(models.Model):
     weekday = models.SmallIntegerField()
     bgm_count = models.IntegerField()
     now_playing = models.SmallIntegerField(default=0)
+
+    def tag_created(self):
+        return None != self.feed_tags
+
+    tag_created.boolean = True
+
+    def show_tags(self):
+        return ','.join(json.loads(self.get_tags()))
+
+    def get_tags(self):
+        c = langconv.Converter('zh-hant')
+        all_tags = self.douban.all_tags().split(',')
+        all_tags.insert(0, self.title)
+        new_tags = []
+        for tags in all_tags:
+            if tags:
+            # tags can be null
+                if not tags in new_tags:
+                    new_tags.append(tags)
+                    #convert it!
+                    convert_tag = c.convert(tags)
+                    if not convert_tag in new_tags:
+                        new_tags.append(convert_tag)
+        return json.dumps(new_tags)
 
     def __unicode__(self):
         return self.title
@@ -71,23 +94,8 @@ class Douban(models.Model):
     year = models.SmallIntegerField(default=0)
 
     def all_tags(self):
-        import langconv
-        c = langconv.Converter('zh-hant')
-
-        all_tags = ','.join([self.title, self.original_title,
-                             self.aka_decode()]).split(',')
-        new_tags = []
-        for tags in all_tags:
-            if tags:
-                if not tags in new_tags:
-                    new_tags.append(tags)
-
-                translated_tag = c.convert(tags)
-
-                if not translated_tag in new_tags:
-                    new_tags.append(translated_tag)
-        return ','.join(new_tags)
-
+        return ','.join([self.title, self.original_title,
+                         self.aka_decode()])
 
     def aka_decode(self):
         return ','.join(json.loads(self.aka))
