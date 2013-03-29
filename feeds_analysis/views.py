@@ -79,7 +79,7 @@ def get_douban_by_id(request, douban_id):
 
 
 def get_douban_info(search_title):
-    douban_api_string = 'http://api.douban.com/v2/movie/search?q=%s' % search_title
+    douban_api_string = 'http://api.douban.com/v2/movie/search?q=%s?apikey=020149640d8ca58a0603dc2c28a5f09e' % search_title
     first_result = urllib2.urlopen(douban_api_string.encode('utf-8')).read()
     first_result = json.loads(first_result)
     if first_result['total'] > 0:
@@ -94,23 +94,24 @@ def get_douban_by_douban_id(douban_id):
     douban_subject = Douban.objects.filter(douban_id=douban_id)
     if douban_subject:
         return douban_subject[0]
-    douban_subject = urllib2.urlopen('http://api.douban.com/v2/movie/subject/%s' % douban_id).read()
+    douban_subject = urllib2.urlopen(
+        'http://api.douban.com/v2/movie/subject/%s?apikey=020149640d8ca58a0603dc2c28a5f09e' % douban_id).read()
     douban_subject = json.loads(douban_subject)
     new_douban = Douban(
-        title=douban_subject['title'] if douban_subject['title'] else 0,
+        title=douban_subject['title'],
         aka=json.dumps(douban_subject['aka']),
-        original_title=douban_subject['original_title'] if douban_subject['original_title'] else 0,
-        alt=douban_subject['alt'] if douban_subject['alt'] else 0,
+        original_title=douban_subject['original_title'],
+        alt=douban_subject['alt'],
         countries=json.dumps(douban_subject['countries']),
-        current_season=douban_subject['current_season'] if douban_subject['current_season'] else 1,
-        directors=json.dumps(douban_subject['directors']) if douban_subject['directors'] else 0,
+        current_season=douban_subject['current_season'],
+        directors=json.dumps(douban_subject['directors']),
         genres=json.dumps(douban_subject['genres']),
-        images=douban_subject['images']['large'] if douban_subject['images']['large'] else 0,
+        images=douban_subject['images']['large'],
         douban_id=douban_subject['id'],
         average=douban_subject['rating']['average'],
-        episodes_count=douban_subject['episodes_count'] if douban_subject['episodes_count'] else 0,
-        summary=douban_subject['summary'] if douban_subject['summary'] else 0,
-        year=douban_subject['year'] if douban_subject['year'] else 0,
+        episodes_count=douban_subject['episodes_count'],
+        summary=douban_subject['summary'],
+        year=douban_subject['year'],
     )
     new_douban.save()
     return new_douban

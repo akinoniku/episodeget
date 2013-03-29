@@ -83,20 +83,20 @@ class FeedTags(models.Model):
 
 
 class Douban(models.Model):
-    title = models.CharField(max_length=200, default=0)
-    aka = models.CharField(max_length=300, default=0)
-    original_title = models.CharField(max_length=200, default=0)
-    alt = models.URLField(default=0)
-    countries = models.CharField(max_length=20, default=0)
-    current_season = models.SmallIntegerField(default=1)
-    directors = models.CharField(max_length=40, default=0)
-    genres = models.CharField(max_length=100, default=0)
-    images = models.URLField(default=0)
+    title = models.CharField(max_length=200, blank=True, null=True)
+    aka = models.CharField(max_length=300, blank=True, null=True)
+    original_title = models.CharField(max_length=200, blank=True, null=True)
+    alt = models.URLField(blank=True, null=True)
+    countries = models.CharField(max_length=20, blank=True, null=True)
+    current_season = models.SmallIntegerField(blank=True, null=True)
+    directors = models.CharField(max_length=40, blank=True, null=True)
+    genres = models.CharField(max_length=100, blank=True, null=True)
+    images = models.URLField(blank=True, null=True)
     douban_id = models.BigIntegerField()
-    average = models.FloatField(default=0)
-    episodes_count = models.SmallIntegerField(max_length=3, default=0)
-    summary = models.CharField(max_length=6000, default=0)
-    year = models.SmallIntegerField(default=0)
+    average = models.FloatField(blank=True, null=True)
+    episodes_count = models.SmallIntegerField(max_length=3, blank=True, null=True)
+    summary = models.CharField(max_length=6000, blank=True, null=True)
+    year = models.SmallIntegerField(blank=True, null=True)
 
     def all_tags(self):
         return ','.join([self.title, self.original_title,
@@ -129,24 +129,27 @@ class SubList(models.Model):
 
 def update_with_id(instance, **kwargs):
     if not instance.title:
-        douban_subject = urllib2.urlopen('http://api.douban.com/v2/movie/subject/%s' % instance.douban_id).read()
+        douban_subject = urllib2.urlopen(
+            'http://api.douban.com/v2/movie/subject/%s?apikey=020149640d8ca58a0603dc2c28a5f09e'
+            % instance.douban_id).read()
         douban_subject = json.loads(douban_subject)
         Douban.objects.filter(id=instance.id).update(
-            title=douban_subject['title'] if douban_subject['title'] else 0,
+            title=douban_subject['title'],
             aka=json.dumps(douban_subject['aka']),
-            original_title=douban_subject['original_title'] if douban_subject['original_title'] else 0,
-            alt=douban_subject['alt'] if douban_subject['alt'] else 0,
+            original_title=douban_subject['original_title'],
+            alt=douban_subject['alt'],
             countries=json.dumps(douban_subject['countries']),
-            current_season=douban_subject['current_season'] if douban_subject['current_season'] else 1,
-            directors=json.dumps(douban_subject['directors']) if douban_subject['directors'] else 0,
+            current_season=douban_subject['current_season'],
+            directors=douban_subject['directors'][0]['name'] if len(douban_subject['directors']) > 0 else None,
             genres=json.dumps(douban_subject['genres']),
-            images=douban_subject['images']['large'] if douban_subject['images']['large'] else 0,
+            images=douban_subject['images']['large'],
             douban_id=douban_subject['id'],
             average=douban_subject['rating']['average'],
-            episodes_count=douban_subject['episodes_count'] if douban_subject['episodes_count'] else 0,
-            summary=douban_subject['summary'] if douban_subject['summary'] else 0,
-            year=douban_subject['year'] if douban_subject['year'] else 0,
+            episodes_count=douban_subject['episodes_count'],
+            summary=douban_subject['summary'],
+            year=douban_subject['year'],
         )
+
 
 post_save.connect(update_with_id, sender=Douban)
 
