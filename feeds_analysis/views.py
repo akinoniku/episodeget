@@ -103,7 +103,7 @@ def get_douban_by_douban_id(douban_id):
         alt=douban_subject['alt'] if douban_subject['alt'] else 0,
         countries=json.dumps(douban_subject['countries']),
         current_season=douban_subject['current_season'] if douban_subject['current_season'] else 1,
-        directors=douban_subject['directors'] if douban_subject else 0,
+        directors=json.dumps(douban_subject['directors']) if douban_subject['directors'] else 0,
         genres=json.dumps(douban_subject['genres']),
         images=douban_subject['images']['large'] if douban_subject['images']['large'] else 0,
         douban_id=douban_subject['id'],
@@ -111,6 +111,6 @@ def get_douban_by_douban_id(douban_id):
         episodes_count=douban_subject['episodes_count'] if douban_subject['episodes_count'] else 0,
         summary=douban_subject['summary'] if douban_subject['summary'] else 0,
         year=douban_subject['year'] if douban_subject['year'] else 0,
-        )
+    )
     new_douban.save()
     return new_douban

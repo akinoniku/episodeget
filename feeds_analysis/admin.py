@@ -3,16 +3,25 @@ from django.contrib import admin
 from feeds_analysis.models import FeedRss, FeedTags, Douban, SubList, FeedInfo
 
 admin.site.register(FeedRss)
-admin.site.register(FeedTags)
+# admin.site.register(FeedTags)
 # admin.site.register(Douban)
 admin.site.register(SubList)
 # admin.site.register(FeedInfo)
 
 
+class FeedTagsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'sort', 'style', 'show_tags')
+
+
+admin.site.register(FeedTags, FeedTagsAdmin)
+
+
 class DoubanAdmin(admin.ModelAdmin):
     list_display = ('title', 'original_title', 'aka_decode', 'countries_decode', 'all_tags', 'average', 'year')
 
+
 admin.site.register(Douban, DoubanAdmin)
+
 
 class FeedInfoAdmin(admin.ModelAdmin):
     list_display = ('sort', 'title', 'douban', 'now_playing',
@@ -33,6 +42,7 @@ class FeedInfoAdmin(admin.ModelAdmin):
             new_tag.save()
             info.feed_tags = new_tag
             info.save()
+
     create_tag.short_description = 'Create Tag'
 
 

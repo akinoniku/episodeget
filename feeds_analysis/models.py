@@ -1,6 +1,8 @@
 # coding=utf-8
 import json
+import urllib2
 from django.db import models
+from django.db.models.signals import pre_save, post_save
 from extra_app.langcov import langconv
 
 STYLE_CHOICES = (
@@ -41,7 +43,7 @@ class FeedInfo(models.Model):
         new_tags = []
         for tags in all_tags:
             if tags:
-            # tags can be null
+            # tags would be null
                 if not tags in new_tags:
                     new_tags.append(tags)
                     #convert it!
@@ -73,12 +75,15 @@ class FeedTags(models.Model):
     style = models.CharField(max_length=2, choices=STYLE_CHOICES)
     tags = models.CharField(max_length=2000)
 
+    def show_tags(self):
+        return ','.join(json.loads(self.tags))
+
     def __unicode__(self):
         return self.title
 
 
 class Douban(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, default=0)
     aka = models.CharField(max_length=300, default=0)
     original_title = models.CharField(max_length=200, default=0)
     alt = models.URLField(default=0)
@@ -120,5 +125,29 @@ class SubList(models.Model):
 
     def __unicode__(self):
         return self.feed_info
+
+
+def update_with_id(instance, **kwargs):
+    if not instance.title:
+        douban_subject = urllib2.urlopen('http://api.douban.com/v2/movie/subject/%s' % instance.douban_id).read()
+        douban_subject = json.loads(douban_subject)
+        Douban.objects.filter(id=instance.id).update(
+            title=douban_subject['title'] if douban_subject['title'] else 0,
+            aka=json.dumps(douban_subject['aka']),
+            original_title=douban_subject['original_title'] if douban_subject['original_title'] else 0,
+            alt=douban_subject['alt'] if douban_subject['alt'] else 0,
+            countries=json.dumps(douban_subject['countries']),
+            current_season=douban_subject['current_season'] if douban_subject['current_season'] else 1,
+            directors=json.dumps(douban_subject['directors']) if douban_subject['directors'] else 0,
+            genres=json.dumps(douban_subject['genres']),
+            images=douban_subject['images']['large'] if douban_subject['images']['large'] else 0,
+            douban_id=douban_subject['id'],
+            average=douban_subject['rating']['average'],
+            episodes_count=douban_subject['episodes_count'] if douban_subject['episodes_count'] else 0,
+            summary=douban_subject['summary'] if douban_subject['summary'] else 0,
+            year=douban_subject['year'] if douban_subject['year'] else 0,
+        )
+
+post_save.connect(update_with_id, sender=Douban)
 
 
