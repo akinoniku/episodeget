@@ -134,7 +134,10 @@ class SubList(models.Model):
     # lg = models.ForeignKey('FeedTags', blank=True, null=True)
 
     def __unicode__(self):
-        return self.feed_info
+        if self.feed_info != None:
+            return self.feed_info.title
+        else:
+            return self.tags_index
 
 
 def update_with_id(instance, **kwargs):

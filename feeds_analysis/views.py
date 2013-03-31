@@ -2,6 +2,7 @@ import urllib2
 import json
 from django.shortcuts import render_to_response
 from extra_app.langcov import langconv
+from feeds_analysis.analysiser import analysis_tags
 from feeds_analysis.models import FeedRss, Douban, FeedInfo, FeedTags
 
 
@@ -106,6 +107,10 @@ def get_douban_by_douban_id(douban_id):
     )
     new_douban.save()
     return new_douban
+
+def ana_rss(request, id):
+    rss = FeedRss.objects.get(pk=id)
+    analysis_tags(rss)
 
 
 def read_old_db(request):
