@@ -18,15 +18,21 @@ SORT_CHOICES = (
     ('EP', '番剧'),
 )
 
+PLAYING_CHOICES = (
+    (0, '已完结'),
+    (1, '连载中'),
+    (2, '长篇'),
+    (3, '废弃'),
+)
 
 class FeedInfo(models.Model):
     sort = models.CharField(max_length=2, choices=SORT_CHOICES)
     title = models.CharField(max_length=200)
     feed_tags = models.ForeignKey('FeedTags', blank=True, null=True)
     douban = models.ForeignKey('Douban', blank=True, null=True)
-    weekday = models.SmallIntegerField()
-    bgm_count = models.IntegerField()
-    now_playing = models.SmallIntegerField(default=0)
+    weekday = models.SmallIntegerField(blank=True, null=True)
+    bgm_count = models.IntegerField(blank=True, null=True)
+    now_playing = models.SmallIntegerField(default=0, choices=PLAYING_CHOICES)
 
     def tag_created(self):
         return None != self.feed_tags
@@ -37,20 +43,23 @@ class FeedInfo(models.Model):
         return ','.join(json.loads(self.get_tags()))
 
     def get_tags(self):
-        c = langconv.Converter('zh-hant')
-        all_tags = self.douban.all_tags().split(',')
-        all_tags.insert(0, self.title)
-        new_tags = []
-        for tags in all_tags:
-            if tags:
-            # tags would be null
-                if not tags in new_tags:
-                    new_tags.append(tags)
-                    #convert it!
-                    convert_tag = c.convert(tags)
-                    if not convert_tag in new_tags:
-                        new_tags.append(convert_tag)
-        return json.dumps(new_tags)
+        if self.douban:
+            c = langconv.Converter('zh-hant')
+            all_tags = self.title.split(',')
+            all_tags.extend(self.douban.all_tags().split(','))
+            new_tags = []
+            for tags in all_tags:
+                if tags:
+                # tags would be null
+                    if not tags in new_tags:
+                        new_tags.append(tags)
+                        #convert it!
+                        convert_tag = c.convert(tags)
+                        if not convert_tag in new_tags:
+                            new_tags.append(convert_tag)
+            return json.dumps(new_tags)
+        else:
+            return json.dumps([])
 
     def __unicode__(self):
         return self.title
@@ -60,10 +69,10 @@ class FeedRss(models.Model):
     sort = models.CharField(max_length=2, choices=SORT_CHOICES)
     title = models.CharField(max_length=200)
     link = models.CharField(max_length=2000)
-    hash_code = models.CharField(max_length=45)
-    episode_id = models.SmallIntegerField(max_length=4)
-    timestamp = models.DateTimeField(auto_now=True, auto_created=True)
-    sub_list = models.ForeignKey('SubList', null=True, blank=True)
+    hash_code = models.CharField(max_length=45, unique=True, db_index=True)
+    episode_id = models.SmallIntegerField(max_length=4, null=True, blank=True)
+    timestamp = models.DateTimeField(auto_created=True)
+    sub_list = models.ForeignKey('SubList', null=True, blank=True, db_index=True)
 
     def __unicode__(self):
         return self.title
@@ -87,7 +96,7 @@ class Douban(models.Model):
     aka = models.CharField(max_length=300, blank=True, null=True)
     original_title = models.CharField(max_length=200, blank=True, null=True)
     alt = models.URLField(blank=True, null=True)
-    countries = models.CharField(max_length=20, blank=True, null=True)
+    countries = models.CharField(max_length=100, blank=True, null=True)
     current_season = models.SmallIntegerField(blank=True, null=True)
     directors = models.CharField(max_length=40, blank=True, null=True)
     genres = models.CharField(max_length=100, blank=True, null=True)
@@ -114,9 +123,10 @@ class Douban(models.Model):
 
 class SubList(models.Model):
     sort = models.CharField(max_length=2, choices=SORT_CHOICES)
+    tags_index = models.CharField(max_length=300, blank=True, null=True)
     feed_info = models.ForeignKey('FeedInfo', blank=True, null=True)
     feed_tags = models.ManyToManyField('FeedTags', blank=True, null=True)
-    # feed_rss = models.CharField(max_length=400)
+    feed_rss = models.ManyToManyField('FeedRss', blank=True, null=True)
     # tm = models.ForeignKey('FeedTags', blank=True, null=True)
     # tl = models.ForeignKey('FeedTags', blank=True, null=True)
     # cl = models.ForeignKey('FeedTags', blank=True, null=True)
