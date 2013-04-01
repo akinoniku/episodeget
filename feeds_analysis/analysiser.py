@@ -6,7 +6,7 @@ __author__ = 'akino'
 
 
 def get_tags_with_cache(type):
-    key_string = 'allTags'
+    key_string = 'allTags2'
     key_string += type
     cache = get_cache('default')
     allTags = cache.get(key_string)
@@ -29,6 +29,7 @@ def analysis_tags(rss):
             if rss.title.find(tag) != -1:
                 if feed_tags.style == 'TL':
                     info_tags = FeedInfo.objects.filter(title=feed_tags.title)
+                    info_tags = info_tags[0]
                 feed_tags_list.append(feed_tags)
                 break
     if not len(feed_tags_list):
@@ -43,8 +44,10 @@ def analysis_tags(rss):
     rows = SubList.objects.filter(tags_index=tag_string_list)
 
     if len(rows):
-        rows[0].feed_rss.add(rss)
-        rows[0].save()
+        rows.filter(feed_rss=rss)
+        if len(rows):
+            rows[0].feed_rss.add(rss)
+            rows[0].save()
     else:
         new_list = SubList(
             feed_info=info_tags,

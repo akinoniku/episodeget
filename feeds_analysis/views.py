@@ -182,7 +182,8 @@ def read_old_db(request):
     c = langconv.Converter('zh-hans')
     old_db = ani_info_sql()
     for row in old_db:
-        title = c.convert(unicode(row[2], "utf-8"))
+        # title = c.convert(unicode(row[2], "utf-8"))
+        title = c.convert(unicode(row[2]))
         if not FeedInfo.objects.filter(title=title):
             new_info = FeedInfo(
                 sort='AN',
