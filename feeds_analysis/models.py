@@ -25,6 +25,7 @@ PLAYING_CHOICES = (
     (3, '废弃'),
 )
 
+
 class FeedInfo(models.Model):
     sort = models.CharField(max_length=2, choices=SORT_CHOICES)
     title = models.CharField(max_length=200)

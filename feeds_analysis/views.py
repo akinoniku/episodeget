@@ -108,37 +108,52 @@ def get_douban_by_douban_id(douban_id):
     new_douban.save()
     return new_douban
 
+
 def ana_rss(request, id):
     rss = FeedRss.objects.get(pk=id)
     analysis_tags(rss)
 
 
 def read_old_db(request):
+    counter = 0
+    sql_list = []
     old_db = ani_rss_sql()
+    total = len(old_db)
     for row in old_db:
-        if not FeedRss.objects.filter(hash_code=row[2][20:52]):
-            new_ani_rss = FeedRss(
-                sort='AN',
-                title=row[1],
-                link=row[2],
-                hash_code=row[2][20:52],
-                episode_id=0,
-                timestamp=row[3]
-            )
-            new_ani_rss.save()
+        # if not FeedRss.objects.filter(hash_code=row[2][20:52]):
+        new_ani_rss = FeedRss(
+            sort='AN',
+            title=row[1],
+            link=row[2],
+            hash_code=row[2][20:52],
+            episode_id=0,
+            timestamp=row[3]
+        )
+        counter += 1
+        sql_list.append(new_ani_rss)
+        if len(sql_list) > 500 or total == counter:
+            FeedRss.objects.bulk_create(sql_list)
+            sql_list = []
 
+    counter = 0
+    sql_list = []
     old_db = epi_rss_sql()
+    total = len(old_db)
     for row in old_db:
-        if not FeedRss.objects.filter(hash_code=row[2][20:52]):
-            new_epi_rss = FeedRss(
-                sort='EP',
-                title=row[1],
-                link=row[2],
-                hash_code=row[2][20:52],
-                episode_id=0,
-                timestamp=row[3]
-            )
-            new_epi_rss.save()
+        #if not FeedRss.objects.filter(hash_code=row[2][20:52]):
+        new_epi_rss = FeedRss(
+            sort='EP',
+            title=row[1],
+            link=row[2],
+            hash_code=row[2][20:52],
+            episode_id=0,
+            timestamp=row[3]
+        )
+        counter += 1
+        sql_list.append(new_epi_rss)
+        if len(sql_list) > 500 or total == counter:
+            FeedRss.objects.bulk_create(sql_list)
+            sql_list = []
 
     mapper = {1: 'TM', 2: 'Tl', 3: 'CL', 4: 'FM', 5: 'LG'}
 
