@@ -127,11 +127,6 @@ class SubList(models.Model):
     feed_info = models.ForeignKey('FeedInfo', blank=True, null=True)
     feed_tags = models.ManyToManyField('FeedTags', blank=True, null=True)
     feed_rss = models.ManyToManyField('FeedRss', blank=True, null=True)
-    # tm = models.ForeignKey('FeedTags', blank=True, null=True)
-    # tl = models.ForeignKey('FeedTags', blank=True, null=True)
-    # cl = models.ForeignKey('FeedTags', blank=True, null=True)
-    # fm = models.ForeignKey('FeedTags', blank=True, null=True)
-    # lg = models.ForeignKey('FeedTags', blank=True, null=True)
 
     def __unicode__(self):
         if self.feed_info != None:
