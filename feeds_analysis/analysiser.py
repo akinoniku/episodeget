@@ -1,6 +1,6 @@
 import json
 from django.core.cache import get_cache
-from feeds_analysis.models import FeedTags, SubList
+from feeds_analysis.models import FeedTags, SubList, FeedInfo
 
 __author__ = 'akino'
 
@@ -22,10 +22,13 @@ def analysis_tags(rss):
     :type rss: FeedRss
     """
     feed_tags_list = []
+    info_tags = None
     for feed_tags in get_tags_with_cache(rss.sort):
         tag_list = json.loads(feed_tags.tags)
         for tag in tag_list:
             if rss.title.find(tag) != -1:
+                if feed_tags.style == 'TL':
+                    info_tags = FeedInfo.objects.filter(title=feed_tags.title)
                 feed_tags_list.append(feed_tags)
                 break
     if not len(feed_tags_list):
@@ -44,6 +47,7 @@ def analysis_tags(rss):
         rows[0].save()
     else:
         new_list = SubList(
+            feed_info=info_tags,
             sort=rss.sort,
             tags_index=tag_string_list,
         )

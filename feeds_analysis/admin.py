@@ -7,16 +7,26 @@ __author__ = 'akino'
 from django.contrib import admin
 from feeds_analysis.models import FeedRss, FeedTags, Douban, SubList, FeedInfo
 
-admin.site.register(FeedRss)
+# admin.site.register(FeedRss)
 # admin.site.register(FeedTags)
 # admin.site.register(Douban)
-admin.site.register(SubList)
+# admin.site.register(SubList)
 # admin.site.register(FeedInfo)
+
+
+class FeedRssAdmin(admin.ModelAdmin):
+    list_display = ('sort', 'title',)
+    search_fields = ('title',)
+    list_display_links = ('title',)
+
+
+admin.site.register(FeedRss, FeedRssAdmin)
 
 
 class FeedTagsAdmin(admin.ModelAdmin):
     list_display = ('title', 'sort', 'style', 'show_tags')
     list_editable = ('style',)
+
 
 admin.site.register(FeedTags, FeedTagsAdmin)
 
@@ -90,3 +100,11 @@ class FeedInfoAdmin(admin.ModelAdmin):
 
 
 admin.site.register(FeedInfo, FeedInfoAdmin)
+
+
+class SubListAdmin(admin.ModelAdmin):
+    list_display = ('sort', 'tags_index', 'show_all_styles', 'show_all_tags')
+    list_display_links = ('tags_index',)
+
+
+admin.site.register(SubList, SubListAdmin)

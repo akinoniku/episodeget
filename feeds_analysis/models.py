@@ -129,6 +129,18 @@ class SubList(models.Model):
     feed_tags = models.ManyToManyField('FeedTags', blank=True, null=True)
     feed_rss = models.ManyToManyField('FeedRss', blank=True, null=True)
 
+    def show_all_tags(self):
+        tags_title = []
+        for tags in self.feed_tags.all():
+            tags_title.append(tags.title)
+        return ','.join(tags_title)
+
+    def show_all_styles(self):
+        tags_style = []
+        for tags in self.feed_tags.all():
+            tags_style.append(tags.style)
+        return ','.join(tags_style)
+
     def __unicode__(self):
         if self.feed_info != None:
             return self.feed_info.title
