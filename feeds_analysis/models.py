@@ -35,6 +35,7 @@ class FeedInfo(models.Model):
     weekday = models.SmallIntegerField(blank=True, null=True)
     bgm_count = models.IntegerField(blank=True, null=True)
     now_playing = models.SmallIntegerField(default=0, choices=PLAYING_CHOICES)
+    image = models.ImageField(upload_to='info_pic', blank=True, null=True)
 
     def tag_created(self):
         return None != self.feed_tags
@@ -48,7 +49,7 @@ class FeedInfo(models.Model):
         if self.douban:
             c = langconv.Converter('zh-hant')
             all_tags = self.title.split(',')
-            all_tags.extend(self.douban.all_tags().split(','))
+            all_tags.extend(self.douban.all_tags())
             new_tags = []
             for tags in all_tags:
                 if tags:
@@ -74,7 +75,7 @@ class FeedRss(models.Model):
     hash_code = models.CharField(max_length=45, unique=True, db_index=True)
     episode_id = models.SmallIntegerField(max_length=4, null=True, blank=True)
     timestamp = models.DateTimeField(auto_created=True)
-    sub_list = models.ForeignKey('SubList', null=True, blank=True, db_index=True)
+    # sub_list = models.ForeignKey('SubList', null=True, blank=True, db_index=True)
 
     def __unicode__(self):
         return self.title
@@ -110,14 +111,18 @@ class Douban(models.Model):
     year = models.SmallIntegerField(blank=True, null=True)
 
     def all_tags(self):
-        return ','.join([self.title, self.original_title,
-                         self.aka_decode()])
+        tags = [self.title, self.original_title]
+        tags.extend(self.aka_decode())
+        return tags
 
     def aka_decode(self):
-        return ','.join(json.loads(self.aka))
+        return json.loads(self.aka)
 
     def countries_decode(self):
         return ','.join(json.loads(self.countries))
+
+    def all_tags_dump(self):
+        return ','.join(self.all_tags())
 
     def __unicode__(self):
         return self.title
@@ -143,8 +148,11 @@ class SubList(models.Model):
             tags_style.append(tags.style)
         return ','.join(tags_style)
 
+    def show_title(self):
+        return self.__unicode__()
+
     def __unicode__(self):
-        if self.feed_info != None:
+        if None != self.feed_info:
             return self.feed_info.title
         else:
             return self.tags_index

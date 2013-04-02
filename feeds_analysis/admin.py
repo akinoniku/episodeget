@@ -32,7 +32,7 @@ admin.site.register(FeedTags, FeedTagsAdmin)
 
 
 class DoubanAdmin(admin.ModelAdmin):
-    list_display = ('title', 'original_title', 'aka_decode', 'countries_decode', 'all_tags', 'average', 'year')
+    list_display = ('title', 'original_title', 'countries_decode', 'all_tags_dump', 'average', 'year')
 
 
 admin.site.register(Douban, DoubanAdmin)
@@ -103,8 +103,8 @@ admin.site.register(FeedInfo, FeedInfoAdmin)
 
 
 class SubListAdmin(admin.ModelAdmin):
-    list_display = ('sort', 'tags_index', 'show_all_styles', 'show_all_tags')
-    list_display_links = ('tags_index',)
+    list_display = ('sort', 'show_title', 'show_all_styles', 'show_all_tags')
+    list_display_links = ('show_title',)
 
 
 admin.site.register(SubList, SubListAdmin)
