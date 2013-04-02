@@ -1,6 +1,7 @@
 # coding=utf-8
 import json
 import urllib2
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import pre_save, post_save
 from extra_app.langcov import langconv
@@ -125,9 +126,10 @@ class Douban(models.Model):
 class SubList(models.Model):
     sort = models.CharField(max_length=2, choices=SORT_CHOICES)
     tags_index = models.CharField(max_length=300, blank=True, null=True)
-    feed_info = models.ForeignKey('FeedInfo', blank=True, null=True)
-    feed_tags = models.ManyToManyField('FeedTags', blank=True, null=True)
-    feed_rss = models.ManyToManyField('FeedRss', blank=True, null=True)
+    feed_info = models.ForeignKey(FeedInfo, blank=True, null=True)
+    feed_tags = models.ManyToManyField(FeedTags, blank=True, null=True)
+    feed_rss = models.ManyToManyField(FeedRss, blank=True, null=True)
+    user = models.ManyToManyField(User, blank=True, null=True)
 
     def show_all_tags(self):
         tags_title = []

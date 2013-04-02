@@ -20,7 +20,7 @@ urlpatterns = patterns('',
                        url(r'^get_ani_rss$', get_ani_rss),
                        url(r'^get_epi_rss$', get_epi_rss),
                        url(r'^get_ani_new$', get_ani_new),
-                       url(r'^get_douban_by_id/(\d+)$', get_douban_by_id),
+                       url(r'^get_epi$', get_epi_new),
                        url(r'^ana_rss/(\d+)$', ana_rss),
                        url(r'^read_old_db$', read_old_db),
 )

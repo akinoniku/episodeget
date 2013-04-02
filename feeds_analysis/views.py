@@ -1,9 +1,11 @@
 import urllib2
 import json
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from extra_app.langcov import langconv
 from feeds_analysis.analysiser import analysis_tags
 from feeds_analysis.models import FeedRss, Douban, FeedInfo, FeedTags
+from pyquery import PyQuery
 
 
 # TODO I should make a old database reader for my old data. For tags, rss, and info
@@ -45,7 +47,8 @@ def get_ani_new(request):
     ani_json = urllib2.urlopen('http://www.bilibili.tv/index/bangumi.json').read()
     ani_json = json.loads(ani_json)
     loopToStoreAni(ani_json)
-    return render_to_response('feeds_analysis/get_ani_rss.html', {'rss_json': ''})
+    # return render_to_response('feeds_analysis/get_ani_rss.html', {'rss_json': ''})
+    return HttpResponse("Get ani done!")
 
 
 def loopToStoreAni(ani_json):
@@ -77,9 +80,8 @@ def loopToStoreAni(ani_json):
     return counter
 
 
-def get_douban_by_id(request, douban_id):
-    new_douban = get_douban_by_douban_id(douban_id)
-    return render_to_response('feeds_analysis/douban_view.html', {'douban': new_douban})
+def get_epi_new(request):
+    PyQuery(url='http://www.yyets.com/rss/feed/?channel=tv')
 
 
 def get_douban_by_douban_id(douban_id):
@@ -112,6 +114,7 @@ def get_douban_by_douban_id(douban_id):
 def ana_rss(request, id):
     rss = FeedRss.objects.get(pk=id)
     analysis_tags(rss)
+    HttpResponse('Analysis ani Done')
 
 
 def read_old_db(request):
@@ -200,3 +203,4 @@ def read_old_db(request):
                 now_playing=row[6],
             )
             new_info.save()
+    return HttpResponse("Read Old db Done")
