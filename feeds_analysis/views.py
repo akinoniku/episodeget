@@ -1,3 +1,5 @@
+# coding=utf-8
+import re
 import urllib2
 import json
 from django.http import HttpResponse
@@ -53,6 +55,7 @@ def get_ani_new(request):
 def loopToStoreAni(ani_json):
     counter = 0
     added_info_array = []
+    # loop to add
     for ani in ani_json:
         info = FeedInfo.objects.filter(title=ani['title'])
         if not info:
@@ -75,7 +78,11 @@ def loopToStoreAni(ani_json):
                 now_playing=1,
             )
             added_info_array.append(info[0].id)
-    FeedInfo.objects.filter(sort='AN')
+    # check the now_playing info finished
+    if len(added_info_array) > 5:
+        for info in FeedInfo.objects.filter(sort='AN', now_playing=1):
+            if not info.id in added_info_array:
+                FeedInfo.objects.filter(pk=info.id).update(now_playing=0)
     return counter
 
 
@@ -84,14 +91,37 @@ def get_epi_new(request):
         'http://pipes.yahoo.com/pipes/pipe.run?_id=47147fbe121a2a307f87d2de85a416be&_render=json').read()
     epi_json = json.loads(epi_json)
     loopToStoreEpi(epi_json)
+    return HttpResponse("Get epi done!")
 
 
 def loopToStoreEpi(epi_json):
     counter = 0
-    added_info_array = []
     for epi in epi_json['value']['items']:
-        var = epi
-        vae2 = 3
+        if epi['title'].find(u'连载') != -1:
+            now_playing = 1
+        elif epi['title'].find(u'完结') != -1:
+            now_playing = 0
+        else:
+            continue
+        title_cn = re.search(u'《[\w\W]+》', epi['title']).group(0)[1:-1]
+        title_en = re.search(u'\([\w\W]+\)', epi['title']).group(0)[1:-1]
+        title = title_cn + ',' + title_en
+
+        info = FeedInfo.objects.filter(title=title)
+        if not info:
+            new_epi = FeedInfo(
+                sort='EP',
+                title=title,
+                now_playing=now_playing,
+            )
+            new_epi.save()
+            counter += 1
+        else:
+            info.update(
+                sort='EP',
+                title=title,
+                now_playing=now_playing,
+            )
 
 
 def get_douban_by_douban_id(douban_id):
