@@ -66,7 +66,7 @@ class FeedInfoAdmin(admin.ModelAdmin):
     list_filter = ('sort', GetTagsFilter, 'now_playing')
     list_editable = ('now_playing',)
     search_fields = ('title',)
-    actions = ['create_tag', 'get_douban']
+    actions = ['get_douban', 'create_tag', 'create_short_tag']
 
     def create_tag(self, request, queryset):
         infos = queryset.select_related().all()
@@ -83,7 +83,23 @@ class FeedInfoAdmin(admin.ModelAdmin):
             info.feed_tags = new_tag
             info.save()
 
+    def create_short_tag(self, request, queryset):
+        infos = queryset.select_related().all()
+        for info in infos:
+            if FeedTags.objects.filter(title=info.title):
+                continue
+            new_tag = FeedTags(
+                sort=info.sort,
+                title=info.title,
+                style='TL',
+                tags=info.get_simple_tags()
+            )
+            new_tag.save()
+            info.feed_tags = new_tag
+            info.save()
+
     create_tag.short_description = 'Create Tag'
+    create_short_tag.short_description = 'Create short Tag(debug)'
 
     def get_douban(self, request, queryset):
         infos = queryset.select_related().all()
@@ -104,7 +120,7 @@ admin.site.register(FeedInfo, FeedInfoAdmin)
 
 
 class SubListAdmin(admin.ModelAdmin):
-    list_display = ('sort', 'show_title', 'show_all_styles', 'show_all_tags')
+    list_display = ('sort', 'show_title', 'show_all_styles', 'show_all_tags', 'count_rss')
     list_display_links = ('show_title',)
 
 

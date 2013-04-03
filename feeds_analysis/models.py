@@ -3,7 +3,7 @@ import json
 import urllib2
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import post_save
 from extra_app.langcov import langconv
 
 STYLE_CHOICES = (
@@ -44,6 +44,21 @@ class FeedInfo(models.Model):
 
     def show_tags(self):
         return ','.join(json.loads(self.get_tags()))
+
+    def get_simple_tags(self):
+        c = langconv.Converter('zh-hant')
+        all_tags = self.title.split(',')
+        new_tags = []
+        for tags in all_tags:
+            if tags:
+            # tags would be null
+                if not tags in new_tags:
+                    new_tags.append(tags)
+                    #convert it!
+                    convert_tag = c.convert(tags)
+                    if not convert_tag in new_tags:
+                        new_tags.append(convert_tag)
+        return json.dumps(new_tags)
 
     def get_tags(self):
         if self.douban:
@@ -137,6 +152,9 @@ class SubList(models.Model):
     user = models.ManyToManyField(User, blank=True, null=True)
     create_time = models.DateTimeField(auto_created=True)
     update_time = models.DateTimeField(auto_now=True)
+
+    def count_rss(self):
+        return self.feed_rss.all().count()
 
     def show_all_tags(self):
         tags_title = []

@@ -1,4 +1,7 @@
+import json
 from django.db import connection
+from extra_app.langcov import langconv
+from feeds_analysis.models import FeedRss, FeedTags, FeedInfo
 
 __author__ = 'akino'
 
@@ -107,8 +110,8 @@ def old_db_reader():
     c = langconv.Converter('zh-hans')
     old_db = ani_info_sql()
     for row in old_db:
-        # title = c.convert(unicode(row[2], "utf-8"))
-        title = c.convert(unicode(row[2]))
+        title = c.convert(unicode(row[2], "utf-8")) #for win
+        # title = c.convert(unicode(row[2])) # for mac
         if not FeedInfo.objects.filter(title=title):
             new_info = FeedInfo(
                 sort='AN',

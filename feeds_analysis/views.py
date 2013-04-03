@@ -1,4 +1,5 @@
 # coding=utf-8
+from datetime import datetime
 import re
 import urllib2
 import json
@@ -30,7 +31,7 @@ def loopToStoreRss(rss_json, sort, episode_id=0):
     for rss in rss_json:
         if not FeedRss.objects.filter(hash_code=rss['hash']):
             new_rss = FeedRss(title=rss['title'], link=rss['url'], hash_code=rss['hash'], sort=sort,
-                              episode_id=episode_id)
+                              episode_id=episode_id, timestamp=datetime.now())
             new_rss.save()
             counter += 1
         else:
@@ -150,6 +151,11 @@ def ana_rss(request, id):
     analysis_tags(rss)
     HttpResponse('Analysis ani Done')
 
+def ana_rss_all(request):
+    all_rss = FeedRss.objects.all().order_by('id').reverse()
+    for rss in all_rss:
+        analysis_tags(rss)
+    HttpResponse('Analysis Done')
 
 def read_old_db(request):
     old_db_reader()
