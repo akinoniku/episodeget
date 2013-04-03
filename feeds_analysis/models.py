@@ -102,7 +102,7 @@ class Douban(models.Model):
     countries = models.CharField(max_length=100, blank=True, null=True)
     current_season = models.SmallIntegerField(blank=True, null=True)
     directors = models.CharField(max_length=40, blank=True, null=True)
-    genres = models.CharField(max_length=100, blank=True, null=True)
+    genres = models.CharField(max_length=400, blank=True, null=True)
     images = models.URLField(blank=True, null=True)
     douban_id = models.BigIntegerField()
     average = models.FloatField(blank=True, null=True)
@@ -135,6 +135,8 @@ class SubList(models.Model):
     feed_tags = models.ManyToManyField(FeedTags, blank=True, null=True)
     feed_rss = models.ManyToManyField(FeedRss, blank=True, null=True)
     user = models.ManyToManyField(User, blank=True, null=True)
+    create_time = models.DateTimeField(auto_created=True)
+    update_time = models.DateTimeField(auto_now=True)
 
     def show_all_tags(self):
         tags_title = []

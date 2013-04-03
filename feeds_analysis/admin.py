@@ -26,6 +26,7 @@ admin.site.register(FeedRss, FeedRssAdmin)
 class FeedTagsAdmin(admin.ModelAdmin):
     list_display = ('title', 'sort', 'style', 'show_tags')
     list_editable = ('style',)
+    list_filter = ('sort', 'style')
 
 
 admin.site.register(FeedTags, FeedTagsAdmin)

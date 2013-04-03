@@ -4,18 +4,12 @@ import urllib2
 import json
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from extra_app.langcov import langconv
 from feeds_analysis.analysiser import analysis_tags
-from feeds_analysis.models import FeedRss, Douban, FeedInfo, FeedTags
-
-
-# TODO I should make a old database reader for my old data. For tags, rss, and info
-from old_db_reader.reader import ani_rss_sql, epi_rss_sql, ani_tags_sql, epi_tags_sql, ani_info_sql, epi_info_sql
+from feeds_analysis.models import FeedRss, Douban, FeedInfo
+from old_db_reader.reader import old_db_reader
 
 
 def get_ani_rss(request):
-    # rss_json = urllib2.urlopen(
-    #     'http://pipes.yahoo.com/pipes/pipe.run?_id=1e8c89ba88de4df8def7cecb3ff7201c&_render=json').read()
     rss_json = urllib2.urlopen(
         'http://pipes.yahoo.com/pipes/pipe.run?_id=2a1aee3dda9a657eaa4d8eece5441f8f&_render=json').read()
     rss_json = json.loads(rss_json)['value']['items']
@@ -158,90 +152,5 @@ def ana_rss(request, id):
 
 
 def read_old_db(request):
-    counter = 0
-    sql_list = []
-    old_db = ani_rss_sql()
-    total = len(old_db)
-    for row in old_db:
-        # if not FeedRss.objects.filter(hash_code=row[2][20:52]):
-        new_ani_rss = FeedRss(
-            sort='AN',
-            title=row[1],
-            link=row[2],
-            hash_code=row[2][20:52],
-            episode_id=0,
-            timestamp=row[3]
-        )
-        counter += 1
-        sql_list.append(new_ani_rss)
-        if len(sql_list) > 500 or total == counter:
-            FeedRss.objects.bulk_create(sql_list)
-            sql_list = []
-
-    counter = 0
-    sql_list = []
-    old_db = epi_rss_sql()
-    total = len(old_db)
-    for row in old_db:
-        #if not FeedRss.objects.filter(hash_code=row[2][20:52]):
-        new_epi_rss = FeedRss(
-            sort='EP',
-            title=row[1],
-            link=row[2],
-            hash_code=row[2][20:52],
-            episode_id=0,
-            timestamp=row[3]
-        )
-        counter += 1
-        sql_list.append(new_epi_rss)
-        if len(sql_list) > 500 or total == counter:
-            FeedRss.objects.bulk_create(sql_list)
-            sql_list = []
-
-    mapper = {1: 'TM', 2: 'Tl', 3: 'CL', 4: 'FM', 5: 'LG'}
-
-    old_db = ani_tags_sql()
-    for row in old_db:
-        if row[2] != 2 and not FeedTags.objects.filter(sort='AN', title=row[1]):
-            new_tag = FeedTags(
-                sort='AN',
-                title=row[1],
-                style=mapper[row[2]],
-                tags=json.dumps(row[3].split(','))
-            )
-            new_tag.save()
-
-    old_db = epi_tags_sql()
-    for row in old_db:
-        if row[2] != 2 and not FeedTags.objects.filter(sort='EP', title=row[1]):
-            new_tag = FeedTags(
-                sort='EP',
-                title=row[1],
-                style=mapper[row[2]],
-                tags=json.dumps(row[3].split(','))
-            )
-            new_tag.save()
-
-    c = langconv.Converter('zh-hans')
-    old_db = ani_info_sql()
-    for row in old_db:
-        # title = c.convert(unicode(row[2], "utf-8"))
-        title = c.convert(unicode(row[2]))
-        if not FeedInfo.objects.filter(title=title):
-            new_info = FeedInfo(
-                sort='AN',
-                title=title,
-                now_playing=row[6],
-            )
-            new_info.save()
-
-    old_db = epi_info_sql()
-    for row in old_db:
-        if not FeedInfo.objects.filter(title=row[2]):
-            new_info = FeedInfo(
-                sort='EP',
-                title=row[2],
-                now_playing=row[6],
-            )
-            new_info.save()
+    old_db_reader()
     return HttpResponse("Read Old db Done")
