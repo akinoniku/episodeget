@@ -5,7 +5,6 @@ from django.shortcuts import render_to_response
 from extra_app.langcov import langconv
 from feeds_analysis.analysiser import analysis_tags
 from feeds_analysis.models import FeedRss, Douban, FeedInfo, FeedTags
-from pyquery import PyQuery
 
 
 # TODO I should make a old database reader for my old data. For tags, rss, and info
@@ -81,7 +80,18 @@ def loopToStoreAni(ani_json):
 
 
 def get_epi_new(request):
-    PyQuery(url='http://www.yyets.com/rss/feed/?channel=tv')
+    epi_json = urllib2.urlopen(
+        'http://pipes.yahoo.com/pipes/pipe.run?_id=47147fbe121a2a307f87d2de85a416be&_render=json').read()
+    epi_json = json.loads(epi_json)
+    loopToStoreEpi(epi_json)
+
+
+def loopToStoreEpi(epi_json):
+    counter = 0
+    added_info_array = []
+    for epi in epi_json['value']['items']:
+        var = epi
+        vae2 = 3
 
 
 def get_douban_by_douban_id(douban_id):
