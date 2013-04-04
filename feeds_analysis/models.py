@@ -79,6 +79,12 @@ class FeedInfo(models.Model):
         else:
             return json.dumps([])
 
+    def count_sub_list(self):
+        return len(SubList.objects.filter(feed_info=self))
+
+    def get_sub_list(self):
+        return SubList.objects.filter(feed_info=self)
+
     def __unicode__(self):
         return self.title
 

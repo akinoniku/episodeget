@@ -61,7 +61,7 @@ class GetTagsFilter(SimpleListFilter):
 
 class FeedInfoAdmin(admin.ModelAdmin):
     list_display = ('sort', 'title', 'douban', 'now_playing',
-                    'weekday', 'bgm_count', 'show_tags', 'tag_created', )
+                    'weekday', 'count_sub_list', 'show_tags', 'tag_created', )
     list_display_links = ('title',)
     list_filter = ('sort', GetTagsFilter, 'now_playing')
     list_editable = ('now_playing',)
