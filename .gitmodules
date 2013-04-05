@@ -7,3 +7,6 @@
 [submodule "extra_app/xunlei-lixian"]
 	path = extra_app/xunlei-lixian
 	url = https://github.com/iambus/xunlei-lixian
+[submodule "extra_app/django-rest-framework"]
+	path = extra_app/django-rest-framework
+	url = https://github.com/tomchristie/django-rest-framework
