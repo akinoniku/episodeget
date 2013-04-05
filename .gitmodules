@@ -1,0 +1,3 @@
+[submodule "extra_app/django-social-auth"]
+	path = extra_app/django-social-auth
+	url = git://github.com/omab/django-social-auth.git
