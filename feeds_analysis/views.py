@@ -6,7 +6,7 @@ import json
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from feeds_analysis.analysiser import analysis_tags
-from feeds_analysis.models import FeedRss, Douban, FeedInfo
+from feeds_analysis.models import Rss, Douban, Info
 from old_db_reader.reader import old_db_reader
 
 
@@ -29,8 +29,8 @@ def get_epi_rss(request):
 def loopToStoreRss(rss_json, sort, episode_id=0):
     counter = 0
     for rss in rss_json:
-        if not FeedRss.objects.filter(hash_code=rss['hash']):
-            new_rss = FeedRss(title=rss['title'], link=rss['url'], hash_code=rss['hash'], sort=sort,
+        if not Rss.objects.filter(hash_code=rss['hash']):
+            new_rss = Rss(title=rss['title'], link=rss['url'], hash_code=rss['hash'], sort=sort,
                               episode_id=episode_id, timestamp=datetime.now())
             new_rss.save()
             counter += 1
@@ -52,9 +52,9 @@ def loopToStoreAni(ani_json):
     added_info_array = []
     # loop to add
     for ani in ani_json:
-        info = FeedInfo.objects.filter(title=ani['title'])
+        info = Info.objects.filter(title=ani['title'])
         if not info:
-            new_ani = FeedInfo(
+            new_ani = Info(
                 sort='AN',
                 title=ani['title'],
                 weekday=ani['weekday'],
@@ -73,11 +73,11 @@ def loopToStoreAni(ani_json):
                 now_playing=1,
             )
             added_info_array.append(info[0].id)
-    # check the now_playing info finished
+        # check the now_playing info finished
     if len(added_info_array) > 5:
-        for info in FeedInfo.objects.filter(sort='AN', now_playing=1):
+        for info in Info.objects.filter(sort='AN', now_playing=1):
             if not info.id in added_info_array:
-                FeedInfo.objects.filter(pk=info.id).update(now_playing=0)
+                Info.objects.filter(pk=info.id).update(now_playing=0)
     return counter
 
 
@@ -102,9 +102,9 @@ def loopToStoreEpi(epi_json):
         title_en = re.search(u'\([\w\W]+\)', epi['title']).group(0)[1:-1]
         title = title_cn + ',' + title_en
 
-        info = FeedInfo.objects.filter(title=title)
+        info = Info.objects.filter(title=title)
         if not info:
-            new_epi = FeedInfo(
+            new_epi = Info(
                 sort='EP',
                 title=title,
                 now_playing=now_playing,
@@ -147,15 +147,17 @@ def get_douban_by_douban_id(douban_id):
 
 
 def ana_rss(request, id):
-    rss = FeedRss.objects.get(pk=id)
+    rss = Rss.objects.get(pk=id)
     analysis_tags(rss)
     HttpResponse('Analysis ani Done')
 
+
 def ana_rss_all(request):
-    all_rss = FeedRss.objects.all().order_by('id').reverse()
+    all_rss = Rss.objects.all().order_by('id').reverse()
     for rss in all_rss:
         analysis_tags(rss)
     HttpResponse('Analysis Done')
+
 
 def read_old_db(request):
     old_db_reader()

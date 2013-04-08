@@ -27,10 +27,10 @@ PLAYING_CHOICES = (
 )
 
 
-class FeedInfo(models.Model):
+class Info(models.Model):
     sort = models.CharField(max_length=2, choices=SORT_CHOICES)
     title = models.CharField(max_length=200)
-    feed_tags = models.ForeignKey('FeedTags', blank=True, null=True)
+    tags = models.ForeignKey('Tags', blank=True, null=True)
     douban = models.ForeignKey('Douban', blank=True, null=True)
     weekday = models.SmallIntegerField(blank=True, null=True)
     bgm_count = models.IntegerField(blank=True, null=True)
@@ -38,7 +38,7 @@ class FeedInfo(models.Model):
     image = models.ImageField(upload_to='info_pic', blank=True, null=True)
 
     def tag_created(self):
-        return None != self.feed_tags
+        return None != self.tags
 
     tag_created.boolean = True
 
@@ -80,16 +80,16 @@ class FeedInfo(models.Model):
             return json.dumps([])
 
     def count_sub_list(self):
-        return len(SubList.objects.filter(feed_info=self))
+        return len(SubList.objects.filter(info=self))
 
     def get_sub_list(self):
-        return SubList.objects.filter(feed_info=self)
+        return SubList.objects.filter(info=self)
 
     def __unicode__(self):
         return self.title
 
 
-class FeedRss(models.Model):
+class Rss(models.Model):
     sort = models.CharField(max_length=2, choices=SORT_CHOICES)
     title = models.CharField(max_length=200)
     link = models.CharField(max_length=2000)
@@ -102,7 +102,7 @@ class FeedRss(models.Model):
         return self.title
 
 
-class FeedTags(models.Model):
+class Tags(models.Model):
     title = models.CharField(max_length=200)
     sort = models.CharField(max_length=2, choices=SORT_CHOICES)
     style = models.CharField(max_length=2, choices=STYLE_CHOICES)
@@ -152,25 +152,25 @@ class Douban(models.Model):
 class SubList(models.Model):
     sort = models.CharField(max_length=2, choices=SORT_CHOICES)
     tags_index = models.CharField(max_length=300, blank=True, null=True)
-    feed_info = models.ForeignKey(FeedInfo, blank=True, null=True)
-    feed_tags = models.ManyToManyField(FeedTags, blank=True, null=True)
-    feed_rss = models.ManyToManyField(FeedRss, blank=True, null=True)
+    info = models.ForeignKey(Info, blank=True, null=True)
+    tags = models.ManyToManyField(Tags, blank=True, null=True)
+    rss = models.ManyToManyField(Rss, blank=True, null=True)
     user = models.ManyToManyField(User, blank=True, null=True)
     create_time = models.DateTimeField(auto_created=True)
     update_time = models.DateTimeField(auto_now=True)
 
     def count_rss(self):
-        return self.feed_rss.all().count()
+        return self.rss.all().count()
 
     def show_all_tags(self):
         tags_title = []
-        for tags in self.feed_tags.all():
+        for tags in self.tags.all():
             tags_title.append(tags.title)
         return ','.join(tags_title)
 
     def show_all_styles(self):
         tags_style = []
-        for tags in self.feed_tags.all():
+        for tags in self.tags.all():
             tags_style.append(tags.style)
         return ','.join(tags_style)
 
@@ -178,8 +178,8 @@ class SubList(models.Model):
         return self.__unicode__()
 
     def __unicode__(self):
-        if None != self.feed_info:
-            return self.feed_info.title
+        if None != self.info:
+            return self.info.title
         else:
             return self.tags_index
 

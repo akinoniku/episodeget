@@ -5,31 +5,31 @@ from feeds_analysis.views import get_douban_by_douban_id
 
 __author__ = 'akino'
 from django.contrib import admin
-from feeds_analysis.models import FeedRss, FeedTags, Douban, SubList, FeedInfo
+from feeds_analysis.models import Rss, Tags, Douban, SubList, Info
 
-# admin.site.register(FeedRss)
-# admin.site.register(FeedTags)
+# admin.site.register(Rss)
+# admin.site.register(Tags)
 # admin.site.register(Douban)
 # admin.site.register(SubList)
-# admin.site.register(FeedInfo)
+# admin.site.register(Info)
 
 
-class FeedRssAdmin(admin.ModelAdmin):
+class RssAdmin(admin.ModelAdmin):
     list_display = ('sort', 'title',)
     search_fields = ('title',)
     list_display_links = ('title',)
 
 
-admin.site.register(FeedRss, FeedRssAdmin)
+admin.site.register(Rss, RssAdmin)
 
 
-class FeedTagsAdmin(admin.ModelAdmin):
+class TagsAdmin(admin.ModelAdmin):
     list_display = ('title', 'sort', 'style', 'show_tags')
     list_editable = ('style',)
     list_filter = ('sort', 'style')
 
 
-admin.site.register(FeedTags, FeedTagsAdmin)
+admin.site.register(Tags, TagsAdmin)
 
 
 class DoubanAdmin(admin.ModelAdmin):
@@ -52,11 +52,11 @@ class GetTagsFilter(SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value() == 'Created':
-            return queryset.filter(feed_tags__isnull=False)
+            return queryset.filter(tags__isnull=False)
         if self.value() == 'No douban':
             return queryset.filter(douban__isnull=True)
         if self.value() == 'With douban':
-            return queryset.filter(douban__isnull=False, feed_tags__isnull=True)
+            return queryset.filter(douban__isnull=False, tags__isnull=True)
 
 
 class FeedInfoAdmin(admin.ModelAdmin):
@@ -71,31 +71,31 @@ class FeedInfoAdmin(admin.ModelAdmin):
     def create_tag(self, request, queryset):
         infos = queryset.select_related().all()
         for info in infos:
-            if FeedTags.objects.filter(title=info.title):
+            if Tags.objects.filter(title=info.title):
                 continue
-            new_tag = FeedTags(
+            new_tag = Tags(
                 sort=info.sort,
                 title=info.title,
                 style='TL',
                 tags=info.get_tags()
             )
             new_tag.save()
-            info.feed_tags = new_tag
+            info.tags = new_tag
             info.save()
 
     def create_short_tag(self, request, queryset):
         infos = queryset.select_related().all()
         for info in infos:
-            if FeedTags.objects.filter(title=info.title):
+            if Tags.objects.filter(title=info.title):
                 continue
-            new_tag = FeedTags(
+            new_tag = Tags(
                 sort=info.sort,
                 title=info.title,
                 style='TL',
                 tags=info.get_simple_tags()
             )
             new_tag.save()
-            info.feed_tags = new_tag
+            info.tags = new_tag
             info.save()
 
     create_tag.short_description = 'Create Tag'
@@ -116,7 +116,7 @@ class FeedInfoAdmin(admin.ModelAdmin):
     get_douban.short_description = 'Get Douban'
 
 
-admin.site.register(FeedInfo, FeedInfoAdmin)
+admin.site.register(Info, FeedInfoAdmin)
 
 
 class SubListAdmin(admin.ModelAdmin):
