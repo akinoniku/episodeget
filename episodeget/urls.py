@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from rest_framework.urlpatterns import format_suffix_patterns
 from feeds_analysis.views import *
 
 admin.autodiscover()
@@ -24,4 +25,14 @@ urlpatterns = patterns('',
                        url(r'^ana_rss/(\d+)$', ana_rss),
                        url(r'^ana_rss_all$', ana_rss_all),
                        url(r'^read_old_db$', read_old_db),
+
+                       # rest
+                       url(r'^rss/$', RssList.as_view(), name='rss-list'),
+                       url(r'^rss/(?P<pk>\d+)/$', RssDetail.as_view(), name='rss-detail'),
 )
+
+# Format suffixes
+urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'api'])
+
+# Default login/logout views
+urlpatterns += patterns('', url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')))

@@ -5,8 +5,10 @@ import urllib2
 import json
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from rest_framework import generics
 from feeds_analysis.analysiser import analysis_tags
 from feeds_analysis.models import Rss, Douban, Info
+from feeds_analysis.serializers import RssSerializer
 from old_db_reader.reader import old_db_reader
 
 
@@ -31,7 +33,7 @@ def loopToStoreRss(rss_json, sort, episode_id=0):
     for rss in rss_json:
         if not Rss.objects.filter(hash_code=rss['hash']):
             new_rss = Rss(title=rss['title'], link=rss['url'], hash_code=rss['hash'], sort=sort,
-                              episode_id=episode_id, timestamp=datetime.now())
+                          episode_id=episode_id, timestamp=datetime.now())
             new_rss.save()
             counter += 1
         else:
@@ -73,7 +75,7 @@ def loopToStoreAni(ani_json):
                 now_playing=1,
             )
             added_info_array.append(info[0].id)
-        # check the now_playing info finished
+            # check the now_playing info finished
     if len(added_info_array) > 5:
         for info in Info.objects.filter(sort='AN', now_playing=1):
             if not info.id in added_info_array:
@@ -162,3 +164,13 @@ def ana_rss_all(request):
 def read_old_db(request):
     old_db_reader()
     return HttpResponse("Read Old db Done")
+
+
+class RssList(generics.ListCreateAPIView):
+    model = Rss
+    serializer_class = RssSerializer
+
+
+class RssDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = Rss
+    serializer_class = RssSerializer

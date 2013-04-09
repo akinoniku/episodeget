@@ -67,6 +67,7 @@ class FeedInfoAdmin(admin.ModelAdmin):
     list_editable = ('now_playing',)
     search_fields = ('title',)
     actions = ['get_douban', 'create_tag', 'create_short_tag']
+    list_max_show_all = 600
 
     def create_tag(self, request, queryset):
         infos = queryset.select_related().all()
