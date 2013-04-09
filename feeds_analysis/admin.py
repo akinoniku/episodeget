@@ -1,7 +1,7 @@
 import json
 import urllib2
 from django.contrib.admin import SimpleListFilter
-from feeds_analysis.views import get_douban_by_douban_id
+from feeds_analysis.updater import get_douban_by_douban_id
 
 __author__ = 'akino'
 from django.contrib import admin
