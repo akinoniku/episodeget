@@ -424,9 +424,6 @@ class XunleiClient:
         assert protocol in ('ed2k', 'http', 'ftp', 'thunder', 'Flashget', 'qqdl', 'bt',
                             'magnet'), 'protocol "%s" is not suppoted' % protocol
 
-        from lixian_url import url_unmask
-
-        url = url_unmask(url)
         protocol = parse_url_protocol(url)
         assert protocol in ('ed2k', 'http', 'ftp', 'bt', 'magnet'), 'protocol "%s" is not suppoted' % protocol
 
