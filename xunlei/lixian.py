@@ -220,11 +220,11 @@ class XunleiClient:
 
     def logout(self):
         logger.debug('logout')
-        #session_id = self.get_cookie('.xunlei.com', 'sessionid')
-        #timestamp = current_timestamp()
-        #url = 'http://login.xunlei.com/unregister?sessionid=%s&cachetime=%s&noCacheIE=%s' % (session_id, timestamp, timestamp)
-        #self.urlopen(url).read()
-        #self.urlopen('http://dynamic.vip.xunlei.com/login/indexlogin_contr/logout/').read()
+        # session_id = self.get_cookie('.xunlei.com', 'sessionid')
+        # timestamp = current_timestamp()
+        # url = 'http://login.xunlei.com/unregister?sessionid=%s&cachetime=%s&noCacheIE=%s' % (session_id, timestamp, timestamp)
+        # self.urlopen(url).read()
+        # self.urlopen('http://dynamic.vip.xunlei.com/login/indexlogin_contr/logout/').read()
         ckeys = ["vip_isvip", "lx_sessionid", "vip_level", "lx_login", "dl_enable", "in_xl", "ucid", "lixian_section"]
         ckeys1 = ["sessionid", "usrname", "nickname", "usernewno", "userid"]
         self.del_cookie('.vip.xunlei.com', 'gdriveid')
