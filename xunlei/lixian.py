@@ -1,3 +1,5 @@
+from xunlei.db_cookie_jar import DbCookieJar
+
 __all__ = ['XunleiClient']
 
 import urllib
@@ -56,9 +58,9 @@ class XunleiClient:
         self.password = password
         self.cookie_path = cookie_path
         if cookie_path:
-            self.cookiejar = cookielib.LWPCookieJar()
-            if os.path.exists(cookie_path):
-                self.load_cookies()
+            self.cookiejar = DbCookieJar()
+            # if os.path.exists(cookie_path):
+            self.load_cookies()
         else:
             self.cookiejar = cookielib.CookieJar()
         self.set_page_size(self.page_size)

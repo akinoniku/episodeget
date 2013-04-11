@@ -22,6 +22,7 @@ urlpatterns = patterns('',
                        url(r'^ana_rss/(\d+)$', ana_rss),
                        url(r'^ana_rss_all$', ana_rss_all),
                        url(r'^read_old_db$', read_old_db),
+                       url(r'^add_task$', add_task_test),
 
                        # rest
                        url(r'^rss/$', RssList.as_view(), name='rss-list'),

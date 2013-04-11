@@ -6,6 +6,7 @@ from feeds_analysis.models import Rss
 from feeds_analysis.serializers import RssSerializer
 from feeds_analysis.updater import get_ani_rss, get_epi_rss, get_ani_new, get_epi_new
 from old_db_reader.reader import old_db_reader
+from xunlei.lixian_control import add_task
 
 
 def update_all(request):
@@ -28,6 +29,8 @@ def ana_rss_all(request):
         analysis_tags(rss)
     HttpResponse('Analysis Done')
 
+def add_task_test(request):
+    add_task('', Rss.objects.get(pk=5))
 
 def read_old_db(request):
     old_db_reader()
@@ -42,3 +45,5 @@ class RssList(generics.ListCreateAPIView):
 class RssDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Rss
     serializer_class = RssSerializer
+
+
