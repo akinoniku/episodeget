@@ -50,6 +50,8 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
+PROJECT_ROOT = '/Users/akino/PycharmProjects/episodeget'
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 MEDIA_ROOT = '~/Pictures/geteipsode'
@@ -63,7 +65,8 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+# STATIC_ROOT = ''
+STATIC_ROOT = PROJECT_ROOT + '/static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -193,6 +196,11 @@ AUTHENTICATION_BACKENDS = (
     'social_auth.backends.OpenIDBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+SOCIAL_AUTH_UID_LENGTH = 222
+SOCIAL_AUTH_NONCE_SERVER_URL_LENGTH = 200
+SOCIAL_AUTH_ASSOCIATION_SERVER_URL_LENGTH = 135
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 125
 
 WEIBO_CLIENT_KEY = '3308285966'
 WEIBO_CLIENT_SECRET = '8dc7673a12260bade71826f4d6590c58'

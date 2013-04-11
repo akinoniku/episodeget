@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
 from rest_framework import generics
 from feeds_analysis.analysiser import analysis_tags
 from feeds_analysis.models import Rss
@@ -8,6 +9,8 @@ from feeds_analysis.updater import get_ani_rss, get_epi_rss, get_ani_new, get_ep
 from old_db_reader.reader import old_db_reader
 from xunlei.lixian_control import add_task
 
+def index(request):
+    return render_to_response('feeds_analysis/index.html')
 
 def update_all(request):
     get_ani_rss()
