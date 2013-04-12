@@ -5,6 +5,8 @@ from django.contrib import admin
 from rest_framework.urlpatterns import format_suffix_patterns
 import feeds_analysis
 from feeds_analysis.views import *
+from front_end import views
+import front_end
 
 admin.autodiscover()
 
@@ -19,7 +21,11 @@ urlpatterns = patterns('',
                        # Uncomment the next line to enable the admin:
                        url(r'^admin/', include(admin.site.urls)),
 
-                       url(r'^$', feeds_analysis.views.index),
+                       # front_end
+                       url(r'^$', front_end.views.index),
+                       url(r'^index.manifest$', front_end.views.index_manifest),
+
+                       # feed_analysis
                        url(r'^update_all$', update_all),
                        url(r'^ana_rss/(\d+)$', ana_rss),
                        url(r'^ana_rss_all$', ana_rss_all),

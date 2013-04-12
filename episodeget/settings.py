@@ -1,4 +1,5 @@
 # Django settings for episodeget project.
+import platform
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -50,7 +51,10 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-PROJECT_ROOT = '/Users/akino/PycharmProjects/episodeget'
+if platform.system() == "Windows":
+    PROJECT_ROOT = 'D:/workspace/PycharmProjects/episodeget'
+else:
+    PROJECT_ROOT = '/Users/akino/PycharmProjects/episodeget'
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
@@ -65,8 +69,8 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-# STATIC_ROOT = ''
-STATIC_ROOT = PROJECT_ROOT + '/static/'
+STATIC_ROOT = ''
+# STATIC_ROOT = PROJECT_ROOT + '/static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -74,6 +78,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    PROJECT_ROOT + '/static/',
 # Put strings here, like "/home/html/static" or "C:/www/django/static".
 # Always use forward slashes, even on Windows.
 # Don't forget to use absolute paths, not relative paths.

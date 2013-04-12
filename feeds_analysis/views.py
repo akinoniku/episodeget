@@ -9,9 +9,6 @@ from feeds_analysis.updater import get_ani_rss, get_epi_rss, get_ani_new, get_ep
 from old_db_reader.reader import old_db_reader
 from xunlei.lixian_control import add_task
 
-def index(request):
-    return render_to_response('feeds_analysis/index.html')
-
 def update_all(request):
     get_ani_rss()
     get_epi_rss()
