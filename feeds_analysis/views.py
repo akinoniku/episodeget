@@ -27,7 +27,7 @@ def ana_rss_all(request):
     all_rss = Rss.objects.all().order_by('id').reverse()
     for rss in all_rss:
         analysis_tags(rss)
-    HttpResponse('Analysis Done')
+    return HttpResponse('Analysis Done')
 
 def add_task_test(request):
     add_task('', Rss.objects.get(pk=5))

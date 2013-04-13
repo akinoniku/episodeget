@@ -22,7 +22,7 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
 
                        # front_end
-                       url(r'^$', front_end.views.index),
+                       url(r'^i$', front_end.views.index),
                        url(r'^index.manifest$', front_end.views.index_manifest),
 
                        # feed_analysis
@@ -35,6 +35,9 @@ urlpatterns = patterns('',
                        # rest
                        url(r'^rss/$', RssList.as_view(), name='rss-list'),
                        url(r'^rss/(?P<pk>\d+)/$', RssDetail.as_view(), name='rss-detail'),
+
+                       # social auth
+                       url(r'', include('social_auth.urls')),
 )
 
 # Format suffixes

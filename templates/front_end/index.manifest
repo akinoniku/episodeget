@@ -1,8 +1,7 @@
 CACHE MANIFEST
 
-# VERSION 0.1
+# VERSION 0.2
 
-# 直接缓存的文件
 CACHE:
 http://lib.sinaapp.com/js/bootstrap/2.3.1/css/bootstrap.min.css
 http://lib.sinaapp.com/js/bootstrap/2.3.1/css/bootstrap-responsive.min.css
@@ -14,10 +13,8 @@ http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js
 {% static "initializr/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js" %}
 {% static "initializr/js/main.js" %}
 
-# 需要在时间在线的文件
 # NETWORK:
 # /wp-admin/
 
-# 替代方案
 # FALLBACK:
 # /ajax/ ajax.html
