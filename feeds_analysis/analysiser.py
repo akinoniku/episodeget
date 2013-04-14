@@ -10,7 +10,7 @@ all_tags_cache = {}
 
 def get_tags_with_cache(type):
     allTags = {}
-    key_string = 'allTags'
+    key_string = 'allTagsA'
     key_string += type
     if not type in all_tags_cache:
         cache = get_cache('default')

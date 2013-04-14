@@ -60,6 +60,18 @@ class Info(models.Model):
                         new_tags.append(convert_tag)
         return json.dumps(new_tags)
 
+    def create_tag_test(self):
+        if not Tags.objects.filter(title=self.title):
+            new_tag = Tags(
+                sort=self.sort,
+                title=self.title,
+                style='TL',
+                tags=self.get_simple_tags()
+            )
+            new_tag.save()
+            self.tags = new_tag
+            self.save()
+
     def get_tags(self):
         if self.douban:
             c = langconv.Converter('zh-hant')

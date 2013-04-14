@@ -38,6 +38,9 @@ urlpatterns = patterns('',
 
                        # social auth
                        url(r'', include('social_auth.urls')),
+
+                       # test function
+                       url(r'init_test', init_test),
 )
 
 # Format suffixes

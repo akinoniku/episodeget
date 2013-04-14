@@ -88,17 +88,7 @@ class FeedInfoAdmin(admin.ModelAdmin):
     def create_short_tag(self, request, queryset):
         infos = queryset.select_related().all()
         for info in infos:
-            if Tags.objects.filter(title=info.title):
-                continue
-            new_tag = Tags(
-                sort=info.sort,
-                title=info.title,
-                style='TL',
-                tags=info.get_simple_tags()
-            )
-            new_tag.save()
-            info.tags = new_tag
-            info.save()
+            info.create_tag_test()
 
     create_tag.short_description = 'Create Tag'
     create_short_tag.short_description = 'Create short Tag(debug)'
