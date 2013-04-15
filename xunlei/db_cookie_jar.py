@@ -10,7 +10,7 @@ It uses the version string "2.0", though really there isn't an LWP Cookies
 libwww-perl, I hope.
 
 """
-from feeds_analysis.models import Xunlei
+from user_settings.models import Xunlei
 
 __author__ = 'akinoniku'
 

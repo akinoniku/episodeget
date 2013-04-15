@@ -221,10 +221,3 @@ def update_with_id(instance, **kwargs):
 
 
 post_save.connect(update_with_id, sender=Douban)
-
-
-class Xunlei(models.Model):
-    user = models.ForeignKey(User, blank=True, null=True)
-    xunlei_id = models.CharField(max_length=300, blank=True, null=True)
-    xunlei_pass = models.CharField(max_length=300, blank=True, null=True)
-    cookies = models.CharField(max_length=6000, blank=True, null=True)

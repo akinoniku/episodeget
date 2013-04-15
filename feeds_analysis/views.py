@@ -52,9 +52,9 @@ def add_task_test(request):
 
 
 def init_test(request):
-    # read_old_db(request)
-    # update_all(request)
-    # for info in Info.objects.all():
-    #     info.create_tag_test()
+    read_old_db(request)
+    update_all(request)
+    for info in Info.objects.all():
+        info.create_tag_test()
     ana_rss_all(request)
     return HttpResponse('All Done')
