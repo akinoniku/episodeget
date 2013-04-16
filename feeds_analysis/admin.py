@@ -2,10 +2,11 @@ import json
 import urllib2
 from django.contrib.admin import SimpleListFilter
 from feeds_analysis.updater import get_douban_by_douban_id
+from user_settings.models import Xunlei
 
 __author__ = 'akino'
 from django.contrib import admin
-from feeds_analysis.models import Rss, Tags, Douban, SubList, Info, Xunlei
+from feeds_analysis.models import Rss, Tags, Douban, SubList, Info
 
 # admin.site.register(Rss)
 # admin.site.register(Tags)

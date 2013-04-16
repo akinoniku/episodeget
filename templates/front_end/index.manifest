@@ -3,15 +3,14 @@ CACHE MANIFEST
 # VERSION 0.2
 
 CACHE:
-http://lib.sinaapp.com/js/bootstrap/2.3.1/css/bootstrap.min.css
-http://lib.sinaapp.com/js/bootstrap/2.3.1/css/bootstrap-responsive.min.css
-http://lib.sinaapp.com/js/bootstrap/2.3.1/js/bootstrap.min.js
 http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js
 
 {% load staticfiles %}
-{% static "initializr/css/main.css" %}
-{% static "initializr/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js" %}
-{% static "initializr/js/main.js" %}
+{% static "css/main.css" %}
+{% static "css/bootstrap.css" %}
+{% static "js/vendor/modernizr-2.6.2-respond-1.1.0.min.js" %}
+{% static "js/main.js" %}
+{% static "js/vendor/bootstrap.min.js" %}
 
 # NETWORK:
 # /wp-admin/

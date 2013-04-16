@@ -47,6 +47,7 @@ class RssDetail(generics.RetrieveUpdateDestroyAPIView):
 
 #belows are test function
 
+
 def add_task_test(request):
     add_task('', Rss.objects.get(pk=5))
 
