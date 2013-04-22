@@ -59,3 +59,13 @@
 .clearfix {
     *zoom: 1;
 }
+
+
+body {
+    color: #34495e;
+    font: 14px/1.231 "Lato", "Microsoft YaHei", sans-serif;
+}
+
+.header-container {
+    padding-top: 10px;
+}
