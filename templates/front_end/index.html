@@ -8,10 +8,12 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>{% block title %}Title {% endblock title %}</title>
-        <meta name="description" content="{% block description %}Title {% endblock description %}">
+        <meta name="description" content="{% block description %}description {% endblock description %}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static "css/main.css" %}">
-        <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+        <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+        <link rel="stylesheet" href="{% static "css/bootstrap-responsive.min.css" %}">
+        <link rel="stylesheet" href="{% static "css/flat-ui.css" %}">
 
         <script src="{% static "js/vendor/modernizr-2.6.2-respond-1.1.0.min.js" %}"></script>
     </head>
@@ -19,7 +21,7 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-
+        <!-- <a href="{% url 'socialauth_begin' 'weibo' %}">login</a> -->
         <div class="header-container">
             <header class="wrapper clearfix">
                 <h1 class="title">h1.title</h1>
@@ -32,14 +34,19 @@
                 </nav>
             </header>
         </div>
+        <div class="toggle">
+            <label class="toggle-radio" for="toggleOption2">开</label>
+            <input type="radio" name="toggleOptions" id="toggleOption1" value="option1" checked="checked">
+            <label class="toggle-radio" for="toggleOption1">关</label>
+            <input type="radio" name="toggleOptions" id="toggleOption2" value="option2">
+        </div>
 
         <div class="main-container">
             <div class="main wrapper clearfix">
 
                 <article>
                     <header>
-                        <a href="{% url 'socialauth_begin' 'weibo' %}">login</a>
-                        <h1>article header h1</h1>
+                        <h1>测试中文字体</h1>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec.</p>
                     </header>
                     <section>
@@ -72,8 +79,13 @@
 
         <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
         <script>window.jQuery || document.write('<script src="{% static "js/vendor/jquery-1.9.1.min.js" %}"><\/script>')</script>
-
         <script src="{% static "js/vendor/bootstrap.min.js" %}"></script>
+        <script src="{% static "js/vendor/jquery-ui-1.10.0.custom.min.js" %}"></script>
+        <script src="{% static "js/vendor/jquery.dropkick-1.0.0.js" %}"></script>
+        <script src="{% static "js/vendor/jquery.placeholder.js" %}"></script>
+        <script src="{% static "js/vendor/jquery.tagsinput.js" %}"></script>
+        <script src="{% static "js/vendor/custom_checkbox_and_radio.js" %}"></script>
+        <script src="{% static "js/vendor/custom_radio.js" %}"></script>
         <script src="{% static "js/main.js" %}"></script>
 
         <script>
