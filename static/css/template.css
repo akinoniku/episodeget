@@ -1,0 +1,33 @@
+#time-line {
+  position: relative;
+}
+#time-line .v-line {
+  margin-left: 20px;
+  border-left: 2px solid #7F8C8D;
+  min-height: 300px;
+}
+#time-line .v-line .time-line-item {
+  margin-left: -16px;
+  margin-bottom: 20px;
+  background-color: #fff;
+}
+#time-line .v-line .time-line-item .left-icon {
+  color: #16A085;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  padding: 5px 4px 3px 4px;
+  border: 2px solid #95A5A6;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+#time-line .v-line .time-line-item .left-icon span {
+  padding-left: 2px;
+}
+#time-line .v-line .time-line-item .titles {
+  margin-left: 5px;
+}
