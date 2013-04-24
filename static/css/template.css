@@ -1,22 +1,41 @@
-#time-line {
+.header-container .span3 h2 {
+  margin-left: 38px;
+}
+.home-hero {
+  position: relative;
+  height: 100%;
+}
+.home-hero .outer-main-container {
   position: relative;
 }
-#time-line .v-line {
+.home-hero .outer-main-container .home-hero-image {
+  display: block;
+  z-index: -9999;
+  height: auto;
+  width: 100%;
+}
+.home-hero .outer-main-container .main-container #time-line {
+  padding-top: 30px;
+  padding-left: 30px;
+  background-color: rgba(255, 255, 255, 0.9);
+  position: absolute;
+}
+.home-hero .outer-main-container .main-container #time-line .v-line {
   margin-left: 20px;
   border-left: 2px solid #7F8C8D;
   min-height: 300px;
 }
-#time-line .v-line .time-line-item {
-  margin-left: -16px;
-  margin-bottom: 40px;
-  background-color: #fff;
+.home-hero .outer-main-container .main-container #time-line .v-line .time-line-item {
+  margin-left: -20px;
+  margin-bottom: 50px;
 }
-#time-line .v-line .time-line-item .left-icon {
+.home-hero .outer-main-container .main-container #time-line .v-line .time-line-item .left-icon {
+  background-color: white;
   color: #16A085;
   display: inline-block;
-  width: 18px;
-  height: 18px;
-  padding: 5px 4px 3px 4px;
+  width: 22px;
+  height: 22px;
+  padding: 8px 4px 3px 8px;
   border: 2px solid #95A5A6;
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
@@ -25,9 +44,10 @@
   -moz-background-clip: padding;
   background-clip: padding-box;
 }
-#time-line .v-line .time-line-item .left-icon span {
+.home-hero .outer-main-container .main-container #time-line .v-line .time-line-item .left-icon span {
   padding-left: 2px;
 }
-#time-line .v-line .time-line-item .titles {
+.home-hero .outer-main-container .main-container #time-line .v-line .time-line-item .titles {
+  font-size: 16px;
   margin-left: 5px;
 }
