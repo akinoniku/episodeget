@@ -1,29 +1,28 @@
-.header-container {
-  background-color: #2c3e50;
-  height: 54px;
-}
-.header-container .span3 h2 {
-  color: #ecf0f1;
-  margin-left: 25px;
-  padding-bottom: 5px;
-  margin-top: -3px;
-}
-.header-container .span9 nav {
-  float: right;
-}
-.header-container .span9 nav a {
-  margin-left: 20px;
-  margin-right: 10px;
-  font-size: 16px;
-  color: #ecf0f1;
-  text-decoration: none;
-}
 .home-hero {
   position: relative;
   height: 100%;
   background-image: url(/static/images/qwz.jpg);
   background-position: center center;
   background-size: cover;
+}
+.home-hero .header-container {
+  height: 54px;
+}
+.home-hero .header-container .span3 h2 {
+  color: #ecf0f1;
+  margin-left: 25px;
+  padding-bottom: 5px;
+  margin-top: -3px;
+}
+.home-hero .header-container .span9 nav {
+  float: right;
+}
+.home-hero .header-container .span9 nav a {
+  margin-left: 20px;
+  margin-right: 10px;
+  font-size: 16px;
+  color: #ecf0f1;
+  text-decoration: none;
 }
 .home-hero .outer-main-container {
   position: relative;
