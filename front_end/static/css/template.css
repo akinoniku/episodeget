@@ -8,11 +8,20 @@
 .home-hero .header-container {
   height: 54px;
 }
-.home-hero .header-container .span3 h2 {
+.home-hero .header-container h1 {
+  padding-top: 50px;
+  padding-bottom: 20px;
+  margin-top: -40px;
+  width: 140px;
+  text-align: center;
+  background-color: #34495e;
   color: #ecf0f1;
-  margin-left: 25px;
-  padding-bottom: 5px;
-  margin-top: -3px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
 }
 .home-hero .header-container .span9 nav {
   float: right;
@@ -27,20 +36,33 @@
 .home-hero .outer-main-container {
   position: relative;
 }
-.home-hero .outer-main-container .main-container .row #time-line {
-  background-color: rgba(44, 62, 80, 0.8);
+.home-hero .outer-main-container .main-container .row .span12 {
+  margin-top: 250px;
 }
-.home-hero .outer-main-container .main-container .row #time-line .v-line {
+.home-hero .outer-main-container .main-container .row .span12 .hero-word {
+  font-size: 50px;
+  color: #ecf0f1;
+}
+.home-hero .outer-main-container .main-container .row .span12 .hero-word span {
+  letter-spacing: 10px;
+  display: block;
+}
+.home-hero .outer-main-container .main-container .row .span12 .hero-help {
+  margin-left: 10px;
+  text-decoration: none;
+  color: #bdc3c7;
+}
+#time-line .v-line {
   margin-top: 20px;
   margin-left: 40px;
   border-left: 2px solid #bdc3c7;
 }
-.home-hero .outer-main-container .main-container .row #time-line .v-line .time-line-item {
+#time-line .v-line .time-line-item {
   margin-left: -20px;
   margin-bottom: 40px;
 }
-.home-hero .outer-main-container .main-container .row #time-line .v-line .time-line-item .left-icon {
-  background-color: #ecf0f1;
+#time-line .v-line .time-line-item .left-icon {
+  background-color: white;
   color: #16A085;
   display: inline-block;
   width: 22px;
@@ -54,20 +76,10 @@
   -moz-background-clip: padding;
   background-clip: padding-box;
 }
-.home-hero .outer-main-container .main-container .row #time-line .v-line .time-line-item .left-icon span {
+#time-line .v-line .time-line-item .left-icon span {
   padding-left: 2px;
 }
-.home-hero .outer-main-container .main-container .row #time-line .v-line .time-line-item .titles {
-  color: white;
+#time-line .v-line .time-line-item .titles {
   font-size: 16px;
   margin-left: 5px;
-}
-.home-hero .outer-main-container .main-container .row .span8 .hero-word {
-  position: relative;
-  float: right;
-  top: 480px;
-  padding: 20px 20px;
-  background-color: rgba(44, 62, 80, 0.8);
-  font-size: 30px;
-  color: #ecf0f1;
 }
