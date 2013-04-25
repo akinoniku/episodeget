@@ -1,10 +1,46 @@
 @import "css3";
 
+@TURQUOISE: #1ABC9C;
+@GREENSEA: #16A085;
+@EMERLAND: #2ECC71;
+@NEPHRITIS: #27AE60;
+@PETERRIVER: #3498DB;
+@BELIZEHOLE: #2980B9;
+@AMETHYST: #9B59B6;
+@WISTERIA: #8E44AD;
+@WETASPHALT: #34495E;
+@MIDNIGHTBLUE: #2C3E50;
+
+@SUNFLOWER: #F1C40F;
+@ORANGE: #F39C12;
+@CARROT: #E67E22;
+@PUMPKIN: #D35400;
+@ALIZARIN: #E74C3C;
+@POMEGRANATE: #C0392B;
+@CLOUDS: #ECF0F1;
+@SILVER: #BDC3C7;
+@CONCRETE: #95A5A6;
+@ASBESTOS: #7F8C8D;
+
 .header-container {
+  background-color: @MIDNIGHTBLUE;
   .span3 h2{
-    margin-left: 38px;
+    color: @CLOUDS;
+    margin-left: 25px;
+    padding-bottom: 5px;
+    margin-top: -3px;
   }
   .span9 {
+    nav{
+      float: right;
+      a {
+        margin-left: 20px;
+        margin-right: 10px;
+        font-size: 16px;
+        color: @CLOUDS;
+        text-decoration: none;
+      }
+    }
 
   }
 }
@@ -13,45 +49,58 @@
   height: 100%;
   .outer-main-container {
     position: relative;
-    .home-hero-image{
-      display: block;
-      z-index: -9999;
-      height: auto;
-      width: 100%;
-    }
     .main-container {
-      #time-line{
-        padding-top: 30px;
-        padding-left: 30px;
-        background-color: rgba(255, 255, 255, 0.9);
-        position: absolute;
-        .v-line{
-          margin-left: 20px;
-          border-left: 2px solid #7F8C8D;
-          min-height: 300px;
-          .time-line-item {
-            margin-left: -20px;
-            margin-bottom: 50px;
-            .left-icon {
-              background-color: white;
-              color: #16A085;
-              display: inline-block;
-              width: 22px;
-              height: 22px;
-              padding: 8px 4px 3px 8px;
-              border: 2px solid #95A5A6;
-              .border-radius(30px);
-              span {
-                padding-left: 2px;
+      .row{
+        #time-line{
+          background-color: rgba(44, 62, 80, 0.8);
+          .v-line{
+            margin-top: 20px;
+            margin-left: 40px;
+            border-left: 2px solid @SILVER;
+            .time-line-item {
+              margin-left: -20px;
+              margin-bottom: 40px;
+              .left-icon {
+                background-color: @CLOUDS;
+                color: #16A085;
+                display: inline-block;
+                width: 22px;
+                height: 22px;
+                padding: 8px 4px 3px 8px;
+                border: 2px solid #95A5A6;
+                .border-radius(30px);
+                span {
+                  padding-left: 2px;
+                }
+              }
+              .titles {
+                color: white;
+                font-size: 16px;
+                margin-left: 5px;
               }
             }
-            .titles {
-              font-size: 16px;
-              margin-left: 5px;
-            }
+          }
+        }
+        .span8 {
+          .hero-word{
+            position: relative;
+            float: right;
+            top: 480px;
+            padding: 20px 20px;
+            background-color: rgba(44, 62, 80, 0.8);
+            font-size: 30px;
+            color: @CLOUDS;
           }
         }
       }
     }
+  }
+  .home-hero-image{
+    position: absolute;
+    top:0;
+    display: block;
+    z-index: -9999;
+    height: auto;
+    width: 100%;
   }
 }
