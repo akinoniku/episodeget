@@ -33,21 +33,21 @@
   color: #ecf0f1;
   text-decoration: none;
 }
-.home-hero .outer-main-container {
+.home-hero .hero-unit-container {
   position: relative;
 }
-.home-hero .outer-main-container .main-container .row .span12 {
+.home-hero .hero-unit-container .row .span12 {
   margin-top: 250px;
 }
-.home-hero .outer-main-container .main-container .row .span12 .hero-word {
-  font-size: 50px;
+.home-hero .hero-unit-container .row .span12 .hero-word {
+  font-size: 80px;
   color: #ecf0f1;
 }
-.home-hero .outer-main-container .main-container .row .span12 .hero-word span {
-  letter-spacing: 10px;
+.home-hero .hero-unit-container .row .span12 .hero-word span {
+  letter-spacing: 12px;
   display: block;
 }
-.home-hero .outer-main-container .main-container .row .span12 .hero-help {
+.home-hero .hero-unit-container .row .span12 .hero-help {
   margin-left: 10px;
   text-decoration: none;
   color: #bdc3c7;
