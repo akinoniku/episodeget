@@ -22,6 +22,11 @@
 @CONCRETE: #95A5A6;
 @ASBESTOS: #7F8C8D;
 
+body {
+  letter-spacing: 1px;
+  background-color: @CLOUDS;
+}
+
 .home-hero {
   .header-container {
     height: 54px;
@@ -69,40 +74,75 @@
         .hero-help{
           margin-left: 10px;
           text-decoration: none;
+          letter-spacing: 1px;
           color: @SILVER;
         }
       }
     }
   }
 }
-
-#time-line{
-  //background-color: rgba(44, 62, 80, 0.8);
-  .v-line{
-    margin-top: 20px;
-    margin-left: 40px;
-    border-left: 2px solid @SILVER;
-    .time-line-item {
-      margin-left: -20px;
-      margin-bottom: 40px;
-      .left-icon {
-        //background-color: @CLOUDS;
-        background-color: white;
-        color: #16A085;
-        display: inline-block;
-        width: 22px;
-        height: 22px;
-        padding: 8px 4px 3px 8px;
-        border: 2px solid #95A5A6;
-        .border-radius(30px);
-        span {
-          padding-left: 2px;
+#feature-intro{
+  background-color: @CLOUDS;
+  min-height: 700px;
+  #time-line{
+    position: relative;
+    background-color: white;
+    //background-color: rgba(255, 255, 255, 0.8);
+    margin-top: -15px;
+    .border-radius(20px);
+    .v-line{
+      margin-top: 20px;
+      margin-left: 40px;
+      border-left: 2px solid @SILVER;
+      .time-line-item {
+        margin-left: -20px;
+        margin-bottom: 40px;
+        .left-icon {
+          //background-color: @CLOUDS;
+          background-color: white;
+          color: #16A085;
+          display: inline-block;
+          width: 22px;
+          height: 22px;
+          padding: 8px 4px 3px 8px;
+          border: 2px solid #95A5A6;
+          .border-radius(30px);
+          span {
+            padding-left: 2px;
+          }
         }
-      }
-      .titles {
-        font-size: 16px;
-        margin-left: 5px;
+        .titles {
+          font-size: 16px;
+          margin-left: 5px;
+        }
       }
     }
   }
+
+  .all-features {
+    .feature-item{
+      //width: 60px;
+      display: none;
+      margin-top: 30px;
+      margin-bottom: 70px;
+      padding-left: 20px;
+      border-left: 10px solid @GREENSEA;
+      min-height: 130px;
+      h1 {
+        font-size: 40px;
+        margin-bottom: 30px;
+      }
+      p {
+        font-size: 20px;
+        //padding-left: 30px;
+      }
+      small{
+        font-size: 18px;
+        padding-right: 120px;
+        display: block;
+        float: right;
+      }
+    }
+  }
+
 }

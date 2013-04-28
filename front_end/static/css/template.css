@@ -1,3 +1,7 @@
+body {
+  letter-spacing: 1px;
+  background-color: #ecf0f1;
+}
 .home-hero {
   position: relative;
   height: 100%;
@@ -50,18 +54,34 @@
 .home-hero .hero-unit-container .row .span12 .hero-help {
   margin-left: 10px;
   text-decoration: none;
+  letter-spacing: 1px;
   color: #bdc3c7;
 }
-#time-line .v-line {
+#feature-intro {
+  background-color: #ecf0f1;
+  min-height: 700px;
+}
+#feature-intro #time-line {
+  position: relative;
+  background-color: white;
+  margin-top: -15px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+#feature-intro #time-line .v-line {
   margin-top: 20px;
   margin-left: 40px;
   border-left: 2px solid #bdc3c7;
 }
-#time-line .v-line .time-line-item {
+#feature-intro #time-line .v-line .time-line-item {
   margin-left: -20px;
   margin-bottom: 40px;
 }
-#time-line .v-line .time-line-item .left-icon {
+#feature-intro #time-line .v-line .time-line-item .left-icon {
   background-color: white;
   color: #16A085;
   display: inline-block;
@@ -76,10 +96,31 @@
   -moz-background-clip: padding;
   background-clip: padding-box;
 }
-#time-line .v-line .time-line-item .left-icon span {
+#feature-intro #time-line .v-line .time-line-item .left-icon span {
   padding-left: 2px;
 }
-#time-line .v-line .time-line-item .titles {
+#feature-intro #time-line .v-line .time-line-item .titles {
   font-size: 16px;
   margin-left: 5px;
+}
+#feature-intro .all-features .feature-item {
+  display: none;
+  margin-top: 30px;
+  margin-bottom: 70px;
+  padding-left: 20px;
+  border-left: 10px solid #16a085;
+  min-height: 130px;
+}
+#feature-intro .all-features .feature-item h1 {
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+#feature-intro .all-features .feature-item p {
+  font-size: 20px;
+}
+#feature-intro .all-features .feature-item small {
+  font-size: 18px;
+  padding-right: 120px;
+  display: block;
+  float: right;
 }
