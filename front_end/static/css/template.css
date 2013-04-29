@@ -2,6 +2,17 @@ body {
   letter-spacing: 1px;
   background-color: #ecf0f1;
 }
+body h1,
+body h2,
+body h3,
+body h4,
+body h5 {
+  font-weight: normal;
+}
+.nice-hr {
+  border-top: 1px solid #BEC0C3;
+  border-bottom: 2px solid #FFF;
+}
 .home-hero {
   position: relative;
   height: 100%;
@@ -59,12 +70,22 @@ body {
 }
 #feature-intro {
   background-color: #ecf0f1;
-  min-height: 700px;
+  height: 700px;
+}
+#feature-intro .feature-intro-word {
+  margin: 60px auto;
+  text-align: center;
+}
+#feature-intro .feature-intro-word h1 {
+  color: #2c3e50;
+}
+#feature-intro .feature-intro-word p {
+  color: #34495e;
 }
 #feature-intro #time-line {
   position: relative;
   background-color: white;
-  margin-top: -15px;
+  margin-top: -200px;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
@@ -111,16 +132,6 @@ body {
   border-left: 10px solid #16a085;
   min-height: 130px;
 }
-#feature-intro .all-features .feature-item h1 {
-  font-size: 40px;
+#feature-intro .all-features .feature-item h2 {
   margin-bottom: 30px;
-}
-#feature-intro .all-features .feature-item p {
-  font-size: 20px;
-}
-#feature-intro .all-features .feature-item small {
-  font-size: 18px;
-  padding-right: 120px;
-  display: block;
-  float: right;
 }
