@@ -12,6 +12,7 @@ body h5 {
 .nice-hr {
   border-top: 1px solid #BEC0C3;
   border-bottom: 2px solid #FFF;
+  clear: both;
 }
 .home-hero {
   position: relative;
@@ -74,6 +75,7 @@ body h5 {
 }
 #feature-intro .feature-intro-word {
   margin: 60px auto;
+  margin-bottom: 0;
   text-align: center;
 }
 #feature-intro .feature-intro-word h1 {
@@ -84,8 +86,8 @@ body h5 {
 }
 #feature-intro #time-line {
   position: relative;
-  background-color: white;
-  margin-top: -200px;
+  margin-left: 575px;
+  margin-top: -890px;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
@@ -96,19 +98,19 @@ body h5 {
 #feature-intro #time-line .v-line {
   margin-top: 20px;
   margin-left: 40px;
-  border-left: 2px solid #bdc3c7;
+  border-left: 4px solid #16a085;
 }
 #feature-intro #time-line .v-line .time-line-item {
-  margin-left: -20px;
-  margin-bottom: 40px;
+  margin-left: -30px;
+  margin-bottom: 70px;
 }
 #feature-intro #time-line .v-line .time-line-item .left-icon {
   background-color: white;
-  color: #16A085;
+  color: #16a085;
   display: inline-block;
-  width: 22px;
-  height: 22px;
-  padding: 8px 4px 3px 8px;
+  width: 40px;
+  height: 40px;
+  padding: 10px 3px 1px 8px;
   border: 2px solid #95A5A6;
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
@@ -118,20 +120,69 @@ body h5 {
   background-clip: padding-box;
 }
 #feature-intro #time-line .v-line .time-line-item .left-icon span {
-  padding-left: 2px;
+  font-size: 26px;
+  padding-left: 5px;
+  margin-top: 10px;
 }
 #feature-intro #time-line .v-line .time-line-item .titles {
   font-size: 16px;
   margin-left: 5px;
 }
-#feature-intro .all-features .feature-item {
-  display: none;
-  margin-top: 30px;
-  margin-bottom: 70px;
-  padding-left: 20px;
-  border-left: 10px solid #16a085;
-  min-height: 130px;
+#feature-intro #time-line .v-line .time-line-item.left-one .titles {
+  text-align: right;
+  margin-left: -370px;
+  width: 300px;
+  display: inline-block;
 }
-#feature-intro .all-features .feature-item h2 {
-  margin-bottom: 30px;
+#feature-intro #time-line .v-line .time-line-item.first-item {
+  height: 50px;
+}
+#feature-intro #time-line .v-line .time-line-item.first-item .left-icon {
+  display: none;
+}
+#feature-intro .nice-hr {
+  margin-top: 50px;
+}
+.all-features .feature-item {
+  padding: 5px 0 20px 0px;
+  background-color: white;
+  margin-top: 150px;
+  margin-bottom: 70px;
+  min-height: 130px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+.all-features .feature-item .feature-avatar {
+  margin-left: 20px;
+  border: 3px solid #bdc3c7;
+  margin-top: -40px;
+  width: 50px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+.all-features .feature-item blockquote {
+  margin-left: 0;
+  border-left: 0;
+  display: inline-block;
+}
+.all-features .feature-item h2 {
+  padding-left: 50px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #7f8c8d;
+}
+.all-features .feature-item h2 small {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  display: block;
+}
+.all-features .feature-item p {
+  font-size: 14px;
 }
