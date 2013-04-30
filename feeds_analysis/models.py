@@ -1,9 +1,11 @@
 # coding=utf-8
 import json
+import sae
 import urllib2
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
+from episodeget.settings import SAE_VERSION
 from extra_app.langcov import langconv
 
 STYLE_CHOICES = (
@@ -97,6 +99,15 @@ class Info(models.Model):
 
     def get_sub_list(self):
         return SubList.objects.filter(info=self)
+
+    def store_image(self):
+        image = urllib2.urlopen(self.douban.images).read()
+        s = sae.storage.Client()
+        image_object = sae.storage.Object(image, expires='A360000', content_type='text/html')
+        s.put('images', self.douban.douban_id, image_object)
+        url = s.url('images', self.douban.douban_id)
+        self.images = url
+        self.save()
 
     def __unicode__(self):
         return self.title
