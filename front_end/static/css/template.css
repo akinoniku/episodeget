@@ -87,7 +87,7 @@ body h5 {
 #feature-intro #time-line {
   position: relative;
   margin-left: 575px;
-  margin-top: -890px;
+  margin-top: -730px;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
@@ -102,7 +102,7 @@ body h5 {
 }
 #feature-intro #time-line .v-line .time-line-item {
   margin-left: -30px;
-  margin-bottom: 70px;
+  margin-bottom: 55px;
 }
 #feature-intro #time-line .v-line .time-line-item .left-icon {
   background-color: white;
@@ -147,17 +147,17 @@ body h5 {
   padding: 5px 0 20px 0px;
   background-color: white;
   margin-top: 150px;
-  margin-bottom: 70px;
+  margin-bottom: 0px;
   min-height: 130px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
 }
 .all-features .feature-item .feature-avatar {
-  margin-left: 20px;
+  margin-left: 50px;
   border: 3px solid #bdc3c7;
   margin-top: -40px;
   width: 50px;
