@@ -36,6 +36,7 @@ class Info(models.Model):
     bgm_count = models.IntegerField(blank=True, null=True)
     now_playing = models.SmallIntegerField(default=0, choices=PLAYING_CHOICES)
     image = models.ImageField(upload_to='info_pic', blank=True, null=True)
+    images = models.URLField(blank=True, null=True)
 
     def tag_created(self):
         return None != self.tags
