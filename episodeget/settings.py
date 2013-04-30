@@ -1,5 +1,4 @@
 # Django settings for episodeget project.
-import platform
 import os
 
 DEBUG = True
@@ -51,6 +50,8 @@ USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
+
+IS_SAE = os.environ.APP_NAME
 
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 
@@ -113,12 +114,21 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'episodeget.urls'
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
+if not IS_SAE:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
     }
-}
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+    }
+
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'episodeget.wsgi.application'

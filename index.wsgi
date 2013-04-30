@@ -1,4 +1,4 @@
 import sae
-from mysite import wsgi
+from episodeget import wsgi
 
 application = sae.create_wsgi_app(wsgi.application)
