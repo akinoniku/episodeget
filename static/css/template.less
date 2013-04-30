@@ -1,0 +1,203 @@
+@import "css3";
+
+@TURQUOISE: #1ABC9C;
+@GREENSEA: #16A085;
+@EMERLAND: #2ECC71;
+@NEPHRITIS: #27AE60;
+@PETERRIVER: #3498DB;
+@BELIZEHOLE: #2980B9;
+@AMETHYST: #9B59B6;
+@WISTERIA: #8E44AD;
+@WETASPHALT: #34495E;
+@MIDNIGHTBLUE: #2C3E50;
+
+@SUNFLOWER: #F1C40F;
+@ORANGE: #F39C12;
+@CARROT: #E67E22;
+@PUMPKIN: #D35400;
+@ALIZARIN: #E74C3C;
+@POMEGRANATE: #C0392B;
+@CLOUDS: #ECF0F1;
+@SILVER: #BDC3C7;
+@CONCRETE: #95A5A6;
+@ASBESTOS: #7F8C8D;
+
+body {
+  letter-spacing: 1px;
+  background-color: @CLOUDS;
+  h1, h2, h3, h4, h5 {
+    font-weight: normal;
+  }
+}
+.nice-hr {
+  border-top: 1px solid #BEC0C3;
+  border-bottom: 2px solid #FFF;
+  clear: both;
+}
+
+.home-hero {
+  .header-container {
+    height: 54px;
+    h1{
+      padding-top: 50px;
+      padding-bottom: 20px;
+      margin-top: -40px;
+      width: 140px;
+      text-align: center;
+      background-color: @WETASPHALT;
+      color: @CLOUDS;
+      .border-radius(20px)
+    }
+    .span9 {
+      nav{
+        float: right;
+        a {
+          margin-left: 20px;
+          margin-right: 10px;
+          font-size: 16px;
+          color: @CLOUDS;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  position: relative;
+  height: 100%;
+  background-image: url(/static/images/qwz.jpg);
+  background-position: center center;
+  background-size: cover;
+  .hero-unit-container {
+    position: relative;
+    .row{
+      .span12 {
+        margin-top: 250px;
+        .hero-word{
+          font-size: 80px;
+          color: @CLOUDS;
+          span {
+            letter-spacing: 12px;
+            display: block;
+          }
+        }
+        .hero-help{
+          margin-left: 10px;
+          text-decoration: none;
+          letter-spacing: 1px;
+          color: @SILVER;
+        }
+      }
+    }
+  }
+}
+#feature-intro{
+  background-color: @CLOUDS;
+  .feature-intro-word{
+    margin: 60px auto;
+    margin-bottom: 0;
+    text-align: center;
+    h1 {
+      color: @MIDNIGHTBLUE;
+    }
+    p {
+      color: @WETASPHALT;
+    }
+  }
+  #time-line{
+    position: relative;
+    margin-left: 575px;;
+    margin-top: -730px;
+    .border-radius(20px);
+    .v-line{
+      margin-top: 20px;
+      margin-left: 40px;
+      border-left: 4px solid @GREENSEA;
+      .time-line-item {
+        margin-left: -30px;
+        margin-bottom: 65px;
+        .left-icon {
+          //background-color: @CLOUDS;
+          background-color: white;
+          color: @GREENSEA;
+          display: inline-block;
+          width: 40px;
+          height: 40px;
+          padding: 10px 3px 1px 8px;
+          border: 2px solid #95A5A6;
+          .border-radius(30px);
+          span {
+            font-size: 26px;
+            padding-left: 5px;
+            margin-top: 10px;
+          }
+        }
+        .titles {
+          font-size: 16px;
+          margin-left: 5px;
+        }
+      }
+      .time-line-item.left-one{
+        .titles{
+          text-align: right;
+          margin-left: -370px;
+          width: 300px;
+          display: inline-block;
+        }
+      }
+      .time-line-item.first-item{
+        height: 50px;
+        .left-icon{
+          display: none;
+        }
+      }
+    }
+  }
+  .nice-hr {
+    margin-top: 50px;
+  }
+}
+
+
+.all-features {
+  .feature-item{
+    //display: none;
+    padding: 5px 0 20px 0px;
+    background-color: white;
+    margin-top: 150px;
+    margin-bottom: 0px;
+    min-height: 130px;
+    .border-radius(10px);
+    .feature-avatar {
+      margin-left: 50px;
+      border: 3px solid @SILVER;
+      margin-top: -40px;
+      width: 50px;
+      .border-radius(100px);
+    }
+    blockquote{
+      //padding-left: 0;
+      margin-left: 0;
+      border-left: 0;
+      display: inline-block;
+    }
+    h2 {
+      padding-left: 50px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid @ASBESTOS;
+      small{
+        padding-top: 10px;
+        padding-bottom: 20px;
+        display:block;
+      }
+    }
+    p {
+      font-size: 14px;
+      //padding-left: 30px;
+    }
+    small{
+      //font-size: 18px;
+      //padding-right: 120px;
+      //display: block;
+      //float: right;
+    }
+  }
+}

@@ -51,7 +51,9 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-IS_SAE = os.environ.APP_NAME
+SAE_VERSION = 0
+if 'APP_VERSION' in os.environ:
+    SAE_VERSION = os.environ['APP_VERSION']
 
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 
@@ -114,7 +116,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'episodeget.urls'
 
-if not IS_SAE:
+if not SAE_VERSION:
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',

@@ -1,0 +1,187 @@
+body {
+  letter-spacing: 1px;
+  background-color: #ecf0f1;
+}
+body h1,
+body h2,
+body h3,
+body h4,
+body h5 {
+  font-weight: normal;
+}
+.nice-hr {
+  border-top: 1px solid #BEC0C3;
+  border-bottom: 2px solid #FFF;
+  clear: both;
+}
+.home-hero {
+  position: relative;
+  height: 100%;
+  background-image: url(/static/images/qwz.jpg);
+  background-position: center center;
+  background-size: cover;
+}
+.home-hero .header-container {
+  height: 54px;
+}
+.home-hero .header-container h1 {
+  padding-top: 50px;
+  padding-bottom: 20px;
+  margin-top: -40px;
+  width: 140px;
+  text-align: center;
+  background-color: #34495e;
+  color: #ecf0f1;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+.home-hero .header-container .span9 nav {
+  float: right;
+}
+.home-hero .header-container .span9 nav a {
+  margin-left: 20px;
+  margin-right: 10px;
+  font-size: 16px;
+  color: #ecf0f1;
+  text-decoration: none;
+}
+.home-hero .hero-unit-container {
+  position: relative;
+}
+.home-hero .hero-unit-container .row .span12 {
+  margin-top: 250px;
+}
+.home-hero .hero-unit-container .row .span12 .hero-word {
+  font-size: 80px;
+  color: #ecf0f1;
+}
+.home-hero .hero-unit-container .row .span12 .hero-word span {
+  letter-spacing: 12px;
+  display: block;
+}
+.home-hero .hero-unit-container .row .span12 .hero-help {
+  margin-left: 10px;
+  text-decoration: none;
+  letter-spacing: 1px;
+  color: #bdc3c7;
+}
+#feature-intro {
+  background-color: #ecf0f1;
+}
+#feature-intro .feature-intro-word {
+  margin: 60px auto;
+  margin-bottom: 0;
+  text-align: center;
+}
+#feature-intro .feature-intro-word h1 {
+  color: #2c3e50;
+}
+#feature-intro .feature-intro-word p {
+  color: #34495e;
+}
+#feature-intro #time-line {
+  position: relative;
+  margin-left: 575px;
+  margin-top: -730px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+#feature-intro #time-line .v-line {
+  margin-top: 20px;
+  margin-left: 40px;
+  border-left: 4px solid #16a085;
+}
+#feature-intro #time-line .v-line .time-line-item {
+  margin-left: -30px;
+  margin-bottom: 65px;
+}
+#feature-intro #time-line .v-line .time-line-item .left-icon {
+  background-color: white;
+  color: #16a085;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  padding: 10px 3px 1px 8px;
+  border: 2px solid #95A5A6;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+#feature-intro #time-line .v-line .time-line-item .left-icon span {
+  font-size: 26px;
+  padding-left: 5px;
+  margin-top: 10px;
+}
+#feature-intro #time-line .v-line .time-line-item .titles {
+  font-size: 16px;
+  margin-left: 5px;
+}
+#feature-intro #time-line .v-line .time-line-item.left-one .titles {
+  text-align: right;
+  margin-left: -370px;
+  width: 300px;
+  display: inline-block;
+}
+#feature-intro #time-line .v-line .time-line-item.first-item {
+  height: 50px;
+}
+#feature-intro #time-line .v-line .time-line-item.first-item .left-icon {
+  display: none;
+}
+#feature-intro .nice-hr {
+  margin-top: 50px;
+}
+.all-features .feature-item {
+  padding: 5px 0 20px 0px;
+  background-color: white;
+  margin-top: 150px;
+  margin-bottom: 0px;
+  min-height: 130px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+.all-features .feature-item .feature-avatar {
+  margin-left: 50px;
+  border: 3px solid #bdc3c7;
+  margin-top: -40px;
+  width: 50px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+.all-features .feature-item blockquote {
+  margin-left: 0;
+  border-left: 0;
+  display: inline-block;
+}
+.all-features .feature-item h2 {
+  padding-left: 50px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #7f8c8d;
+}
+.all-features .feature-item h2 small {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  display: block;
+}
+.all-features .feature-item p {
+  font-size: 14px;
+}
