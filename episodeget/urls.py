@@ -3,7 +3,6 @@ from django.conf.urls import patterns, include, url
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from rest_framework.urlpatterns import format_suffix_patterns
-import feeds_analysis
 from feeds_analysis.views import *
 from front_end import views
 import front_end

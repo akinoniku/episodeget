@@ -40,7 +40,7 @@ def get_ani_new():
     ani_json = urllib2.urlopen('http://www.bilibili.tv/index/bangumi.json').read()
     ani_json = json.loads(ani_json)
     loopToStoreAni(ani_json)
-    # return render_to_response('feeds_analysis/get_ani_rss.html', {'rss_json': ''})
+    # return render_to_response('feeds_analysis/get_ani_rss.htmy', {'rss_json': ''})
     # return HttpResponse("Get ani done!")
 
 
@@ -137,7 +137,7 @@ def get_douban_by_douban_id(douban_id):
         average=douban_subject['rating']['average'],
         episodes_count=douban_subject['episodes_count'],
         summary=douban_subject['summary'],
-        year=douban_subject['year'],
+        year=douban_subject['year'] if len(douban_subject['year']) > 0 else None,
     )
     new_douban.save()
     return new_douban

@@ -141,7 +141,7 @@ class Tags(models.Model):
 
 class Douban(models.Model):
     title = models.CharField(max_length=200, blank=True, null=True)
-    aka = models.CharField(max_length=300, blank=True, null=True)
+    aka = models.CharField(max_length=3000, blank=True, null=True)
     original_title = models.CharField(max_length=200, blank=True, null=True)
     alt = models.URLField(blank=True, null=True)
     countries = models.CharField(max_length=100, blank=True, null=True)
@@ -228,7 +228,7 @@ def update_with_id(instance, **kwargs):
             average=douban_subject['rating']['average'],
             episodes_count=douban_subject['episodes_count'],
             summary=douban_subject['summary'],
-            year=douban_subject['year'],
+            year=douban_subject['year'] if len(douban_subject['year']) > 0 else None,
         )
 
 
