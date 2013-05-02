@@ -39,7 +39,7 @@
 {% endblock home-hero %}
 
 {% block feature-intro %}
-<div id="feature-intro" >
+<div id="feature-intro">
     <div class="feature-intro-word container">
         <h1>自动下载你在追的剧集</h1>
         <p>每周四早上下载好中二病，每周五下午下载好生活大爆炸</p>
@@ -133,6 +133,25 @@
 </div>
 {% endblock feature-intro %}
 
+<div id="info_intro">
+    <div class="container">
+    <div class="row">
+        {% for info in info_list %}
+            <div class="span3">
+                <div class="info-item">
+                    <div class="info-pic">
+                        <img src="{{ info.douban.images }}" >
+                    </div>
+                    <div class="info-details">
+                        <span class="info-title">{{ info.title }}</span>
+                        <span class="info-average">{{ info.douban.average }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    </div>
+</div>
 {% block footer-container %}
 <div class="footer-container">
     <footer class="wrapper">
