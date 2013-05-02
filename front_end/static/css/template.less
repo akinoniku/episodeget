@@ -203,21 +203,36 @@ body {
 }
 
 .info-item{
+  position: relative;
   width: 160px;
   margin-top: 20px;
+  margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
   .info-pic{
-    border: 5px solid #ffffff;
-    .border-radius(5px);
     img{
       width: 150px;
       height: 220px;
+      margin-top: 5px;
+      margin-left: 5px;
     }
+  }
+  .info-border{
+    position: absolute;
+    width: 150px;
+    height: 220px;
+    background-color: #ffffff;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 5px;
+    .border-radius(5px);
+    z-index: -10;
   }
   .info-details{
     margin: 10px 5px;
     .info-title{
+      color: @WETASPHALT;
+      text-decoration: none;
       overflow: hidden;
       display: inline-block;
       text-overflow: ellipsis;
@@ -226,6 +241,7 @@ body {
     }
     .info-average{
       color: @EMERLAND;
+      text-decoration: none;
     }
   }
 }

@@ -139,12 +139,13 @@
         {% for info in info_list %}
             <div class="span3">
                 <div class="info-item">
+                    <div class="info-border"> </div>
                     <div class="info-pic">
-                        <img src="{{ info.douban.images }}" >
+                        <a href="#"><img src="{{ info.douban.images }}" ></a>
                     </div>
                     <div class="info-details">
-                        <span class="info-title">{{ info.title }}</span>
-                        <span class="info-average">{{ info.douban.average }}</span>
+                        <a href="#" class="info-title">{{ info.title }}</a>
+                        <a target="_blank" href="{{ info.douban.alt }}" class="info-average">{{ info.douban.average }}</a>
                     </div>
                 </div>
             </div>
