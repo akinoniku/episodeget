@@ -188,6 +188,8 @@ body h5 {
 .info-item {
   width: 160px;
   margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .info-item .info-pic {
   border: 5px solid #ffffff;
@@ -203,13 +205,13 @@ body h5 {
   height: 220px;
 }
 .info-item .info-details {
-  margin: 10px 0;
+  margin: 10px 5px;
 }
 .info-item .info-details .info-title {
   overflow: hidden;
   display: inline-block;
   text-overflow: ellipsis;
-  width: 130px;
+  width: 120px;
   white-space: nowrap;
 }
 .info-item .info-details .info-average {
