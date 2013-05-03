@@ -9,7 +9,7 @@
   });
 
   $('.info-item').mouseenter(function() {
-    return $(this).find('.info-border').animate({
+    return $(this).find('.info-border').stop().animate({
       'border-width': '5px 15px 40px 15px',
       'margin-left': '-10px'
     });

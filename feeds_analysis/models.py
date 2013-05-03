@@ -5,7 +5,6 @@ import urllib2
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
-from episodeget.settings import SAE_VERSION
 from extra_app.langcov import langconv
 
 STYLE_CHOICES = (
@@ -233,18 +232,4 @@ def update_with_id(instance, **kwargs):
 
 
 post_save.connect(update_with_id, sender=Douban)
-
-
-def analysis_tags_with_rss(instance, **kwargs):
-    """
-    Analysis after get the new rss
-    :param instance:
-    :param kwargs:
-    """
-    pass
-    # analysis_tags(instance)
-    #TODO then send the notification to user email
-
-
-post_save.connect(analysis_tags_with_rss, sender=Rss)
 

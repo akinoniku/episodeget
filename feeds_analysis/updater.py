@@ -1,4 +1,6 @@
 # coding=utf-8
+from feeds_analysis.analysiser import analysis_tags
+
 __author__ = 'akinoniku'
 from datetime import datetime
 import re
@@ -30,6 +32,8 @@ def loopToStoreRss(rss_json, sort, episode_id=0):
             new_rss = Rss(title=rss['title'], link=rss['url'], hash_code=rss['hash'], sort=sort,
                           episode_id=episode_id, timestamp=datetime.now())
             new_rss.save()
+            analysis_tags(new_rss)
+            #TODO send notification
             counter += 1
         else:
             break
