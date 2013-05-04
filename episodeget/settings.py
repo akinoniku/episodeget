@@ -4,25 +4,42 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+SAE_VERSION = 0
+if 'APP_VERSION' in os.environ:
+    SAE_VERSION = os.environ['APP_VERSION']
+    import sae.const
+
 ADMINS = (
 # ('Your Name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        # 'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'epidb', # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': 'root',
-        'PASSWORD': 'akiaki',
-        #'PASSWORD': '',
-        'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '', # Set to empty string for default.
+if SAE_VERSION:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': sae.const.MYSQL_DB, # Or path to database file if using sqlite3.
+            'USER': sae.const.MYSQL_USER,
+            'PASSWORD': sae.const.MYSQL_PASS,
+            'HOST': sae.const.MYSQL_HOST,
+            # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+            'PORT': sae.const.MYSQL_PORT, # Set to empty string for default.
+        }
     }
-}
+
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'epidb', # Or path to database file if using sqlite3.
+            # The following settings are not used with sqlite3:
+            'USER': 'root',
+            'PASSWORD': 'akiaki',
+            'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+            'PORT': '', # Set to empty string for default.
+        }
+    }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -51,10 +68,6 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-SAE_VERSION = 0
-if 'APP_VERSION' in os.environ:
-    SAE_VERSION = os.environ['APP_VERSION']
-
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
@@ -81,9 +94,9 @@ STATIC_URL = '/static/'
 # Additional locations of static files
 STATICFILES_DIRS = (
     os.path.join(PROJECT_PATH, '../front_end/static'),
-# Put strings here, like "/home/html/static" or "C:/www/django/static".
-# Always use forward slashes, even on Windows.
-# Don't forget to use absolute paths, not relative paths.
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
 )
 
 # List of finder classes that know how to find static files in

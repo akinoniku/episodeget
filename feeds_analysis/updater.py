@@ -44,7 +44,6 @@ def get_ani_new():
     ani_json = urllib2.urlopen('http://www.bilibili.tv/index/bangumi.json').read()
     ani_json = json.loads(ani_json)
     loopToStoreAni(ani_json)
-    # return render_to_response('feeds_analysis/get_ani_rss.htmy', {'rss_json': ''})
     # return HttpResponse("Get ani done!")
 
 
