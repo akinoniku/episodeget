@@ -3,7 +3,7 @@ import json
 import platform
 from django.db import connection
 from extra_app.langcov import langconv
-from feeds_analysis.models import Rss, Tags, Info
+from feeds_analysis.models import Rss, Tags, Info, Douban
 
 __author__ = 'akino'
 
@@ -175,3 +175,10 @@ def newTags():
                 tags=json.dumps(tags)
             )
             new_tag.save()
+
+
+def convert_tags():
+    for douban in Douban.objects.all():
+        convert = json.loads(douban.countries)
+        douban.countries = json.dumps(convert, ensure_ascii=False)
+        douban.save()

@@ -1,3 +1,4 @@
+# coding=utf-8
 from datetime import datetime
 import json
 from django.core.cache import get_cache
@@ -18,7 +19,7 @@ def get_tags_with_cache(type):
         if not allTags[type]:
             allTags[type] = Tags.objects.filter(sort=type).order_by('id').reverse()
             cache.set(key_string, allTags[type], 3600)
-            all_tags_cache[type] = allTags[type]
+        all_tags_cache[type] = allTags[type]
     return all_tags_cache[type]
 
 

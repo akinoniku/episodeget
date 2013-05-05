@@ -1,0 +1,14 @@
+{% load staticfiles %}
+{% include 'front_end/page_start.html' %}
+<div id="info_intro">
+    <div class="container">
+        <div class="row">
+            {% for info in info_list %}
+                <div class="span3">
+                    {% include 'front_end/info_item.html' %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% include 'front_end/page_end.html' %}

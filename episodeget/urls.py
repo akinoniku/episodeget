@@ -23,11 +23,13 @@ urlpatterns = patterns('',
                        # front_end
                        url(r'^i$', front_end.views.index),
                        url(r'^index.manifest$', front_end.views.index_manifest),
+                       url(r'^list/(AN|EP|an|ep)$', front_end.views.info_list),
+                       url(r'^view/(\d+)$', front_end.views.info_view),
 
                        # feed_analysis
                        url(r'^update_all$', update_all),
-                       url(r'^ana_rss/(\d+)$', ana_rss),
-                       url(r'^ana_rss_all$', ana_rss_all),
+                       #url(r'^ana_rss/(\d+)$', ana_rss),
+                       #url(r'^ana_rss_all$', ana_rss_all),
                        url(r'^read_old_db$', read_old_db),
                        url(r'^add_task$', add_task_test),
 

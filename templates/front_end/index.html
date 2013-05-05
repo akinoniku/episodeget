@@ -138,16 +138,7 @@
         <div class="row">
             {% for info in info_list %}
                 <div class="span3">
-                    <div class="info-item">
-                        <div class="info-border"> </div>
-                        <div class="info-pic">
-                            <a href="#"><img src="{{ info.douban.images }}" ></a>
-                        </div>
-                        <div class="info-details">
-                            <a href="#" class="info-title">{{ info.title }}</a>
-                            <a target="_blank" href="{{ info.douban.alt }}" class="info-average">{{ info.douban.average }}</a>
-                        </div>
-                    </div>
+                    {% include 'front_end/info_item.html' %}
                 </div>
             {% endfor %}
         </div>

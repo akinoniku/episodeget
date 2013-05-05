@@ -1,0 +1,48 @@
+{% load staticfiles %}
+{% include 'front_end/page_start.html' %}
+    <div id="info-view" data-id="{{ info.id }}" data-sort="{{ info.sort }}">
+        <div class="container">
+            <div class="row">
+                <div class="span3">
+                    <img class="info-pic" src="{{ info.douban.images }}" alt="{{ info.title }}">
+                </div>
+                <div class="span9">
+                    <h1>{{ info.title }}  <a class="douban-link" href="{{ info.douban.url }}">豆瓣评分: <span>{{ info.douban.average }}</span></a></h1>
+                    <h2><small>{{ info.douban.original_title }}</small></h2>
+                    <div class="btns">
+                        <a href="{{ info.douban.url }}" class="btn-add btn btn-primary btn-large">一键添加</a>
+                        <a target="_blank" href="{{ info.douban.url }}" class="btn-douban btn btn-info btn-large">查看豆瓣</a>
+                    </div>
+                    <p class="summary">{{ info.douban.summary }}</p>
+                </div>
+            </div>
+            <div class="tags">
+                <div class="row">
+                    <div class="span8">
+                    {% regroup tags|dictsortreversed:"style" by style as tags_r %}
+                        {% for style in tags_r %}
+                            <div class="tagsinput {{ style.grouper }}">
+                            <h4>{% cycle '字幕组' '字幕语言' '格式' '清晰度' %}</h4>
+                            {% for value in style.list %}
+                                {% if value.id in tid_list %}
+                                <span data-style="{{ value.style }}" data-id="{{ value.id }}" class="tag">
+                                    <span>{{ value.title }}&nbsp;&nbsp;</span>
+                                    <a class="tagsinput-remove-link fui-plus-16"></a>
+                                </span>
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="tagsinput selected_tags span3">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    localStorage.setItem('tags_list_{{ info.sort }}' , JSON.stringify({{ tags_json|safe }}));
+    localStorage.setItem('sub_list_{{ info.id }}' , JSON.stringify({{ sub_lists_json|safe }}));
+</script>
+{% include 'front_end/page_end.html' %}
