@@ -46,12 +46,21 @@
   $('.tags').find('.tags-picker').find('.tag').click(function() {
     var tag_id;
 
+    if ($(this).is('.disabled')) {
+      return false;
+    }
     tag_id = $(this).data('id');
     if ($('.selected-tags').find('[data-id=' + tag_id + ']').length > 0) {
       $('.selected-tags').find('[data-id=' + tag_id + ']').remove();
+      if ($('.selected-tags').find('.tag[data-id]').length === 0) {
+        $('.tags').find('.tags-picker').find('.tag').removeClass('passed');
+        $('.tags').find('.tags-picker').find('.tag').removeClass('disabled');
+        return false;
+      }
     } else {
       $(this).clone(true).appendTo($('.selected-tags'));
     }
+    $('.selected-tags').find('.tag .tagsinput-remove-link').removeClass('fui-plus-16').addClass('fui-cross-16');
     return aviable_list();
   });
 

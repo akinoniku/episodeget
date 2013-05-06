@@ -207,6 +207,14 @@ class SubList(models.Model):
             return self.tags_index
 
 
+class SubListPrefer(models.Model):
+    title = models.CharField(max_length=200, blank=True, null=True)
+    description = models.CharField(max_length=5000, blank=True, null=True)
+    tags_index = models.CharField(max_length=5000, blank=True, null=True)
+    create_time = models.DateTimeField(auto_created=True)
+    update_time = models.DateTimeField(auto_now=True)
+
+
 def update_with_id(instance, **kwargs):
     if not instance.title:
         douban_subject = urllib2.urlopen(
