@@ -8,10 +8,10 @@ from feeds_analysis.models import Info, Douban, SubList, Tags
 
 
 def index(request):
-    info_list = []
-    for info_id in range(15, 23):
-        info_list.append(get_info_show(info_id))
-    return render_to_response('front_end/index.html', {'info_list': info_list})
+    return render_to_response('front_end/index.html',
+                              {
+                                  'info_list': Info.objects.filter(sort='AN').select_related().order_by(
+                                      '-douban__average')[6:14]})
 
 
 def info_list(request, sort, ):
@@ -26,8 +26,10 @@ def info_view(request, id, ):
     sub_lists = SubList.objects.filter(info_id=id).prefetch_related()
     tags = get_tags_list_cache(info.get().sort)
     tid_list = []
+    sub_lists_simple = {}
     for list in sub_lists:
         tag_ids = list.tags_index.split(',')
+        sub_lists_simple[list.id] = tag_ids
         for t in tag_ids:
             if t not in tid_list:
                 tid_list.append(int(t))
@@ -36,10 +38,10 @@ def info_view(request, id, ):
                                'info': info.get(),
                                'sub_lists': sub_lists,
                                'tags': tags,
-                               'sub_lists_json': serializers.serialize('json', sub_lists),
+                               'sub_lists_json': json.dumps(sub_lists_simple, ensure_ascii=False),
                                'tags_json': json.dumps(tags, ensure_ascii=False),
                                'tid_list': tid_list,
-                               }
+                              }
     )
 
 

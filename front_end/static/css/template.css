@@ -278,3 +278,6 @@ body h5 {
   margin-top: 40px;
   height: auto;
 }
+#info-view .tags .tagsinput .tag.disabled {
+  background-color: #bdc3c7;
+}

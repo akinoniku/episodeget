@@ -18,24 +18,26 @@
             </div>
             <div class="tags">
                 <div class="row">
-                    <div class="span8">
-                    {% regroup tags|dictsortreversed:"style" by style as tags_r %}
-                        {% for style in tags_r %}
-                            <div class="tagsinput {{ style.grouper }}">
-                            <h4>{% cycle '字幕组' '字幕语言' '格式' '清晰度' %}</h4>
-                            {% for value in style.list %}
-                                {% if value.id in tid_list %}
-                                <span data-style="{{ value.style }}" data-id="{{ value.id }}" class="tag">
-                                    <span>{{ value.title }}&nbsp;&nbsp;</span>
-                                    <a class="tagsinput-remove-link fui-plus-16"></a>
-                                </span>
-                                {% endif %}
-                            {% endfor %}
-                            </div>
-                        {% endfor %}
+                    <div class=" span3">
+                        <div class="tagsinput selected-tags"></div>
                     </div>
-                    <div class="tagsinput selected_tags span3">
-
+                    <div class="span9">
+                        <div class="tags-picker">
+                            {% regroup tags|dictsortreversed:"style" by style as tags_r %}
+                            {% for style in tags_r %}
+                                <div class="tagsinput {{ style.grouper }}">
+                                    <h4>{% cycle '字幕组' '字幕语言' '格式' '清晰度' %}</h4>
+                                    {% for value in style.list %}
+                                        {% if value.id in tid_list %}
+                                            <span data-style="{{ value.style }}" data-id="{{ value.id }}" class="tag">
+                                                <span>{{ value.title }}&nbsp;&nbsp;</span>
+                                                <a class="tagsinput-remove-link fui-plus-16"></a>
+                                            </span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
