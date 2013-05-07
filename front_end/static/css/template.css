@@ -290,12 +290,55 @@ body h5 {
 #info-view .tags .tagsinput .tag.disabled {
   background-color: #bdc3c7;
 }
+.login-screen {
+  padding: 20px;
+}
 .login-screen .login-form-new {
   background-color: #ECEFF1;
   border-radius: 6px;
   padding: 24px 23px 20px;
 }
+.login-screen .login-form-new h4 {
+  margin-bottom: 20px;
+}
 .login-screen .login-intro h2 {
   text-align: center;
   letter-spacing: 3px;
+}
+@media (max-width: 480px) {
+  
+}
+@media (max-width: 768px) {
+  
+}
+@media (min-width: 768px) and (max-width: 980px) {
+  .home-hero .hero-unit-container .row .span12 .hero-word {
+    font-size: 60px;
+  }
+  #feature-intro #time-line {
+    margin-left: 355px;
+  }
+  .all-features .feature-item h2 {
+    padding-left: 15px;
+  }
+  .all-features .feature-item .feature-avatar {
+    display: none;
+  }
+  .all-features .feature-item blockquote {
+    margin-bottom: 0;
+  }
+}
+@media (min-width: 980px) and (max-width: 1200px) {
+  #feature-intro #time-line {
+    margin-left: 452px;
+  }
+  .all-features .feature-item h2 {
+    padding-left: 25px;
+  }
+  .all-features .feature-item .feature-avatar {
+    margin-left: 20px;
+  }
+}
+@media (min-width: 1200px) {
+  
 }

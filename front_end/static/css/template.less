@@ -302,10 +302,14 @@ body {
 }
 
 .login-screen{
+  padding: 20px;
   .login-form-new{
     background-color: #ECEFF1;
     border-radius: 6px;
     padding: 24px 23px 20px;
+    h4{
+      margin-bottom: 20px;
+    }
   }
   .login-intro{
     h2{
@@ -314,3 +318,66 @@ body {
     }
   }
 }
+
+  // 水平状态的手机及以下
+  @media (max-width: 480px) {
+  }
+
+  // 界于水平手机与竖直平板之间
+  @media (max-width: 768px) {
+  }
+
+  // 界于竖直平板与水平平板/桌面之间
+  @media (min-width: 768px) and (max-width: 980px) {
+    .home-hero{
+      .hero-unit-container{
+        .row{
+          .span12{
+            .hero-word{
+              font-size: 60px;
+            }
+          }
+        }
+      }
+    }
+    #feature-intro{
+      #time-line {
+        margin-left: 355px;
+      }
+    }
+    .all-features {
+      .feature-item{
+        h2{
+          padding-left: 15px;
+        }
+        .feature-avatar{
+          display: none;
+        }
+        blockquote {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 980px) and (max-width: 1200px) {
+    #feature-intro{
+      #time-line {
+        margin-left: 452px;
+      }
+    }
+    .all-features {
+      .feature-item{
+        h2{
+          padding-left: 25px;
+        }
+        .feature-avatar{
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+  // 宽桌面
+  @media (min-width: 1200px) {
+
+  }
