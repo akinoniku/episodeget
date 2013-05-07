@@ -77,6 +77,12 @@ aviable_list =(current_list) ->
   for key, tag of passed_tags
     $('.tags').find('.tags-picker').find('.tag[data-id="'+tag+'"]').addClass('passed')
   $('.tags').find('.tags-picker').find('.tag').not('.passed').addClass('disabled')
-
-
-
+  if (key for key, value of current_list).length is 0
+    $('.btn-add-list').addClass('disabled')
+      .attr('data-original-title', '请先从右边选择条件')
+  else if (key for key, value of current_list).length is 1
+    $('.btn-add-list').addClass('btn-primary').removeClass('disabled')
+      .attr('data-original-title', '结果唯一，点击添加')
+  else
+    $('.btn-add-list').removeClass('btn-success').removeClass('disabled')
+      .attr('data-original-title', '有多个结果，请继续添加条件或点击添加，系统会从符合条件的全部选项中筛选')

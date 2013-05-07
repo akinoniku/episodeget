@@ -273,10 +273,19 @@ body h5 {
   -moz-background-clip: padding;
   background-clip: padding-box;
 }
+#info-view h3 {
+  text-align: center;
+}
+#info-view .tags .btn-add-list {
+  margin-top: 20px;
+}
 #info-view .tags .tagsinput {
   padding: 10px;
   margin-top: 40px;
   height: auto;
+}
+#info-view .tags .tagsinput h4 {
+  margin-bottom: 20px;
 }
 #info-view .tags .tagsinput .tag.disabled {
   background-color: #bdc3c7;

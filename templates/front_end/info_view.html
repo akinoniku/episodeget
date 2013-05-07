@@ -16,10 +16,16 @@
                     <p class="summary">{{ info.douban.summary }}</p>
                 </div>
             </div>
+        <hr class="nice-hr">
+        <h3>精确订阅<br><small>请点击右边的条件，添加到左边</small></h3>
             <div class="tags">
                 <div class="row">
                     <div class=" span3">
-                        <div class="tagsinput selected-tags"></div>
+                        <div class="tagsinput selected-tags">
+                            <h4>已选条件</h4>
+                        </div>
+                        <a class="has-tooltip btn disabled btn-large btn-add-list pull-right"
+                           data-placement="bottom" data-original-title="请先从右边选择条件">添加订阅</a>
                     </div>
                     <div class="span9">
                         <div class="tags-picker">

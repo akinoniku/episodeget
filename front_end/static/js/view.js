@@ -65,7 +65,7 @@
   });
 
   aviable_list = function(current_list) {
-    var flag, key, passed_tags, selected_list, tag, tags;
+    var flag, key, passed_tags, selected_list, tag, tags, value;
 
     if (!current_list) {
       current_list = clone(sub_lists);
@@ -123,7 +123,32 @@
       tag = passed_tags[key];
       $('.tags').find('.tags-picker').find('.tag[data-id="' + tag + '"]').addClass('passed');
     }
-    return $('.tags').find('.tags-picker').find('.tag').not('.passed').addClass('disabled');
+    $('.tags').find('.tags-picker').find('.tag').not('.passed').addClass('disabled');
+    if (((function() {
+      var _results;
+
+      _results = [];
+      for (key in current_list) {
+        value = current_list[key];
+        _results.push(key);
+      }
+      return _results;
+    })()).length === 0) {
+      return $('.btn-add-list').addClass('disabled').attr('data-original-title', '请先从右边选择条件');
+    } else if (((function() {
+      var _results;
+
+      _results = [];
+      for (key in current_list) {
+        value = current_list[key];
+        _results.push(key);
+      }
+      return _results;
+    })()).length === 1) {
+      return $('.btn-add-list').addClass('btn-primary').removeClass('disabled').attr('data-original-title', '结果唯一，点击添加');
+    } else {
+      return $('.btn-add-list').removeClass('btn-success').removeClass('disabled').attr('data-original-title', '有多个结果，请继续添加条件或点击添加，系统会从符合条件的全部选项中筛选');
+    }
   };
 
 }).call(this);
