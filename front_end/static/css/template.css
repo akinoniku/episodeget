@@ -188,7 +188,7 @@ body h5 {
 .info-item {
   position: relative;
   width: 160px;
-  margin-top: 20px;
+  margin-top: 50px;
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
@@ -291,7 +291,16 @@ body h5 {
   background-color: #bdc3c7;
 }
 .login-screen {
+  margin-top: 50px;
   padding: 20px;
+}
+.login-screen .login-ask {
+  font-size: 40px;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 70px;
+  letter-spacing: 2px;
 }
 .login-screen .login-form-new {
   background-color: #ECEFF1;
@@ -301,9 +310,42 @@ body h5 {
 .login-screen .login-form-new h4 {
   margin-bottom: 20px;
 }
+.login-screen .login-form-new .login-field {
+  display: block;
+  width: 100%;
+  text-indent: 10px;
+  padding-right: 0;
+  padding-left: 0;
+}
+.login-screen .login-form-new .checkbox {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.login-screen .login-intro .xingqiniang-img {
+  margin-left: auto;
+  margin-right: auto;
+  width: 215px;
+}
 .login-screen .login-intro h2 {
   text-align: center;
   letter-spacing: 3px;
+}
+.footer-container {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #34495e;
+}
+.footer-container footer.container {
+  background-color: #34495e;
+  color: #bdc1c5;
+}
+.footer-container footer.container small a {
+  text-decoration: none;
+}
+.footer-container footer.container small span {
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 @media (max-width: 480px) {
   

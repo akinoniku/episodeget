@@ -146,6 +146,7 @@
 </div>
 <div style="position: relative" class="login-screen">
     <div class="container">
+        <h1 class="login-ask">那么，要登录还是要注册？</h1>
         <div class="row">
             <div class="span3">
                 <form class="login-form-new">
@@ -164,6 +165,9 @@
                 </form>
             </div>
             <div class="login-intro span6">
+                <div class="xingqiniang-img">
+                    <img src="{% static "images/xqn.png" %}">
+                </div>
             </div>
             <div class="span3">
                 <form class="login-form-new">
@@ -189,8 +193,14 @@
 </div>
 {% block footer-container %}
     <div class="footer-container">
-        <footer class="wrapper">
-            <h3></h3>
+        <footer class="container">
+            <div class="row pull-right">
+                <small>官方微博 <a href="http://weibo.com/u/2825927474">@星祈娘</a><span>|</span></small>
+                <small>站长大人 <a href="http://weibo.com/akiniku">@秋肉</a><span>|</span></small>
+                <small>天才少女 <a href="http://weibo.com/nagisafurukawa">@彤呆</a><span>|</span></small>
+                <small>星祈娘人设 <a href="http://weibo.com/eneko">@E_neko</a><span>|</span></small>
+                <small>RSS源 <a href="http://share.dmhy.org/">@DMHY</a>&amp;
+                    <a href="http://oabt.org/">@OABT</a></small></div>
         </footer>
     </div>
 {% endblock footer-container %}

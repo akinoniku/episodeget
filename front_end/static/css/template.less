@@ -205,7 +205,7 @@ body {
 .info-item{
   position: relative;
   width: 160px;
-  margin-top: 20px;
+  margin-top: 50px;
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
@@ -302,7 +302,16 @@ body {
 }
 
 .login-screen{
+  margin-top: 50px;
   padding: 20px;
+  .login-ask{
+    font-size: 40px;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 70px;
+    letter-spacing: 2px;
+  }
   .login-form-new{
     background-color: #ECEFF1;
     border-radius: 6px;
@@ -310,11 +319,46 @@ body {
     h4{
       margin-bottom: 20px;
     }
+    .login-field{
+      display: block;
+      width: 100%;
+      text-indent: 10px;
+      padding-right: 0;
+      padding-left: 0;
+    }
+    .checkbox{
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
   }
   .login-intro{
+    .xingqiniang-img{
+      margin-left: auto;
+      margin-right: auto;
+      width: 215px;
+    }
     h2{
       text-align: center;
       letter-spacing: 3px;
+    }
+  }
+}
+.footer-container{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: @WETASPHALT;
+  footer.container{
+    background-color: @WETASPHALT;
+    color: #bdc1c5;
+    small{
+      a{
+        text-decoration: none;
+      }
+      span{
+        color: white;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
     }
   }
 }
