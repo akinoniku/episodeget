@@ -290,3 +290,12 @@ body h5 {
 #info-view .tags .tagsinput .tag.disabled {
   background-color: #bdc3c7;
 }
+.login-screen .login-form-new {
+  background-color: #ECEFF1;
+  border-radius: 6px;
+  padding: 24px 23px 20px;
+}
+.login-screen .login-intro h2 {
+  text-align: center;
+  letter-spacing: 3px;
+}
