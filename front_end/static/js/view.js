@@ -65,7 +65,7 @@
   });
 
   aviable_list = function(current_list) {
-    var flag, key, passed_tags, selected_list, tag, tags, value;
+    var current_list_length, flag, innerKey, key, passed_tags, selected_list, t, tag, tags, tags_title, value;
 
     if (!current_list) {
       current_list = clone(sub_lists);
@@ -106,8 +106,35 @@
       return _results;
     });
     passed_tags = [];
+    current_list_length = ((function() {
+      var _results;
+
+      _results = [];
+      for (key in current_list) {
+        value = current_list[key];
+        _results.push(key);
+      }
+      return _results;
+    })()).length;
+    if (current_list_length === 0) {
+      $('.add-select.dk_container').addClass('disabled').find('.dk_label').text('请先从右边添加筛选条件');
+    } else if (current_list_length === 1) {
+      $('.add-select.dk_container').removeClass('disabled').find('.dk_label').text('结果唯一，点击添加');
+    } else {
+      $('.add-select.dk_container').removeClass('disabled').find('.dk_label').text('有 ' + current_list_length + ' 个结果，点击查看列表');
+    }
+    $('#list-selector-dp').empty();
     for (key in current_list) {
       tags = current_list[key];
+      tags_title = '';
+      for (innerKey in tags) {
+        tag = tags[innerKey];
+        t = $('#sub-list-tag-id-' + tag).data('title');
+        if (t) {
+          tags_title += t + ' | ';
+        }
+      }
+      $('#list-selector-dp').append("<li><a data-value=\"" + key + "\">" + tags_title + "</a></li>");
       if (__indexOf.call(selected_list, key) >= 0) {
         for (key in tags) {
           tag = tags[key];
@@ -123,32 +150,7 @@
       tag = passed_tags[key];
       $('.tags').find('.tags-picker').find('.tag[data-id="' + tag + '"]').addClass('passed');
     }
-    $('.tags').find('.tags-picker').find('.tag').not('.passed').addClass('disabled');
-    if (((function() {
-      var _results;
-
-      _results = [];
-      for (key in current_list) {
-        value = current_list[key];
-        _results.push(key);
-      }
-      return _results;
-    })()).length === 0) {
-      return $('.btn-add-list').addClass('disabled').attr('data-original-title', '请先从右边选择条件');
-    } else if (((function() {
-      var _results;
-
-      _results = [];
-      for (key in current_list) {
-        value = current_list[key];
-        _results.push(key);
-      }
-      return _results;
-    })()).length === 1) {
-      return $('.btn-add-list').addClass('btn-primary').removeClass('disabled').attr('data-original-title', '结果唯一，点击添加');
-    } else {
-      return $('.btn-add-list').removeClass('btn-success').removeClass('disabled').attr('data-original-title', '有多个结果，请继续添加条件或点击添加，系统会从符合条件的全部选项中筛选');
-    }
+    return $('.tags').find('.tags-picker').find('.tag').not('.passed').addClass('disabled');
   };
 
 }).call(this);

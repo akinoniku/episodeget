@@ -35,29 +35,44 @@ body {
   clear: both;
 }
 
+.header-container {
+  background-color: #ffffff;
+  height: 54px;
+  h1{
+    padding-top: 50px;
+    padding-bottom: 20px;
+    margin-top: -51px;
+    width: 140px;
+    text-align: center;
+    background-color: none;
+    color: @GREENSEA;
+    .border-radius(20px)
+  }
+  .span9 {
+    nav{
+      float: right;
+      a {
+        margin-left: 20px;
+        margin-right: 10px;
+        font-size: 16px;
+        color: @GREENSEA;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
 .home-hero {
   .header-container {
-    height: 54px;
+    background: none;
     h1{
-      padding-top: 50px;
-      padding-bottom: 20px;
       margin-top: -40px;
-      width: 140px;
-      text-align: center;
       background-color: @WETASPHALT;
       color: @CLOUDS;
-      .border-radius(20px)
     }
     .span9 {
-      nav{
-        float: right;
-        a {
-          margin-left: 20px;
-          margin-right: 10px;
-          font-size: 16px;
-          color: @CLOUDS;
-          text-decoration: none;
-        }
+      a {
+        color: @CLOUDS;
       }
     }
   }
@@ -89,19 +104,20 @@ body {
     }
   }
 }
+
+.feature-intro-word{
+  margin: 60px auto;
+  margin-bottom: 0;
+  text-align: center;
+  h1 {
+    color: @MIDNIGHTBLUE;
+  }
+  p {
+    color: @WETASPHALT;
+  }
+}
 #feature-intro{
   background-color: @CLOUDS;
-  .feature-intro-word{
-    margin: 60px auto;
-    margin-bottom: 0;
-    text-align: center;
-    h1 {
-      color: @MIDNIGHTBLUE;
-    }
-    p {
-      color: @WETASPHALT;
-    }
-  }
   #time-line{
     position: relative;
     margin-left: 575px;;
@@ -150,9 +166,6 @@ body {
         }
       }
     }
-  }
-  .nice-hr {
-    margin-top: 50px;
   }
 }
 
@@ -280,7 +293,7 @@ body {
     padding: 10px;
     .border-radius(10px)
   }
-  h3{
+  h2.mid{
     text-align: center;
   }
   .tags{
@@ -296,6 +309,19 @@ body {
       height: auto;
       .tag.disabled{
         background-color: @SILVER;
+      }
+    }
+  }
+  .complex-selector {
+    margin-bottom: 50px;
+    margin-top: 50px;
+    .add-select.dk_container {
+      margin-top: 20px;
+      .dk_options{
+        width: auto;
+        :before {
+          left: 15px;
+        }
       }
     }
   }
@@ -344,7 +370,6 @@ body {
   }
 }
 .footer-container{
-  margin-top: 30px;
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: @WETASPHALT;
@@ -363,6 +388,7 @@ body {
     }
   }
 }
+
 
   // 水平状态的手机及以下
   @media (max-width: 480px) {

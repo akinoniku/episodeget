@@ -2,29 +2,7 @@
 {% include 'front_end/page_start.html' %}
 {% block home-hero %}
 <div class="home-hero clearfix">
-    <div class="header-container clearfix">
-        <div class="container">
-            <header class="wrapper clearfix">
-                <div class="row">
-                    {% block logo %}
-                    <div id="logo" class="span3"><h1>星祈娘</h1></div>
-                    {% endblock logo %}
-                    <div style="margin-top: 8px;" class="span9">
-                        {% block nav %}
-                        <nav>
-                            <a href="#">我的列表</a>
-                            <a href="#">动画</a>
-                            <a href="#">番剧</a>
-                            <a href="#">|</a>
-                            <a href="#">注册</a>
-                            <a href="#">登录</a>
-                        </nav>
-                        {% endblock nav %}
-                    </div>
-                </div>
-            </header>
-        </div>
-    </div>
+{% include 'front_end/nav.html' %}
     <div class="hero-unit-container container">
         <div class="main wrapper clearfix">
             <div class="row ">
@@ -132,11 +110,27 @@
     </div>
 </div>
 {% endblock feature-intro %}
-
+<div class="feature-intro-word">
+    <h1>热门动画</h1>
+</div>
 <div id="info_intro">
     <div class="container">
         <div class="row">
-            {% for info in info_list %}
+            {% for info in info_list_AN %}
+                <div class="span3">
+                    {% include 'front_end/info_item.html' %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="feature-intro-word">
+    <h1>热门番剧</h1>
+</div>
+<div id="info_intro">
+    <div class="container">
+        <div class="row">
+            {% for info in info_list_EP %}
                 <div class="span3">
                     {% include 'front_end/info_item.html' %}
                 </div>

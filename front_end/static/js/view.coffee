@@ -66,23 +66,31 @@ aviable_list =(current_list) ->
         delete current_list[key]
 
   passed_tags = []
+  current_list_length = (key for key, value of current_list).length
+  if(current_list_length is 0)
+    $('.add-select.dk_container').addClass('disabled').find('.dk_label').text('请先从右边添加筛选条件');
+  else if(current_list_length is 1)
+    $('.add-select.dk_container').removeClass('disabled').find('.dk_label').text('结果唯一，点击添加');
+  else
+    $('.add-select.dk_container').removeClass('disabled').find('.dk_label').text('有 ' +current_list_length + ' 个结果，点击查看列表');
+  $('#list-selector-dp').empty()
   for key, tags of current_list
+    # get list names
+    tags_title = ''
+    for innerKey, tag of tags
+      t = $('#sub-list-tag-id-'+ tag).data('title')
+      tags_title += t + ' | ' if t
+    $('#list-selector-dp').append("""<li><a data-value="#{key}">#{tags_title}</a></li>""")
+
+    # get passed tags
     if key in selected_list
       for key, tag of tags
         if tag not in passed_tags
           passed_tags.push(tag)
 
+  # view staff
   $('.tags').find('.tags-picker').find('.tag').removeClass('passed')
   $('.tags').find('.tags-picker').find('.tag').removeClass('disabled')
   for key, tag of passed_tags
     $('.tags').find('.tags-picker').find('.tag[data-id="'+tag+'"]').addClass('passed')
   $('.tags').find('.tags-picker').find('.tag').not('.passed').addClass('disabled')
-  if (key for key, value of current_list).length is 0
-    $('.btn-add-list').addClass('disabled')
-      .attr('data-original-title', '请先从右边选择条件')
-  else if (key for key, value of current_list).length is 1
-    $('.btn-add-list').addClass('btn-primary').removeClass('disabled')
-      .attr('data-original-title', '结果唯一，点击添加')
-  else
-    $('.btn-add-list').removeClass('btn-success').removeClass('disabled')
-      .attr('data-original-title', '有多个结果，请继续添加条件或点击添加，系统会从符合条件的全部选项中筛选')

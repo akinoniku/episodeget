@@ -1,6 +1,5 @@
 # coding=utf-8
 import json
-from django.core import serializers
 from django.core.cache import get_cache
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render_to_response
@@ -9,9 +8,9 @@ from feeds_analysis.models import Info, Douban, SubList, Tags
 
 def index(request):
     return render_to_response('front_end/index.html',
-                              {
-                                  'info_list': Info.objects.filter(sort='AN').select_related().order_by(
-                                      '-douban__average')[6:14]})
+                              {'info_list_AN': Info.objects.filter(sort='AN').select_related().order_by( '-douban__average')[5:9],
+                              'info_list_EP': Info.objects.filter(sort='EP').select_related().order_by( '-douban__average')[7:11],}
+                              )
 
 
 def info_list(request, sort, ):
