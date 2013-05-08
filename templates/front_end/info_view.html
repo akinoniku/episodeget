@@ -1,6 +1,13 @@
 {% load staticfiles %}
 {% include 'front_end/page_start.html' %}
-    <div id="info-view" data-id="{{ info.id }}" data-sort="{{ info.sort }}">
+<div id="nav" class="container">
+    <div class="row">
+        <div class="span3"></div>
+        <div class="span9">
+        </div>
+    </div>
+</div>
+<div id="info-view" data-id="{{ info.id }}" data-sort="{{ info.sort }}">
         <div class="container">
             <div class="row">
                 <div class="span3">
@@ -16,33 +23,48 @@
                     <p class="summary">{{ info.douban.summary }}</p>
                 </div>
             </div>
-        <hr class="nice-hr">
-        <h3>精确订阅<br><small>请点击右边的条件，添加到左边</small></h3>
-            <div class="tags">
-                <div class="row">
-                    <div class=" span3">
-                        <div class="tagsinput selected-tags">
-                            <h4>已选条件</h4>
-                        </div>
-                        <a class="has-tooltip btn disabled btn-large btn-add-list pull-right"
-                           data-placement="bottom" data-original-title="请先从右边选择条件">添加订阅</a>
-                    </div>
-                    <div class="span9">
-                        <div class="tags-picker">
-                            {% regroup tags|dictsortreversed:"style" by style as tags_r %}
-                            {% for style in tags_r %}
-                                <div class="tagsinput {{ style.grouper }}">
-                                    <h4>{% cycle '字幕组' '字幕语言' '格式' '清晰度' %}</h4>
-                                    {% for value in style.list %}
-                                        {% if value.id in tid_list %}
-                                            <span data-style="{{ value.style }}" data-id="{{ value.id }}" class="tag">
-                                                <span>{{ value.title }}&nbsp;&nbsp;</span>
-                                                <a class="tagsinput-remove-link fui-plus-16"></a>
-                                            </span>
-                                        {% endif %}
-                                    {% endfor %}
+            <div class="complex-selector hidden-phone">
+                <hr class="nice-hr">
+                <h3>精确订阅<br><small>你们多数人都用不着吧？</small></h3>
+                <div class="tags">
+                    <div class="row">
+                        <div class=" span3">
+                            <div class="tagsinput selected-tags">
+                                <h4>已选条件</h4>
+                            </div>
+                            <div class="add-select dk_container span3 dk_shown dk_theme_default" id="dk_container_herolist" tabindex="1">
+                                <a class="dk_toggle"><span class="dk_label">从右边添加筛选条件</span><span class="select-icon"></span></a>
+                                <div class="dk_options" style="top: 38px;">
+                                    <ul class="dk_options_inner">
+                                        <li class=""><a data-dk-dropdown-value="0">Choose hero</a></li>
+                                        <li class=""><a data-dk-dropdown-value="1">Spider Man</a></li>
+                                        <li class=""><a data-dk-dropdown-value="2">Wolverine</a></li>
+                                        <li class=""><a data-dk-dropdown-value="3">Captain America</a></li>
+                                        <li class="dk_option_current"><a data-dk-dropdown-value="X-Men">X-Men</a></li>
+                                        <li class=""><a data-dk-dropdown-value="Crocodile">Crocodile</a></li>
+                                    </ul>
                                 </div>
-                            {% endfor %}
+                            </div>
+                            <a class="has-tooltip btn disabled btn-large btn-add-list pull-right"
+                               data-placement="bottom" data-original-title="请先从右边选择条件">添加订阅</a>
+                        </div>
+                        <div class="span9">
+                            <div class="tags-picker">
+                                {% regroup tags|dictsortreversed:"style" by style as tags_r %}
+                                {% for style in tags_r %}
+                                    <div class="tagsinput {{ style.grouper }}">
+                                        <h4>{% cycle '字幕组' '字幕语言' '格式' '清晰度' %}</h4>
+                                        {% for value in style.list %}
+                                            {% if value.id in tid_list %}
+                                                <span data-style="{{ value.style }}" data-id="{{ value.id }}" class="tag">
+                                                    <span>{{ value.title }}&nbsp;&nbsp;</span>
+                                                    <a class="tagsinput-remove-link fui-plus-16"></a>
+                                                </span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>

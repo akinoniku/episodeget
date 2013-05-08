@@ -19,17 +19,17 @@ def info_list(request, sort, ):
     return render_to_response('front_end/info_list.html', {'info_list': info_lists})
 
 
-def info_view(request, id, ):
-    info = Info.objects.filter(pk=id).prefetch_related()
+def info_view(request, info_id, ):
+    info = Info.objects.filter(pk=info_id).prefetch_related()
     if not info:
         return HttpResponseNotFound('<h1>Page not found</h1>')
-    sub_lists = SubList.objects.filter(info_id=id).prefetch_related()
+    sub_lists = SubList.objects.filter(info_id=info_id).prefetch_related()
     tags = get_tags_list_cache(info.get().sort)
     tid_list = []
     sub_lists_simple = {}
-    for list in sub_lists:
-        tag_ids = list.tags_index.split(',')
-        sub_lists_simple[list.id] = tag_ids
+    for sub_list in sub_lists:
+        tag_ids = sub_list.tags_index.split(',')
+        sub_lists_simple[sub_list.id] = tag_ids
         for t in tag_ids:
             if t not in tid_list:
                 tid_list.append(int(t))

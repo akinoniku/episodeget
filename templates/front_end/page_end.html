@@ -1,7 +1,21 @@
 {% load staticfiles %}
+{% block footer-container %}
+    <div class="footer-container">
+        <footer class="container">
+            <div class="row pull-right">
+                <small>官方微博 <a href="http://weibo.com/u/2825927474">@星祈娘</a><span>|</span></small>
+                <small>站长大人 <a href="http://weibo.com/akiniku">@秋肉</a><span>|</span></small>
+                <small>天才少女 <a href="http://weibo.com/nagisafurukawa">@彤呆</a><span>|</span></small>
+                <small>星祈娘人设 <a href="http://weibo.com/eneko">@E_neko</a><span>|</span></small>
+                <small>RSS源 <a href="http://share.dmhy.org/">@DMHY</a>&amp;
+                    <a href="http://oabt.org/">@OABT</a></small></div>
+        </footer>
+    </div>
+{% endblock footer-container %}
 <!-- <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script> -->
 <script>window.jQuery || document.write('<script src="{% static "js/vendor/jquery-1.9.1.min.js" %}"><\/script>')</script>
 <script src="{% static "js/vendor/jquery-ui-1.10.0.custom.min.js" %}"></script>
+<script src="{% static "js/vendor/jquery.ui.sortable.min.js" %}"></script>
 <script src="{% static "js/vendor/bootstrap.min.js" %}"></script>
 <script src="{% static "js/vendor/jquery.dropkick-1.0.0.js" %}"></script>
 <script src="{% static "js/vendor/jquery.placeholder.js" %}"></script>
