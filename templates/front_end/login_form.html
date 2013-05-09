@@ -1,0 +1,15 @@
+<form action="{% url 'django.contrib.auth.views.login' %}" method="post" class="login-form-new">
+    {% csrf_token %}
+    <h4>我回来啦</h4>
+    <div class="control-group">
+        <input name="username" type="text" class="login-field" value="" placeholder="用户名" id="login-name">
+    </div>
+    <div class="control-group">
+        <input name="password" type="password" class="login-field" value="" placeholder="密码" id="login-pass">
+    </div>
+    <label class="checkbox" for="login-remember-{{ login_id }}"><span class="icon"></span><span class="icon-to-fade"></span>
+        <input class="login-remember" name="remember_me" type="checkbox" value="" id="login-remember-{{ login_id }}">
+        记住我
+    </label>
+    <a class="login-btn btn btn-primary btn-large btn-block" href="#">登录</a>
+</form>

@@ -8,9 +8,11 @@ from feeds_analysis.models import Info, Douban, SubList, Tags
 
 def index(request):
     return render_to_response('front_end/index.html',
-                              {'info_list_AN': Info.objects.filter(sort='AN').select_related().order_by( '-douban__average')[5:9],
-                              'info_list_EP': Info.objects.filter(sort='EP').select_related().order_by( '-douban__average')[7:11],}
-                              )
+                              {'info_list_AN': Info.objects.filter(sort='AN').select_related().order_by(
+                                  '-douban__average')[5:9],
+                               'info_list_EP': Info.objects.filter(sort='EP').select_related().order_by(
+                                   '-douban__average')[7:11],
+                               'page': 'index', })
 
 
 def info_list(request, sort, ):
@@ -40,8 +42,7 @@ def info_view(request, info_id, ):
                                'sub_lists_json': json.dumps(sub_lists_simple, ensure_ascii=False),
                                'tags_json': json.dumps(tags, ensure_ascii=False),
                                'tid_list': tid_list,
-                              }
-    )
+                               })
 
 
 def index_manifest(request):

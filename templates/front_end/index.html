@@ -8,10 +8,13 @@
             <div class="row ">
                 <div class="span12">
                     <span class="hero-word"><span>让我来，</span><span>这一切都会下载好的。</span></span>
-                    <a class="btn btn-large btn-primary">注册星祈娘</a> <a class="hero-help" href="#">免费服务，实在太不甘心了。</a>
+                    <a class="btn btn-large btn-primary btn-reg-top">注册星祈娘</a> <a class="hero-help" href="#">免费服务，往下拉看看？</a>
                 </div>
             </div>
         </div><!-- #main -->
+        <div class="span3 index-upper-login">
+            {% include 'front_end/login_form.html' with login_id="top" %}
+        </div>
     </div> <!-- .hero-unit -->
 </div>
 {% endblock home-hero %}
@@ -138,25 +141,12 @@
         </div>
     </div>
 </div>
-<div style="position: relative" class="login-screen">
+<div id="login-screen" style="position: relative" class="login-screen">
     <div class="container">
         <h1 class="login-ask">那么，要登录还是要注册？</h1>
         <div class="row">
             <div class="span3">
-                <form class="login-form-new">
-                    <h4>我回来啦</h4>
-                        <div class="control-group">
-                        <input type="text" class="login-field" value="" placeholder="用户名" id="login-name">
-                    </div>
-                    <div class="control-group">
-                        <input type="password" class="login-field" value="" placeholder="密码" id="login-pass">
-                    </div>
-                    <label class="checkbox" for="checkbox1"><span class="icon"></span><span class="icon-to-fade"></span>
-                        <input type="checkbox" value="" id="checkbox1">
-                        记住我
-                    </label>
-                    <a class="btn btn-primary btn-large btn-block" href="#">登录</a>
-                </form>
+                {% include 'front_end/login_form.html' with login_id="bottom" %}
             </div>
             <div class="login-intro span6">
                 <div class="xingqiniang-img">
@@ -164,19 +154,19 @@
                 </div>
             </div>
             <div class="span3">
-                <form class="login-form-new">
+                <form action="/reg" method="post" class="login-form-new">
                     <h4>欢迎新同学</h4>
                     <div class="control-group">
-                        <input type="email" class="login-field" value="" placeholder="邮箱" id="login-name">
+                        <input name="email" type="email" class="login-field" value="" placeholder="Email" id="login-email">
                     </div>
                     <div class="control-group">
-                        <input type="text" class="login-field" value="" placeholder="用户名" id="login-name">
+                        <input name="username" type="text" class="login-field" value="" placeholder="用户名" id="login-name">
                     </div>
                     <div class="control-group">
-                        <input type="password" class="login-field" value="" placeholder="密码" id="login-pass">
+                        <input name="password" type="password" class="login-field" value="" placeholder="密码" id="login-pass">
                     </div>
-                    <label class="checkbox" for="checkbox1"><span class="icon"></span><span class="icon-to-fade"></span>
-                        <input type="checkbox" value="" id="checkbox1">
+                    <label class="checkbox" for="show-password"><span class="icon"></span><span class="icon-to-fade"></span>
+                        <input type="checkbox" value="" id="show-password">
                         显示密码
                     </label>
                     <a class="btn btn-primary btn-large btn-block" href="#">注册</a>

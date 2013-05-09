@@ -81,6 +81,12 @@ body h5 {
   letter-spacing: 1px;
   color: #bdc3c7;
 }
+.home-hero .index-upper-login {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: -10px;
+}
 .feature-intro-word {
   margin: 60px auto;
   margin-bottom: 0;
@@ -233,12 +239,20 @@ body h5 {
   overflow: hidden;
   display: inline-block;
   text-overflow: ellipsis;
-  width: 120px;
+  width: 100%;
+  text-align: center;
   white-space: nowrap;
 }
-.info-item .info-details .info-average {
-  color: #2ecc71;
+.info-item .info-average {
+  margin-right: -10px;
+  margin-top: -10px;
+  position: absolute;
+  right: 0;
+  color: white;
   text-decoration: none;
+  background-color: #27ae60;
+  padding: 13px 10px ;
+  border-radius: 30px;
 }
 #info-view {
   margin-top: 50px;
@@ -312,9 +326,30 @@ body h5 {
 #info-view .complex-selector .add-select.dk_container .dk_options :before {
   left: 15px;
 }
+.login-form-new {
+  background-color: #ECEFF1;
+  border-radius: 6px;
+  padding: 24px 23px 20px;
+}
+.login-form-new h4 {
+  margin-bottom: 20px;
+}
+.login-form-new .login-field {
+  display: block;
+  width: 100%;
+  text-indent: 10px;
+  padding-right: 0;
+  padding-left: 0;
+}
+.login-form-new .checkbox {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
 .login-screen {
   margin-top: 50px;
   padding: 20px;
+  padding-top: 40px;
+  padding-bottom: 60px;
 }
 .login-screen .login-ask {
   font-size: 40px;
@@ -323,25 +358,6 @@ body h5 {
   margin-top: 20px;
   margin-bottom: 70px;
   letter-spacing: 2px;
-}
-.login-screen .login-form-new {
-  background-color: #ECEFF1;
-  border-radius: 6px;
-  padding: 24px 23px 20px;
-}
-.login-screen .login-form-new h4 {
-  margin-bottom: 20px;
-}
-.login-screen .login-form-new .login-field {
-  display: block;
-  width: 100%;
-  text-indent: 10px;
-  padding-right: 0;
-  padding-left: 0;
-}
-.login-screen .login-form-new .checkbox {
-  margin-top: 15px;
-  margin-bottom: 15px;
 }
 .login-screen .login-intro .xingqiniang-img {
   margin-left: auto;

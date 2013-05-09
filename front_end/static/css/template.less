@@ -63,6 +63,7 @@ body {
 }
 
 .home-hero {
+  position: relative;
   .header-container {
     background: none;
     h1{
@@ -102,6 +103,12 @@ body {
         }
       }
     }
+  }
+  .index-upper-login{
+    display: none;
+    position: absolute;
+    right: 0;
+    top: -10px;
   }
 }
 
@@ -249,13 +256,21 @@ body {
       overflow: hidden;
       display: inline-block;
       text-overflow: ellipsis;
-      width: 120px;
+      width: 100%;
+      text-align: center;
       white-space: nowrap;
     }
-    .info-average{
-      color: @EMERLAND;
-      text-decoration: none;
-    }
+  }
+  .info-average{
+    margin-right: -10px;
+    margin-top: -10px;
+    position: absolute;
+    right: 0;
+    color: white;
+    text-decoration: none;
+    background-color: @NEPHRITIS;
+    padding: 13px 10px ;
+    border-radius: 30px;
   }
 }
 
@@ -327,9 +342,30 @@ body {
   }
 }
 
+.login-form-new{
+  background-color: #ECEFF1;
+  border-radius: 6px;
+  padding: 24px 23px 20px;
+  h4{
+    margin-bottom: 20px;
+  }
+  .login-field{
+    display: block;
+    width: 100%;
+    text-indent: 10px;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .checkbox{
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+}
 .login-screen{
   margin-top: 50px;
   padding: 20px;
+  padding-top: 40px;
+  padding-bottom: 60px;
   .login-ask{
     font-size: 40px;
     color: #ffffff;
@@ -337,25 +373,6 @@ body {
     margin-top: 20px;
     margin-bottom: 70px;
     letter-spacing: 2px;
-  }
-  .login-form-new{
-    background-color: #ECEFF1;
-    border-radius: 6px;
-    padding: 24px 23px 20px;
-    h4{
-      margin-bottom: 20px;
-    }
-    .login-field{
-      display: block;
-      width: 100%;
-      text-indent: 10px;
-      padding-right: 0;
-      padding-left: 0;
-    }
-    .checkbox{
-      margin-top: 15px;
-      margin-bottom: 15px;
-    }
   }
   .login-intro{
     .xingqiniang-img{
