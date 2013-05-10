@@ -15,6 +15,10 @@ def index(request):
                                'page': 'index', })
 
 
+def user_prefer_list(request):
+    pass
+
+
 def info_list(request, sort, ):
     info_lists = get_info_list_cache(sort)
     return render_to_response('front_end/info_list.html', {'info_list': info_lists})
@@ -71,10 +75,19 @@ def get_info_list_cache(sort):
 def get_tags_list_cache(sort):
     cache = get_cache('default')
     cache_key = 'get_tags_list_cache_' + sort
-    # result_list = cache.get(cache_key)
-    result_list = []
+    result_list = cache.get(cache_key)
     if not result_list:
         for tag in Tags.objects.filter(sort=sort).exclude(style='TL'):
+            result_list.append({'style': tag.style, 'id': tag.id, 'title': tag.title})
+        cache.set(cache_key, result_list, 3600)
+    return result_list
+
+def get_tags_list_with_type_cache():
+    cache = get_cache('default')
+    cache_key = 'get_tags_list_with_type_cache'
+    result_list = cache.get(cache_key)
+    if not result_list:
+        for tag in Tags.objects.exclude(style='TL'):
             result_list.append({'style': tag.style, 'id': tag.id, 'title': tag.title})
         cache.set(cache_key, result_list, 3600)
     return result_list
