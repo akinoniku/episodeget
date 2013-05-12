@@ -28,6 +28,7 @@ urlpatterns = patterns('',
                        url(r'^index.manifest$', front_end.views.index_manifest),
                        url(r'^list/(AN|EP|an|ep)$', front_end.views.info_list),
                        url(r'^view/(\d+)$', front_end.views.info_view),
+                       url(r'^user/prefer/$', front_end.views.user_prefer_list),
 
                        # feed_analysis
                        url(r'^update_all$', update_all),

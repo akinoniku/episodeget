@@ -385,6 +385,21 @@ body h5 {
   padding-left: 10px;
   padding-right: 10px;
 }
+.list_prefer .tagsinput .tagsinput-remove-link {
+  padding: 7px 4px 3px 0;
+}
+.list_prefer .ui-state-highlight {
+  height: 32px;
+  width: 60%;
+  border: 1px solid #f39c12;
+  margin-bottom: 3px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
 @media (max-width: 480px) {
   
 }

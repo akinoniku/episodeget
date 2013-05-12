@@ -16,7 +16,14 @@ def index(request):
 
 
 def user_prefer_list(request):
-    pass
+    list_an = Tags.objects.filter(sort='AN').exclude(style='TL')
+    list_ep = Tags.objects.filter(sort='EP').exclude(style='TL')
+    titles = {'TM': '字幕组', 'CL': '清晰度', 'FM': '格式', 'TL': '字幕语言'}
+    return render_to_response('front_end/list_prefer.html',
+                              {'page': 'list_prefer',
+                               'titles': titles,
+                               'an': list_an,
+                               'ep': list_ep})
 
 
 def info_list(request, sort, ):
@@ -46,7 +53,7 @@ def info_view(request, info_id, ):
                                'sub_lists_json': json.dumps(sub_lists_simple, ensure_ascii=False),
                                'tags_json': json.dumps(tags, ensure_ascii=False),
                                'tid_list': tid_list,
-                               })
+                              })
 
 
 def index_manifest(request):
@@ -78,16 +85,6 @@ def get_tags_list_cache(sort):
     result_list = cache.get(cache_key)
     if not result_list:
         for tag in Tags.objects.filter(sort=sort).exclude(style='TL'):
-            result_list.append({'style': tag.style, 'id': tag.id, 'title': tag.title})
-        cache.set(cache_key, result_list, 3600)
-    return result_list
-
-def get_tags_list_with_type_cache():
-    cache = get_cache('default')
-    cache_key = 'get_tags_list_with_type_cache'
-    result_list = cache.get(cache_key)
-    if not result_list:
-        for tag in Tags.objects.exclude(style='TL'):
             result_list.append({'style': tag.style, 'id': tag.id, 'title': tag.title})
         cache.set(cache_key, result_list, 3600)
     return result_list

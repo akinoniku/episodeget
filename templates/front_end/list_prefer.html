@@ -1,0 +1,28 @@
+{% include "front_end/page_start.html" %}
+{% include "front_end/nav.html" %}
+{% regroup an|dictsortreversed:"style" by style as an_list %}
+
+<div class="list_prefer">
+    <div class="container">
+        <ul class="row unstyled p-sort">
+            {% for style in an_list %}
+                <li class="p-tags span2">
+                    <div class="styles">
+                        <h4>{% cycle '字幕组' '字幕语言' '格式' '清晰度' %}</h4>
+                        <ul class="sortable unstyled tagsinput" style="height: auto;">
+                            {% for item in style.list %}
+                                <li data-id="{{ item.id }}" >
+                                    <span class="tag">
+                                        <span> {{ item.title }} </span>
+                                        <a class="tagsinput-remove-link fui-menu-16"></a>
+                                    </span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+            {%  endfor %}
+        </ul>
+    </div>
+</div>
+{% include "front_end/page_end.html" %}
