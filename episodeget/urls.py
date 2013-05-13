@@ -22,6 +22,7 @@ urlpatterns = patterns('',
 
                        # user setting
                        url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
+                       url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
 
                        # front_end
                        url(r'^i$', front_end.views.index),

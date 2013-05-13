@@ -17,7 +17,7 @@ STYLE_CHOICES = (
 
 SORT_CHOICES = (
     ('AN', '动画'),
-    ('EP', '番剧'),
+    ('EP', '剧集'),
 )
 
 PLAYING_CHOICES = (
