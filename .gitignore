@@ -36,3 +36,9 @@ nosetests.xml
 .idea
 
 /.idea
+*.idea
+*.r20
+*.r22
+*.mine
+*.site-packages
+*.pyc
