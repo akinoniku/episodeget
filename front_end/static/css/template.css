@@ -1,4 +1,8 @@
+html {
+  height: 100%;
+}
 body {
+  height: 100%;
   letter-spacing: 1px;
   background-color: #ecf0f1;
 }
@@ -385,6 +389,10 @@ body h5 {
   color: white;
   padding-left: 10px;
   padding-right: 10px;
+}
+.list_prefer {
+  min-height: 100%;
+  margin-top: 100px;
 }
 .list_prefer .tagsinput .tagsinput-remove-link {
   padding: 7px 4px 3px 0;

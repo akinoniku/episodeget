@@ -2,10 +2,17 @@
 (function() {
   $(document).ready(function() {
     $(".sortable").sortable({
-      placeholder: "ui-state-highlight"
+      axis: "y",
+      placeholder: "ui-state-highlight",
+      opacity: 0.6,
+      scroll: true,
+      revert: true
     });
     $(".sortable").disableSelection();
-    $(".p-sort").sortable();
+    $(".p-sort").sortable({
+      axis: "x",
+      cursor: 'move'
+    });
     return $(".p-sort").disableSelection();
   });
 

@@ -17,7 +17,6 @@
 <script src="{% static "js/vendor/jquery-ui-1.10.0.custom.min.js" %}"></script>
 {% if page == 'list_prefer' %}
 <script src="{% static "js/vendor/jquery.ui.sortable.min.js" %}"></script>
-<script src="{% static "js/list_prefer.js" %}"></script>
 {% endif %}
 <script src="{% static "js/vendor/bootstrap.min.js" %}"></script>
 <script src="{% static "js/vendor/jquery.dropkick-1.0.0.js" %}"></script>
@@ -29,10 +28,15 @@
 {% endif %}
 <script src="{% static "js/vendor/custom_checkbox_and_radio.js" %}"></script>
 <script src="{% static "js/vendor/custom_radio.js" %}"></script>
+{% if page == 'index' %}
 <script src="{% static "js/main.js" %}"></script>
+{% endif %}
 <script src="{% static "js/coffee.js" %}"></script>
 {% if page == 'view' %}
     <script src="{% static "js/view.js" %}"></script>
+{% endif %}
+{% if page == 'list_prefer' %}
+<script src="{% static "js/list_prefer.js" %}"></script>
 {% endif %}
 
 <!--

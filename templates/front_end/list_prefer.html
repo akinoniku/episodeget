@@ -1,14 +1,25 @@
 {% include "front_end/page_start.html" %}
 {% include "front_end/nav.html" %}
-{% regroup an|dictsortreversed:"style" by style as an_list %}
-
 <div class="list_prefer">
     <div class="container">
-        <ul class="row unstyled p-sort">
+        <div class="type-select pull-left">
+            <div class="btn-toolbar">
+                <div class="btn-group">
+                    <a class="btn btn-primary active" data-type="an" href="#">动画</a>
+                    <a class="btn btn-primary" data-type="ep" href="#">剧集</a>
+                </div>
+            </div>
+        </div>
+        <a style="font-size: 18px; padding: 10px 14px 9px; margin-top: 10px;" class="btn btn-success save-btn pull-right">保存</a>
+    </div>
+    <hr class="nice-hr container">
+    {% regroup an|dictsortreversed:"style" by style as an_list %}
+    <div class="container p-container an">
+        <div class="row p-sort">
             {% for style in an_list %}
-                <li class="p-tags span2">
+                <div data-type="{{ style.grouper }}" class="p-tags span3 {{ style.grouper }}">
                     <div class="styles">
-                        <h4>{% cycle '字幕组' '字幕语言' '格式' '清晰度' %}</h4>
+                        <h4 style="text-align: center">{% cycle '字幕组' '字幕语言' '格式' '清晰度' %}</h4>
                         <ul class="sortable unstyled tagsinput" style="height: auto;">
                             {% for item in style.list %}
                                 <li data-id="{{ item.id }}" >
@@ -20,9 +31,31 @@
                             {% endfor %}
                         </ul>
                     </div>
-                </li>
+                </div>
             {%  endfor %}
-        </ul>
+        </div>
+    </div>
+    {% regroup ep|dictsortreversed:"style" by style as ep_list %}
+    <div class="container p-container ep hide">
+        <div class="row p-sort">
+            {% for style in ep_list %}
+                <div data-type="{{ style.grouper }}" class="p-tags span3 {{ style.grouper }}">
+                    <div class="styles">
+                        <h4 style="text-align: center">{% cycle '字幕组' '字幕语言' '格式' '清晰度' %}</h4>
+                        <ul class="sortable unstyled tagsinput" style="height: auto;">
+                            {% for item in style.list %}
+                                <li data-id="{{ item.id }}" >
+                                    <span class="tag">
+                                        <span> {{ item.title }} </span>
+                                        <a class="tagsinput-remove-link fui-menu-16"></a>
+                                    </span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {%  endfor %}
+        </div>
     </div>
 </div>
 {% include "front_end/page_end.html" %}
