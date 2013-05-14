@@ -1,15 +1,27 @@
 # coding=utf-8
 import json
 from django.core.cache import get_cache
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidden
 from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.views.decorators.csrf import ensure_csrf_cookie
 from feeds_analysis.models import Info, Douban, SubList, Tags
 
 
+@ensure_csrf_cookie
 def index(request):
     return render_to_response('front_end/index.html',
-                              {'info_items': '',
-                               'page': 'index', })
+                              {'page': 'index', },
+                              RequestContext(request))
+
+
+def login_success(request):
+    return HttpResponse(json.dumps({'url': '/accounts/',
+                                    'status': True}))
+
+
+def login_fail(request):
+    return HttpResponseForbidden('fail')
 
 
 def user_prefer_list(request):
@@ -20,14 +32,17 @@ def user_prefer_list(request):
                               {'page': 'list_prefer',
                                'titles': titles,
                                'an': list_an,
-                               'ep': list_ep})
+                               'ep': list_ep},
+                              RequestContext(request))
 
 
+@ensure_csrf_cookie
 def info_list(request, sort, ):
     info_lists = get_info_list_cache(sort)
-    return render_to_response('front_end/info_list.html', {'info_list': info_lists})
+    return render_to_response('front_end/info_list.html', {'info_list': info_lists}, RequestContext(request))
 
 
+@ensure_csrf_cookie
 def info_view(request, info_id, ):
     info = Info.objects.filter(pk=info_id).prefetch_related()
     if not info:
@@ -50,7 +65,8 @@ def info_view(request, info_id, ):
                                'sub_lists_json': json.dumps(sub_lists_simple, ensure_ascii=False),
                                'tags_json': json.dumps(tags, ensure_ascii=False),
                                'tid_list': tid_list,
-                              })
+                               },
+                              RequestContext(request))
 
 
 def index_manifest(request):
@@ -81,6 +97,7 @@ def get_tags_list_cache(sort):
     cache_key = 'get_tags_list_cache_' + sort
     result_list = cache.get(cache_key)
     if not result_list:
+        result_list = []
         for tag in Tags.objects.filter(sort=sort).exclude(style='TL'):
             result_list.append({'style': tag.style, 'id': tag.id, 'title': tag.title})
         cache.set(cache_key, result_list, 3600)

@@ -17,8 +17,30 @@
 
   $('.has-tooltip').tooltip();
 
-  $(window).resize(function() {
-    return $('.home-hero').height($(window).height() - 4);
+  $('.nav-login').click(function() {
+    return $('.index-upper-login').fadeToggle();
+  });
+
+  $('.login-form-new').find('.login-btn').click(function(e) {
+    var $login_form;
+
+    e.preventDefault();
+    $login_form = $(this).parents('.login-form-new');
+    $login_form.find('.alert').slideUp('fast');
+    return $.ajax({
+      dataType: 'json',
+      url: $login_form.attr('action'),
+      type: 'post',
+      data: $login_form.serialize(),
+      error: function() {
+        return $login_form.find('.alert').slideDown('fast');
+      },
+      success: function(data) {
+        if (data.status) {
+          return window.location = data.url;
+        }
+      }
+    });
   });
 
   $('.info-item').parent().mouseenter(function() {

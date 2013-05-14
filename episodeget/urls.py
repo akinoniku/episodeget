@@ -15,17 +15,20 @@ urlpatterns = patterns('',
                        # url(r'^episodeget/', include('episodeget.foo.urls')),
 
                        # Uncomment the admin/doc line below to enable admin documentation:
-                       url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+                       # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
                        # Uncomment the next line to enable the admin:
                        url(r'^admin/', include(admin.site.urls)),
 
                        # user setting
-                       url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
+                       url(r'^accounts/login/$', 'django.contrib.auth.views.login',
+                           {'template_name': 'front_end/login_form.html'}),
                        url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
+                       url(r'^accounts/login/success/$', front_end.views.login_success),
+                       url(r'^accounts/login/fail/$', front_end.views.login_fail),
 
                        # front_end
-                       url(r'^i$', front_end.views.index),
+                       url(r'^$', front_end.views.index),
                        url(r'^index.manifest$', front_end.views.index_manifest),
                        url(r'^list/(AN|EP|an|ep)$', front_end.views.info_list),
                        url(r'^view/(\d+)$', front_end.views.info_view),

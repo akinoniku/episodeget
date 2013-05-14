@@ -34,6 +34,10 @@ body {
     font-weight: normal;
   }
 }
+a{
+  text-decoration: none;
+}
+
 .nice-hr {
   border-top: 1px solid #BEC0C3;
   border-bottom: 2px solid #FFF;
@@ -43,25 +47,34 @@ body {
 .header-container {
   background-color: #ffffff;
   height: 54px;
-  h1{
-    padding-top: 50px;
-    padding-bottom: 20px;
-    margin-top: -51px;
-    width: 140px;
-    text-align: center;
-    background-color: none;
-    color: @GREENSEA;
-    .border-radius(20px)
+  #logo {
+    :hover{
+      color: @TURQUOISE;
+    }
+    h1{
+      padding-top: 50px;
+      padding-bottom: 20px;
+      margin-top: -51px;
+      width: 140px;
+      text-align: center;
+      background-color: none;
+      color: @GREENSEA;
+      text-decoration: none;
+      .border-radius(20px)
+    }
   }
   .span9 {
     nav{
       float: right;
-      a {
+      a{
         margin-left: 20px;
         margin-right: 10px;
         font-size: 16px;
         color: @GREENSEA;
         text-decoration: none;
+        :hover{
+          color: @TURQUOISE;
+        }
       }
     }
   }
@@ -71,7 +84,7 @@ body {
   position: relative;
   .header-container {
     background: none;
-    h1{
+    #logo h1{
       margin-top: -40px;
       background-color: @WETASPHALT;
       color: @CLOUDS;
@@ -79,6 +92,9 @@ body {
     .span9 {
       a {
         color: @CLOUDS;
+        :hover{
+          color: @TURQUOISE;
+        }
       }
     }
   }
@@ -109,12 +125,13 @@ body {
       }
     }
   }
-  .index-upper-login{
-    display: none;
-    position: absolute;
-    right: 0;
-    top: -10px;
-  }
+}
+.index-upper-login{
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 45px;
+  z-index: 200;
 }
 
 .feature-intro-word{
@@ -189,7 +206,7 @@ body {
     margin-top: 150px;
     margin-bottom: 0px;
     min-height: 130px;
-    box-shadow: 2px 2px 5px #DDD;
+    box-shadow: 2px 2px 5px @ASBESTOS;
     .border-radius(10px);
     .feature-avatar {
       margin-left: 50px;
@@ -348,9 +365,10 @@ body {
 }
 
 .login-form-new{
-  background-color: #ECEFF1;
+  background-color: white;
   border-radius: 6px;
   padding: 24px 23px 20px;
+  box-shadow: 2px 2px 5px @ASBESTOS;
   h4{
     margin-bottom: 20px;
   }

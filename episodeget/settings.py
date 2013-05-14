@@ -243,5 +243,5 @@ WEIBO_CLIENT_KEY = '3308285966'
 WEIBO_CLIENT_SECRET = '8dc7673a12260bade71826f4d6590c58'
 
 # LOGIN_URL = '/login-form/'
-LOGIN_REDIRECT_URL = '/i'
-# LOGIN_ERROR_URL = '/login-error/'
+LOGIN_REDIRECT_URL = '/accounts/login/success/'
+LOGIN_ERROR_URL = '/accounts/login/fail/'
