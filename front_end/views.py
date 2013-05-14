@@ -1,7 +1,8 @@
 # coding=utf-8
 import json
+from django.contrib.auth.models import User
 from django.core.cache import get_cache
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -20,10 +21,6 @@ def login_success(request):
                                     'status': True}))
 
 
-def login_fail(request):
-    return HttpResponseForbidden('fail')
-
-
 def user_prefer_list(request):
     list_an = Tags.objects.filter(sort='AN').exclude(style='TL')
     list_ep = Tags.objects.filter(sort='EP').exclude(style='TL')
@@ -34,6 +31,35 @@ def user_prefer_list(request):
                                'an': list_an,
                                'ep': list_ep},
                               RequestContext(request))
+
+
+def user_account(request):
+    var = 1
+    return render_to_response('front_end/user_account.html',
+                              {'page': 'user_account'},
+                              RequestContext(request))
+
+
+def user_reg(request):
+    status = True
+    msg = '没有错误'
+    try:
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+        if len(User.objects.filter(email=email)):
+            status = False
+            msg = "Email 已经被注册过了"
+        if username and password and email:
+            user = User.objects.create_user(username, email, password)
+    except BaseException, e:
+        status = False
+        msg = '未知错误'
+        if e.args[0] == 1062:
+            msg = '跟别人重名了！'
+    return HttpResponse(json.dumps({'msg': msg,
+                                    'url': 'account',
+                                    'status': status}))
 
 
 @ensure_csrf_cookie
@@ -65,7 +91,7 @@ def info_view(request, info_id, ):
                                'sub_lists_json': json.dumps(sub_lists_simple, ensure_ascii=False),
                                'tags_json': json.dumps(tags, ensure_ascii=False),
                                'tid_list': tid_list,
-                               },
+                              },
                               RequestContext(request))
 
 

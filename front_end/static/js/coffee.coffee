@@ -13,7 +13,9 @@ $.ajaxSetup({
 $('.has-tooltip').tooltip()
 
 #login
-$('.nav-login').click -> $('.index-upper-login').fadeToggle();
+$('.nav-login').click ->
+  $('.index-upper-reg').hide();
+  $('.index-upper-login').fadeToggle();
 $('.login-form-new').find('.login-btn').click (e) ->
   e.preventDefault()
   $login_form = $(this).parents('.login-form-new')
@@ -26,6 +28,29 @@ $('.login-form-new').find('.login-btn').click (e) ->
     error: -> $login_form.find('.alert').slideDown('fast')
     success: (data) -> window.location = data.url if data.status
   })
+
+#reg
+$('.nav-reg').click ->
+  $('.index-upper-login').hide();
+  $('.index-upper-reg').fadeToggle();
+$('.login-form-new').find('.reg-btn').click (e) ->
+  e.preventDefault()
+  $login_form = $(this).parents('.login-form-new')
+  $login_form.find('.alert').slideUp('fast')
+  $.ajax({
+    dataType: 'json'
+    url: $login_form.attr('action')
+    type: 'post'
+    data: $login_form.serialize()
+    error: -> $login_form.find('.alert').slideDown('fast')
+    success: (data) ->
+      if(data.status)
+        window.location = data.url if data.status
+      else
+        $login_form.find('.alert').text(data.msg).slideDown('fast')
+  })
+
+
 
 #info item animation
 $('.info-item').parent().mouseenter ->

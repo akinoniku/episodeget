@@ -1,0 +1,19 @@
+<form action="/accounts/reg/" method="post" class="login-form-new">
+    {% csrf_token %}
+    <h4>欢迎新同学</h4>
+    <div class="control-group">
+        <input name="email" type="email" class="login-field" value="" placeholder="Email" id="login-email">
+    </div>
+    <div class="control-group">
+        <input name="username" type="text" class="login-field" value="" placeholder="用户名" id="login-name">
+    </div>
+    <div class="control-group">
+        <input name="password" type="password" class="login-field" value="" placeholder="密码" id="login-pass">
+    </div>
+    <label class="checkbox show-password" for="show-password-{{ reg_id }}"><span class="icon"></span><span class="icon-to-fade"></span>
+        <input type="checkbox" value="" id="show-password-{{ reg_id }}">
+        显示密码
+    </label>
+    <button type="submit" class="btn reg-btn btn-primary btn-large btn-block" >注册</button>
+    <div style="margin-top: 10px; margin-bottom: 5px;"  class="alert hide">未知错误</div>
+</form>

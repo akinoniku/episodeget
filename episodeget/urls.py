@@ -25,7 +25,8 @@ urlpatterns = patterns('',
                            {'template_name': 'front_end/login_form.html'}),
                        url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
                        url(r'^accounts/login/success/$', front_end.views.login_success),
-                       url(r'^accounts/login/fail/$', front_end.views.login_fail),
+                       url(r'^accounts/reg/$', front_end.views.user_reg),
+                       # url(r'^accounts/login/fail/$', front_end.views.login_fail),
 
                        # front_end
                        url(r'^$', front_end.views.index),

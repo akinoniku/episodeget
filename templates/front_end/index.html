@@ -63,8 +63,8 @@
                         <h2>站娘订阅<small>微博@星祈娘订阅新番</small></h2>
                         <img class="feature-avatar" src="{% static "images/avatar4.gif" %}" >
                         <blockquote class="">
-                            <p>我是星祈娘，<br>我为嘛排到最后面了。</p>
-                            <small> 星祈娘</small>
+                            <p>嵌字的话就简单多了，<br>效率好一口气一晚就能搞定一本。</p>
+                            <small> E_neko</small>
                         </blockquote>
                     </div>
                 </div>
@@ -139,6 +139,7 @@
     </div>
 </div>
 {% endblock info-items %}
+{% if not user.is_authenticated %}
 <div id="login-screen" style="position: relative" class="login-screen">
     <div class="container">
         <h1 class="login-ask">那么，要登录还是要注册？</h1>
@@ -152,25 +153,10 @@
                 </div>
             </div>
             <div class="span3">
-                <form action="/reg" method="post" class="login-form-new">
-                    <h4>欢迎新同学</h4>
-                    <div class="control-group">
-                        <input name="email" type="email" class="login-field" value="" placeholder="Email" id="login-email">
-                    </div>
-                    <div class="control-group">
-                        <input name="username" type="text" class="login-field" value="" placeholder="用户名" id="login-name">
-                    </div>
-                    <div class="control-group">
-                        <input name="password" type="password" class="login-field" value="" placeholder="密码" id="login-pass">
-                    </div>
-                    <label class="checkbox" for="show-password"><span class="icon"></span><span class="icon-to-fade"></span>
-                        <input type="checkbox" value="" id="show-password">
-                        显示密码
-                    </label>
-                    <a class="btn btn-primary btn-large btn-block" href="#">注册</a>
-                </form>
+                {% include 'front_end/reg_form.html' with reg_id="bottom" %}
             </div>
         </div>
     </div>
 </div>
+{% endif %}
 {% include 'front_end/page_end.html' %}
