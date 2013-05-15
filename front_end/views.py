@@ -8,6 +8,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
 from feeds_analysis.models import Info, Douban, SubList, Tags
+from user_settings.models import SubListPrefer
 
 
 @ensure_csrf_cookie
@@ -23,6 +24,16 @@ def login_success(request):
 
 
 def user_prefer_list(request):
+    if request.is_ajax():
+        if len(SubListPrefer.objects.filter(user=request.user)):
+            SubListPrefer.objects.filter(user=request.user).update(preferList=request.POST['list'])
+        else:
+            prefer = SubListPrefer(
+                user=request.user,
+                preferList=request.POST['list'],
+            )
+            prefer.save()
+        return HttpResponse(json.dumps({'status': True}))
     list_an = Tags.objects.filter(sort='AN').exclude(style='TL')
     list_ep = Tags.objects.filter(sort='EP').exclude(style='TL')
     titles = {'TM': '字幕组', 'CL': '清晰度', 'FM': '格式', 'TL': '字幕语言'}
@@ -61,7 +72,7 @@ def user_reg(request):
         if e.args[0] == 1062:
             msg = '跟别人重名了！'
     return HttpResponse(json.dumps({'msg': msg,
-                                    'url': 'account',
+                                    'url': '/accounts/prefer/',
                                     'status': status}))
 
 
@@ -94,7 +105,7 @@ def info_view(request, info_id, ):
                                'sub_lists_json': json.dumps(sub_lists_simple, ensure_ascii=False),
                                'tags_json': json.dumps(tags, ensure_ascii=False),
                                'tid_list': tid_list,
-                              },
+                               },
                               RequestContext(request))
 
 

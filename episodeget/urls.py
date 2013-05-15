@@ -26,6 +26,7 @@ urlpatterns = patterns('',
                        url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
                        url(r'^accounts/login/success/$', front_end.views.login_success),
                        url(r'^accounts/reg/$', front_end.views.user_reg),
+                       url(r'^accounts/prefer/$', front_end.views.user_prefer_list),
                        # url(r'^accounts/login/fail/$', front_end.views.login_fail),
 
                        # front_end
@@ -33,7 +34,6 @@ urlpatterns = patterns('',
                        url(r'^index.manifest$', front_end.views.index_manifest),
                        url(r'^list/(AN|EP|an|ep)$', front_end.views.info_list),
                        url(r'^view/(\d+)$', front_end.views.info_view),
-                       url(r'^user/prefer/$', front_end.views.user_prefer_list),
 
                        # feed_analysis
                        url(r'^update_all$', update_all),
