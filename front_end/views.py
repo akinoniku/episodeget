@@ -1,5 +1,6 @@
 # coding=utf-8
 import json
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.core.cache import get_cache
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidden, HttpResponseRedirect
@@ -51,7 +52,9 @@ def user_reg(request):
             status = False
             msg = "Email 已经被注册过了"
         if username and password and email:
-            user = User.objects.create_user(username, email, password)
+            User.objects.create_user(username, email, password)
+            user = authenticate(username=username, password=password)
+            login(request, user)
     except BaseException, e:
         status = False
         msg = '未知错误'
