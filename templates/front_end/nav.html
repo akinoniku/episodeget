@@ -12,7 +12,7 @@
                             <a href="/list/ep">剧集</a>
                             <a>|</a>
                             {% if user.is_authenticated %}
-                                <a href="/user/list" > 我的列表 </a>
+                                <a href="/accounts/" > 我的订阅 </a>
                                 <a class="nav-username" href="#" > {{ user.username }} </a>
                                 <a class="nav-logout" href="{% url 'django.contrib.auth.views.logout' %}" > 退出 </a>
                             {% else %}

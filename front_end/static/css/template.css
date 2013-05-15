@@ -4,7 +4,6 @@ html {
 body {
   height: 100%;
   letter-spacing: 1px;
-  background-color: #ecf0f1;
 }
 body h1,
 body h2,
@@ -16,13 +15,25 @@ body h5 {
 a {
   text-decoration: none;
 }
+.page-title {
+  margin-top: 50px;
+  border-bottom: 1px solid #34495e;
+  padding-bottom: 10px;
+}
+.page-title h1 {
+  font-size: 40px;
+  display: inline;
+}
+.page-title .pull-right {
+  margin-top: 15px;
+}
 .nice-hr {
   border-top: 1px solid #BEC0C3;
   border-bottom: 2px solid #FFF;
   clear: both;
 }
 .header-container {
-  background-color: #ffffff;
+  background-color: #ecf0f1;
   height: 54px;
 }
 .header-container #logo :hover {
@@ -33,7 +44,6 @@ a {
   padding-bottom: 20px;
   margin-top: -51px;
   width: 140px;
-  text-align: center;
   background-color: none;
   color: #16a085;
   text-decoration: none;
@@ -68,6 +78,7 @@ a {
   background: none;
 }
 .home-hero .header-container #logo h1 {
+  text-align: center;
   margin-top: -40px;
   background-color: #34495e;
   color: #ecf0f1;
@@ -107,7 +118,7 @@ a {
   z-index: 200;
 }
 .feature-intro-word {
-  margin: 60px auto;
+  padding-top: 60px;
   margin-bottom: 0;
   text-align: center;
 }
@@ -390,6 +401,7 @@ a {
   letter-spacing: 3px;
 }
 .footer-container {
+  width: 100%;
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: #34495e;
@@ -421,6 +433,33 @@ a {
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+.account-center {
+  margin: 50px auto;
+  min-height: 90%;
+}
+.account-center .username {
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.account-center .username h3 span {
+  text-align: center;
+  display: block;
+}
+.account-center .avatar {
+  height: 180px;
+  width: 180px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.account-center .avatar img {
+  -webkit-border-radius: 300px;
+  -moz-border-radius: 300px;
+  border-radius: 300px;
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;

@@ -47,7 +47,7 @@ def user_prefer_list(request):
 
 def user_account(request):
     var = 1
-    return render_to_response('front_end/user_account.html',
+    return render_to_response('front_end/accounts.html',
                               {'page': 'user_account'},
                               RequestContext(request))
 

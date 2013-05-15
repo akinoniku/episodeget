@@ -1,0 +1,63 @@
+{% load staticfiles %}
+{% include 'front_end/page_start.html' %}
+{% include 'front_end/nav.html' %}
+<div class="container page-title">
+    <h1>我的订阅</h1>
+    <div class="pull-right">
+        <a class="btn btn-primary " href="#">设置</a>
+    </div>
+</div>
+<div class="account-center">
+    <div class="container">
+        <div class="row">
+            <div class="span9">
+                <div class="row-fluid">
+                    <div class="span6">
+                        <form class="form-horizontal2">
+                        <fieldset>
+                            <legend>迅雷登录</legend>
+                                <div class="control-group">
+                                    <label class="control-label hide" for="xunlei-id">迅雷帐号</label>
+                                    <div class="controls">
+                                        <input name="xunlei-id" id="xunlei-id" placeholder="迅雷帐号" type="text">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label hide" for="xunlei-password">迅雷密码</label>
+                                    <div class="controls">
+                                        <input name="xunlei-password" id="xunlei-password" placeholder="迅雷密码" type="password">
+                                    </div>
+                                </div>
+                        </fieldset>
+                        </form>
+                    </div>
+                    <div class="span6">
+
+                    </div>
+                    <!--
+                    <div class="btns span6">
+                        <a title="直接把新番推送到迅雷离线" class="xunlei btn btn-info has-tooltip" href="#">迅雷离线</a>
+                        <a title="@星祈娘 添加订阅" class="weibo btn btn-info has-tooltip" href="#">连接微博</a>
+                        <a title="“一键添加” 的偏好设置" class="prefer btn btn-info has-tooltip" href="#">订阅偏好</a>
+                    </div>
+                    <div class="span6">
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="avatar">
+                    <img src="{% static "images/avatar1.gif" %}" alt="头像"/>
+                </div>
+                <div class="username" >
+                    <h3>
+                    <span class="has-tooltip" data-placement="bottom" data-title="接收通知的邮箱: {{ user.email }}" data-html="true">
+                        {{ user.username }}
+                    </span>
+                    </h3>
+            -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'front_end/page_end.html' %}
