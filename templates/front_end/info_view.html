@@ -70,4 +70,20 @@
     localStorage.setItem('tags_list_{{ info.sort }}' , JSON.stringify({{ tags_json|safe }}));
     localStorage.setItem('sub_list_{{ info.id }}' , JSON.stringify({{ sub_lists_json|safe }}));
 </script>
+<div id="rssModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">就是你了？</h3>
+    </div>
+    <div class="modal-body">
+        <ul class="unstyled">
+
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary">选定啦</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">不要</button>
+    </div>
+</div>
+
 {% include 'front_end/page_end.html' %}

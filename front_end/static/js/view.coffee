@@ -94,3 +94,28 @@ aviable_list =(current_list) ->
   for key, tag of passed_tags
     $('.tags').find('.tags-picker').find('.tag[data-id="'+tag+'"]').addClass('passed')
   $('.tags').find('.tags-picker').find('.tag').not('.passed').addClass('disabled')
+  #click to get ajax sublist
+  $('#list-selector-dp').find('a').click (e) ->
+    list_id = $(@).data('value')
+    e.stopPropagation()
+    e.preventDefault()
+    $.ajax(
+      type: 'post'
+      dataType: 'json'
+      data: list_id: list_id
+      url: '/list_ajax/'
+      success: (data) ->
+        $('#rssModal').find('.modal-body .unstyled').empty()
+        for key, rss of data
+          $("<li>#{rss.fields.title}</li>").appendTo($('#rssModal').find('.modal-body .unstyled'))
+        $('#rssModal').modal('show')
+        $('#rssModal').find('.modal-footer .btn-primary').click ->
+          $.ajax(
+            type: 'post'
+            dataType: 'json'
+            data: list_id: list_id
+            url: '/add_list_ajax/'
+            success: (data) ->
+                console.log(data)
+          )
+    )

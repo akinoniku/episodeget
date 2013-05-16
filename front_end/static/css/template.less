@@ -40,7 +40,7 @@ a{
 
 input::-webkit-input-placeholder, input:-moz-placeholder{
   font: 14px/1.231 "Lato", "Microsoft YaHei", sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 26px;
   letter-spacing: 1px;
 }
@@ -56,7 +56,7 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
   }
   input{
     text-indent: 25px;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 25px;
   }
 }
@@ -103,6 +103,8 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
       float: right;
       a{
         color: @GREENSEA;
+        margin-left: 20px;
+        margin-right: 10px;
       }
       a.link{
         padding: 5px 8px 7px 8px;
@@ -348,6 +350,8 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
 #info-view{
   margin-top: 50px;
   .info-pic{
+    margin-left: auto;
+    margin-right: auto;
     max-width: 90%;
     background-color: #ffffff;
     border: 10px solid white;
@@ -411,6 +415,14 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
       }
     }
   }
+}
+#rssModal .modal-body ul li{
+  text-decoration: none;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .login-form-new{

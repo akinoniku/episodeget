@@ -35,6 +35,8 @@ urlpatterns = patterns('',
                        url(r'^index.manifest$', front_end.views.index_manifest),
                        url(r'^list/(AN|EP|an|ep)$', front_end.views.info_list),
                        url(r'^view/(\d+)$', front_end.views.info_view),
+                       url(r'^list_ajax/$', front_end.views.get_sub_list_rss),
+                       url(r'^add_list_ajax/$', front_end.views.add_sub_list),
 
                        # feed_analysis
                        url(r'^update_all$', update_all),

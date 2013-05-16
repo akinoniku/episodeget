@@ -150,7 +150,45 @@
       tag = passed_tags[key];
       $('.tags').find('.tags-picker').find('.tag[data-id="' + tag + '"]').addClass('passed');
     }
-    return $('.tags').find('.tags-picker').find('.tag').not('.passed').addClass('disabled');
+    $('.tags').find('.tags-picker').find('.tag').not('.passed').addClass('disabled');
+    return $('#list-selector-dp').find('a').click(function(e) {
+      var list_id;
+
+      list_id = $(this).data('value');
+      e.stopPropagation();
+      e.preventDefault();
+      return $.ajax({
+        type: 'post',
+        dataType: 'json',
+        data: {
+          list_id: list_id
+        },
+        url: '/list_ajax/',
+        success: function(data) {
+          var rss;
+
+          $('#rssModal').find('.modal-body .unstyled').empty();
+          for (key in data) {
+            rss = data[key];
+            $("<li>" + rss.fields.title + "</li>").appendTo($('#rssModal').find('.modal-body .unstyled'));
+          }
+          $('#rssModal').modal('show');
+          return $('#rssModal').find('.modal-footer .btn-primary').click(function() {
+            return $.ajax({
+              type: 'post',
+              dataType: 'json',
+              data: {
+                list_id: list_id
+              },
+              url: '/add_list_ajax/',
+              success: function(data) {
+                return console.log(data);
+              }
+            });
+          });
+        }
+      });
+    });
   };
 
 }).call(this);

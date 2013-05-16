@@ -2,6 +2,7 @@
 import json
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
+from django.core import serializers
 from django.core.cache import get_cache
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render_to_response
@@ -107,6 +108,28 @@ def info_view(request, info_id, ):
                                'tid_list': tid_list,
                                },
                               RequestContext(request))
+
+
+def get_sub_list_rss(request):
+    try:
+        list_id = request.POST['list_id']
+        sub_list = SubList.objects.prefetch_related().get(pk=list_id)
+        rss = sub_list.rss.all()
+        return HttpResponse(serializers.serialize('json', rss))
+    except:
+        return HttpResponseNotFound('List not found')
+
+
+def add_sub_list(request):
+    # try:
+        list_id = request.POST['list_id']
+        sub_list = SubList.objects.get(pk=list_id)
+        sub_list.user.add(request.user)
+        sub_list.save()
+        return HttpResponse(json.dumps({'status': 'success'}))
+    #except:
+    #    return HttpResponseNotFound('List not found')
+
 
 
 def index_manifest(request):
