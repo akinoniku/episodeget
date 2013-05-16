@@ -15,15 +15,12 @@ body h5 {
 a {
   text-decoration: none;
 }
-input::-webkit-input-placeholder {
-  font: 14px/1.231 "Lato", "Microsoft YaHei", sans-serif;
-  font-size: 18px;
-  line-height: 26px;
-}
+input::-webkit-input-placeholder,
 input:-moz-placeholder {
   font: 14px/1.231 "Lato", "Microsoft YaHei", sans-serif;
   font-size: 18px;
-  line-height: 25px;
+  line-height: 26px;
+  letter-spacing: 1px;
 }
 .input-icon {
   position: relative;
@@ -83,14 +80,25 @@ input:-moz-placeholder {
   float: right;
 }
 .header-container .span9 nav a {
+  color: #16a085;
+}
+.header-container .span9 nav a.link {
+  padding: 5px 8px 7px 8px;
   margin-left: 20px;
   margin-right: 10px;
   font-size: 16px;
   color: #16a085;
   text-decoration: none;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
 }
-.header-container .span9 nav a :hover {
-  color: #1abc9c;
+.header-container .span9 nav a.link:hover {
+  background-color: #1abc9c;
+  color: white;
 }
 .home-hero {
   position: relative;
@@ -111,8 +119,8 @@ input:-moz-placeholder {
 .home-hero .header-container .span9 a {
   color: #ecf0f1;
 }
-.home-hero .header-container .span9 a :hover {
-  color: #1abc9c;
+.home-hero .header-container .span9 a.link {
+  color: #ecf0f1;
 }
 .home-hero .hero-unit-container {
   position: relative;
@@ -217,12 +225,14 @@ input:-moz-placeholder {
   display: none;
 }
 .all-features .feature-item {
+  position: relative;
+  z-index: 10;
   padding: 5px 0 20px 0px;
   background-color: white;
   margin-top: 150px;
   margin-bottom: 0px;
   min-height: 130px;
-  box-shadow: 2px 2px 5px #7f8c8d;
+  box-shadow: 2px 2px 5px #95a5a6;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -390,7 +400,7 @@ input:-moz-placeholder {
   background-color: white;
   border-radius: 6px;
   padding: 24px 23px 20px;
-  box-shadow: 2px 2px 5px #7f8c8d;
+  box-shadow: 2px 2px 5px #95a5a6;
 }
 .login-form-new h4 {
   margin-bottom: 20px;
@@ -466,25 +476,31 @@ input:-moz-placeholder {
   background-clip: padding-box;
 }
 .account-center {
-  margin: 50px auto;
   min-height: 90%;
 }
-.account-center .username {
+.account-center .account-setting {
+  margin-top: 10px;
+  padding-top: 30px;
+}
+.account-center .account-setting legend {
+  margin-bottom: 5px;
+}
+.account-center .account-setting .username {
   text-decoration: none;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.account-center .username h3 span {
+.account-center .account-setting .username h3 span {
   text-align: center;
   display: block;
 }
-.account-center .avatar {
+.account-center .account-setting .avatar {
   height: 180px;
   width: 180px;
   margin-left: auto;
   margin-right: auto;
 }
-.account-center .avatar img {
+.account-center .account-setting .avatar img {
   -webkit-border-radius: 300px;
   -moz-border-radius: 300px;
   border-radius: 300px;

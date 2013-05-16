@@ -8,16 +8,16 @@
                 <div style="margin-top: 12px;" class="span9">
                     {% block nav %}
                         <nav>
-                            <a href="/list/an">动画</a>
-                            <a href="/list/ep">剧集</a>
+                            <a class="link" href="/list/an"><i class="icon icon-rocket"></i> 动画</a>
+                            <a class="link" href="/list/ep"><i class="icon icon-plane"></i> 剧集</a>
                             <a>|</a>
                             {% if user.is_authenticated %}
-                                <a href="/accounts/" > 我的订阅 </a>
-                                <a class="nav-username" href="#" > {{ user.username }} </a>
-                                <a class="nav-logout" href="{% url 'django.contrib.auth.views.logout' %}" > 退出 </a>
+                                <a class="link" href="/accounts/" ><i class="icon icon-rss"></i> 我的订阅 </a>
+                                <a class="link nav-username" href="#" ><i class="icon icon-user"></i>  {{ user.username }} </a>
+                                <a class="link nav-logout" href="{% url 'django.contrib.auth.views.logout' %}" ><i class="icon icon-signout"></i> 退出 </a>
                             {% else %}
-                                <a class="nav-login" href="#" >登录</a>
-                                <a class="nav-reg" href="#" >注册</a>
+                                <a class="link nav-login" href="#" ><i class="icon icon-signin"></i> 登录</a>
+                                <a class="link nav-reg" href="#" ><i class="icon icon-bullseye"></i> 注册</a>
                             {% endif %}
                         </nav>
                     {% endblock nav %}

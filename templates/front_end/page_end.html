@@ -16,7 +16,7 @@
 <script>window.jQuery || document.write('<script src="{% static "js/vendor/jquery-1.9.1.min.js" %}"><\/script>')</script>
 <script src="{% static "js/vendor/jquery-ui-1.10.0.custom.min.js" %}"></script>
 {% if page == 'list_prefer' %}
-<script src="{% static "js/vendor/jquery.ui.sortable.min.js" %}"></script>
+    <script src="{% static "js/vendor/jquery.ui.sortable.min.js" %}"></script>
 {% endif %}
 <script src="{% static "js/vendor/bootstrap.min.js" %}"></script>
 <script src="{% static "js/vendor/jquery.dropkick-1.0.0.js" %}"></script>
@@ -24,19 +24,22 @@
 <script src="{% static "js/vendor/jquery.tagsinput.js" %}"></script>
 <script src="{% static "js/vendor/jquery.cookie.js" %}"></script>
 {% if page == 'index' %}
-<script src="{% static "js/vendor/jquery.scrollto.min.js"%}"></script>
+    <script src="{% static "js/vendor/jquery.scrollto.min.js"%}"></script>
 {% endif %}
 <script src="{% static "js/vendor/custom_checkbox_and_radio.js" %}"></script>
 <script src="{% static "js/vendor/custom_radio.js" %}"></script>
 {% if page == 'index' %}
-<script src="{% static "js/main.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
 {% endif %}
 <script src="{% static "js/coffee.js" %}"></script>
 {% if page == 'view' %}
     <script src="{% static "js/view.js" %}"></script>
 {% endif %}
 {% if page == 'list_prefer' %}
-<script src="{% static "js/list_prefer.js" %}"></script>
+    <script src="{% static "js/list_prefer.js" %}"></script>
+{% endif %}
+{% if page == 'user_account' %}
+    <script src="{% static "js/account.js" %}"></script>
 {% endif %}
 
 <!--

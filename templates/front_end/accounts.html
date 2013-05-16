@@ -4,41 +4,41 @@
 <div class="container page-title">
     <h1>我的订阅</h1>
     <div class="pull-right">
-        <a class="btn btn-primary " href="#">账户设置</a>
+        <a class="btn btn-primary account-setting-btn" href="#">账户设置</a>
     </div>
 </div>
 <div class="account-center">
-    <div class="container">
-        <div class="row">
-            <div class="span9">
-                <div class="row-fluid">
-                    <div class="span4">
-                        <form class="form-horizontal2">
-                            <fieldset>
-                                <legend>迅雷登录</legend>
-                                <div class="control-group">
-                                    <label class="control-label hide" for="xunlei-id">帐号</label>
-                                    <div class="controls">
-                                        <div class="input-icon">
-                                            <i class="icon icon-user"></i>
-                                            <input name="xunlei-id" id="xunlei-id" placeholder="帐号" type="text">
-                                        </div>
+    <div class="account-setting hide">
+        <div class="container">
+            <div class="row">
+                <div class="span4">
+                    <form class="form-horizontal2">
+                        <fieldset>
+                            <legend>迅雷登录</legend>
+                            <div class="control-group">
+                                <label class="control-label hide" for="xunlei-id">帐号</label>
+                                <div class="controls">
+                                    <div class="input-icon">
+                                        <i class="icon icon-user"></i>
+                                        <input name="xunlei-id" id="xunlei-id" placeholder="帐号" type="text">
                                     </div>
                                 </div>
-                                <div class="control-group">
-                                    <label class="control-label hide" for="xunlei-password">密码</label>
-                                    <div class="controls">
-                                        <div class="input-icon">
-                                            <i class="icon icon-key"></i>
-                                            <input name="xunlei-password" id="xunlei-password" placeholder="密码" type="password">
-                                        </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label hide" for="xunlei-password">密码</label>
+                                <div class="controls">
+                                    <div class="input-icon">
+                                        <i class="icon icon-key"></i>
+                                        <input name="xunlei-password" id="xunlei-password" placeholder="密码" type="password">
                                     </div>
                                 </div>
-                                <input type="submit" class="btn btn-primary" value="保存">
-                            </fieldset>
-                        </form>
-                    </div>
-                    <div class="span4">
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="保存">
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="span4">
+                    <form>
                         <fieldset>
                             <legend>连接微博</legend>
                             <div class="control-group">
@@ -46,33 +46,21 @@
                                 <div class="controls">
                                     <div class="input-icon">
                                         <i class="icon icon-heart"></i>
-                                        <input name="xunlei-id" id="xunlei-id" placeholder="@微博名" type="text">
+                                        <input name="weibo-id" id="weibo-id" placeholder="@微博名" type="text">
                                     </div>
                                 </div>
                             </div>
+                            <input type="submit" class="btn btn-primary" value="保存">
                         </fieldset>
-                    </div>
-                    <!--
-                    <div class="btns span6">
-                        <a title="直接把新番推送到迅雷离线" class="xunlei btn btn-info has-tooltip" href="#">迅雷离线</a>
-                        <a title="@星祈娘 添加订阅" class="weibo btn btn-info has-tooltip" href="#">连接微博</a>
-                        <a title="“一键添加” 的偏好设置" class="prefer btn btn-info has-tooltip" href="#">订阅偏好</a>
-                    </div>
-                    <div class="span6">
-                    </div>
+                    </form>
                 </div>
-            </div>
-            <div class="span3">
-                <div class="avatar">
-                    <img src="{% static "images/avatar1.gif" %}" alt="头像"/>
-                </div>
-                <div class="username" >
-                    <h3>
-                    <span class="has-tooltip" data-placement="bottom" data-title="接收通知的邮箱: {{ user.email }}" data-html="true">
-                        {{ user.username }}
-                    </span>
-                    </h3>
-            -->
+                <div class="span4">
+                    <fieldset>
+                        <legend>一键添加</legend>
+                        <div class="control-group">
+                            <a class="btn btn-primary btn-large" href="/accounts/prefer">修改订阅偏好</a>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
         </div>

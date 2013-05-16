@@ -38,17 +38,12 @@ a{
   text-decoration: none;
 }
 
-input::-webkit-input-placeholder{
+input::-webkit-input-placeholder, input:-moz-placeholder{
   font: 14px/1.231 "Lato", "Microsoft YaHei", sans-serif;
   font-size: 18px;
   line-height: 26px;
+  letter-spacing: 1px;
 }
-input:-moz-placeholder{
-  font: 14px/1.231 "Lato", "Microsoft YaHei", sans-serif;
-  font-size: 18px;
-  line-height: 25px;
-}
-
 
 .input-icon{
   position: relative;
@@ -107,14 +102,20 @@ input:-moz-placeholder{
     nav{
       float: right;
       a{
+        color: @GREENSEA;
+      }
+      a.link{
+        padding: 5px 8px 7px 8px;
         margin-left: 20px;
         margin-right: 10px;
         font-size: 16px;
         color: @GREENSEA;
         text-decoration: none;
-        :hover{
-          color: @TURQUOISE;
-        }
+        .border-radius(5px);
+      }
+      a.link:hover{
+        background-color: @TURQUOISE;
+        color: white;
       }
     }
   }
@@ -131,11 +132,11 @@ input:-moz-placeholder{
       color: @CLOUDS;
     }
     .span9 {
-      a {
+      a{
         color: @CLOUDS;
-        :hover{
-          color: @TURQUOISE;
-        }
+      }
+      a.link {
+        color: @CLOUDS;
       }
     }
   }
@@ -247,12 +248,14 @@ input:-moz-placeholder{
 
 .all-features {
   .feature-item{
+    position: relative;
+    z-index: 10;
     padding: 5px 0 20px 0px;
     background-color: white;
     margin-top: 150px;
     margin-bottom: 0px;
     min-height: 130px;
-    box-shadow: 2px 2px 5px @ASBESTOS;
+    box-shadow: 2px 2px 5px @CONCRETE;
     .border-radius(10px);
     .feature-avatar {
       margin-left: 50px;
@@ -414,7 +417,7 @@ input:-moz-placeholder{
   background-color: white;
   border-radius: 6px;
   padding: 24px 23px 20px;
-  box-shadow: 2px 2px 5px @ASBESTOS;
+  box-shadow: 2px 2px 5px @CONCRETE;
   h4{
     margin-bottom: 20px;
   }
@@ -492,29 +495,34 @@ input:-moz-placeholder{
   }
 }
 
-.account-center{
-  margin: 50px auto;
-  min-height: 90%;
-  .username{
-    text-decoration: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    h3 span{
-      text-align: center;
-      display: block;
+  .account-center{
+    min-height: 90%;
+    .account-setting{
+    margin-top: 10px;
+    padding-top: 30px;
+    legend{
+      margin-bottom: 5px;
     }
-  }
-  .avatar{
-    height: 180px;
-    width: 180px;
-    margin-left: auto;
-    margin-right: auto;
-    img{
-      .border-radius(300px);
+    .username{
+      text-decoration: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      h3 span{
+        text-align: center;
+        display: block;
+      }
+    }
+    .avatar{
+      height: 180px;
+      width: 180px;
+      margin-left: auto;
+      margin-right: auto;
+      img{
+        .border-radius(300px);
+      }
     }
   }
 }
-
 
   // 水平状态的手机及以下
   @media (max-width: 480px) {

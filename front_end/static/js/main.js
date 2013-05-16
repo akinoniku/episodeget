@@ -14,4 +14,8 @@
     return $.scrollTo('.feature-intro-word', 800);
   });
 
+  $('.feature-item').mouseenter(function() {
+    return $(this).stop().addClass('animated swing');
+  });
+
 }).call(this);
