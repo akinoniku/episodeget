@@ -38,6 +38,34 @@ a{
   text-decoration: none;
 }
 
+input::-webkit-input-placeholder{
+  font: 14px/1.231 "Lato", "Microsoft YaHei", sans-serif;
+  font-size: 18px;
+  line-height: 26px;
+}
+input:-moz-placeholder{
+  font: 14px/1.231 "Lato", "Microsoft YaHei", sans-serif;
+  font-size: 18px;
+  line-height: 25px;
+}
+
+
+.input-icon{
+  position: relative;
+  .icon{
+    position: absolute;
+    font-size: 20px;
+    color: @CONCRETE;
+    top: 10px;
+    left: 10px;
+  }
+  input{
+    text-indent: 25px;
+    font-size: 20px;
+    line-height: 25px;
+  }
+}
+
 .page-title{
   margin-top: 50px;
   border-bottom: 1px solid @WETASPHALT;
@@ -170,22 +198,27 @@ a{
       margin-left: 40px;
       border-left: 4px solid @GREENSEA;
       .time-line-item {
-        margin-left: -30px;
+        margin-left: -28px;
         margin-bottom: 65px;
         .left-icon {
           //background-color: @CLOUDS;
-          background-color: white;
+          background-color: @GREENSEA;
           color: @GREENSEA;
           display: inline-block;
           width: 40px;
           height: 40px;
           padding: 10px 3px 1px 8px;
-          border: 2px solid #95A5A6;
+          //border: 2px solid #95A5A6;
           .border-radius(30px);
-          span {
-            font-size: 26px;
-            padding-left: 5px;
-            margin-top: 10px;
+          .icon {
+            color:white;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 30px;
+            width: 36px;
+            height: 35px;
+            text-align: center;
+            display: inline-block;
           }
         }
         .titles {
@@ -388,7 +421,7 @@ a{
   .login-field{
     display: block;
     width: 100%;
-    text-indent: 10px;
+    text-indent: 35px;
     padding-right: 0;
     padding-left: 0;
   }
@@ -398,9 +431,8 @@ a{
   }
 }
 .login-screen{
-  margin-top: 50px;
   padding: 20px;
-  padding-top: 40px;
+  padding-top: 70px;
   padding-bottom: 60px;
   .login-ask{
     font-size: 40px;

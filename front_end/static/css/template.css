@@ -15,6 +15,31 @@ body h5 {
 a {
   text-decoration: none;
 }
+input::-webkit-input-placeholder {
+  font: 14px/1.231 "Lato", "Microsoft YaHei", sans-serif;
+  font-size: 18px;
+  line-height: 26px;
+}
+input:-moz-placeholder {
+  font: 14px/1.231 "Lato", "Microsoft YaHei", sans-serif;
+  font-size: 18px;
+  line-height: 25px;
+}
+.input-icon {
+  position: relative;
+}
+.input-icon .icon {
+  position: absolute;
+  font-size: 20px;
+  color: #95a5a6;
+  top: 10px;
+  left: 10px;
+}
+.input-icon input {
+  text-indent: 25px;
+  font-size: 20px;
+  line-height: 25px;
+}
 .page-title {
   margin-top: 50px;
   border-bottom: 1px solid #34495e;
@@ -148,17 +173,16 @@ a {
   border-left: 4px solid #16a085;
 }
 #feature-intro #time-line .v-line .time-line-item {
-  margin-left: -30px;
+  margin-left: -28px;
   margin-bottom: 65px;
 }
 #feature-intro #time-line .v-line .time-line-item .left-icon {
-  background-color: white;
+  background-color: #16a085;
   color: #16a085;
   display: inline-block;
   width: 40px;
   height: 40px;
   padding: 10px 3px 1px 8px;
-  border: 2px solid #95A5A6;
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
   border-radius: 30px;
@@ -166,10 +190,15 @@ a {
   -moz-background-clip: padding;
   background-clip: padding-box;
 }
-#feature-intro #time-line .v-line .time-line-item .left-icon span {
-  font-size: 26px;
-  padding-left: 5px;
-  margin-top: 10px;
+#feature-intro #time-line .v-line .time-line-item .left-icon .icon {
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 30px;
+  width: 36px;
+  height: 35px;
+  text-align: center;
+  display: inline-block;
 }
 #feature-intro #time-line .v-line .time-line-item .titles {
   font-size: 16px;
@@ -369,7 +398,7 @@ a {
 .login-form-new .login-field {
   display: block;
   width: 100%;
-  text-indent: 10px;
+  text-indent: 35px;
   padding-right: 0;
   padding-left: 0;
 }
@@ -378,9 +407,8 @@ a {
   margin-bottom: 15px;
 }
 .login-screen {
-  margin-top: 50px;
   padding: 20px;
-  padding-top: 40px;
+  padding-top: 70px;
   padding-bottom: 60px;
 }
 .login-screen .login-ask {
