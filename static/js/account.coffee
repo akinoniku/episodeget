@@ -1,0 +1,1 @@
+$('.account-setting-btn').click -> $('.account-setting').slideToggle()

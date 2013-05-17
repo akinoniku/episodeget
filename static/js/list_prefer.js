@@ -46,7 +46,18 @@
           preferList[type][style] = getTagsSort(type, style);
         }
       }
-      return localStorage.setItem('preferList', JSON.stringify(preferList));
+      localStorage.setItem('preferList', JSON.stringify(preferList));
+      return $.ajax({
+        url: '/accounts/prefer/',
+        type: 'post',
+        dataType: 'json',
+        data: {
+          list: JSON.stringify(preferList)
+        },
+        success: function(data) {
+          return console.log(data);
+        }
+      });
     });
     preferList = JSON.parse(localStorage.getItem('preferList'));
     _results = [];

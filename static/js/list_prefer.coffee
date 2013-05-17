@@ -31,6 +31,15 @@ $(document).ready ->
       for style in getTypeSort(type)
        preferList[type][style] = getTagsSort(type, style)
     localStorage.setItem('preferList', JSON.stringify(preferList))
+    $.ajax({
+      url: '/accounts/prefer/'
+      type: 'post'
+      dataType: 'json'
+      data: {list:JSON.stringify(preferList)}
+      success: (data)->
+        console.log(data)
+    })
+
 
   # Restore
   preferList= JSON.parse(localStorage.getItem('preferList'))

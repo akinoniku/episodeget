@@ -17,8 +17,62 @@
 
   $('.has-tooltip').tooltip();
 
-  $(window).resize(function() {
-    return $('.home-hero').height($(window).height() - 4);
+  $('.nav-login').click(function() {
+    $('.index-upper-reg').hide();
+    return $('.index-upper-login').fadeToggle();
+  });
+
+  $('.login-form-new').find('.login-btn').click(function(e) {
+    var $login_form;
+
+    e.preventDefault();
+    $login_form = $(this).parents('.login-form-new');
+    $login_form.find('.alert').slideUp('fast');
+    return $.ajax({
+      dataType: 'json',
+      url: $login_form.attr('action'),
+      type: 'post',
+      data: $login_form.serialize(),
+      error: function() {
+        return $login_form.find('.alert').slideDown('fast');
+      },
+      success: function(data) {
+        if (data.status) {
+          return window.location = data.url;
+        }
+      }
+    });
+  });
+
+  $('.nav-reg').click(function() {
+    $('.index-upper-login').hide();
+    return $('.index-upper-reg').fadeToggle();
+  });
+
+  $('.login-form-new').find('.reg-btn').click(function(e) {
+    var $login_form;
+
+    e.preventDefault();
+    $login_form = $(this).parents('.login-form-new');
+    $login_form.find('.alert').slideUp('fast');
+    return $.ajax({
+      dataType: 'json',
+      url: $login_form.attr('action'),
+      type: 'post',
+      data: $login_form.serialize(),
+      error: function() {
+        return $login_form.find('.alert').slideDown('fast');
+      },
+      success: function(data) {
+        if (data.status) {
+          if (data.status) {
+            return window.location = data.url;
+          }
+        } else {
+          return $login_form.find('.alert').text(data.msg).slideDown('fast');
+        }
+      }
+    });
   });
 
   $('.info-item').parent().mouseenter(function() {

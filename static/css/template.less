@@ -22,13 +22,58 @@
 @CONCRETE: #95A5A6;
 @ASBESTOS: #7F8C8D;
 
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   letter-spacing: 1px;
-  background-color: @CLOUDS;
   h1, h2, h3, h4, h5 {
     font-weight: normal;
   }
 }
+
+a{
+  text-decoration: none;
+}
+
+input::-webkit-input-placeholder, input:-moz-placeholder{
+  font: 14px/1.231 "Lato", "Microsoft YaHei", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 1px;
+}
+
+.input-icon{
+  position: relative;
+  .icon{
+    position: absolute;
+    font-size: 20px;
+    color: @CONCRETE;
+    top: 10px;
+    left: 10px;
+  }
+  input{
+    text-indent: 25px;
+    font-size: 18px;
+    line-height: 25px;
+  }
+}
+
+.page-title{
+  margin-top: 50px;
+  border-bottom: 1px solid @WETASPHALT;
+  padding-bottom: 10px;
+  h1{
+    font-size: 40px;
+    display: inline;
+  }
+  .pull-right{
+   margin-top: 15px;
+  }
+}
+
 .nice-hr {
   border-top: 1px solid #BEC0C3;
   border-bottom: 2px solid #FFF;
@@ -36,27 +81,43 @@ body {
 }
 
 .header-container {
-  background-color: #ffffff;
+  background-color: @CLOUDS;
   height: 54px;
-  h1{
-    padding-top: 50px;
-    padding-bottom: 20px;
-    margin-top: -51px;
-    width: 140px;
-    text-align: center;
-    background-color: none;
-    color: @GREENSEA;
-    .border-radius(20px)
+  #logo {
+    :hover{
+      color: @TURQUOISE;
+    }
+    h1{
+      padding-top: 50px;
+      padding-bottom: 20px;
+      margin-top: -51px;
+      width: 140px;
+      background-color: none;
+      color: @GREENSEA;
+      text-decoration: none;
+      .border-radius(20px)
+    }
   }
   .span9 {
     nav{
       float: right;
-      a {
+      a{
+        color: @GREENSEA;
+        margin-left: 20px;
+        margin-right: 10px;
+      }
+      a.link{
+        padding: 5px 8px 7px 8px;
         margin-left: 20px;
         margin-right: 10px;
         font-size: 16px;
         color: @GREENSEA;
         text-decoration: none;
+        .border-radius(5px);
+      }
+      a.link:hover{
+        background-color: @TURQUOISE;
+        color: white;
       }
     }
   }
@@ -66,13 +127,17 @@ body {
   position: relative;
   .header-container {
     background: none;
-    h1{
+    #logo h1{
+      text-align: center;
       margin-top: -40px;
       background-color: @WETASPHALT;
       color: @CLOUDS;
     }
     .span9 {
-      a {
+      a{
+        color: @CLOUDS;
+      }
+      a.link {
         color: @CLOUDS;
       }
     }
@@ -104,16 +169,17 @@ body {
       }
     }
   }
-  .index-upper-login{
-    display: none;
-    position: absolute;
-    right: 0;
-    top: -10px;
-  }
+}
+.index-upper-login,.index-upper-reg{
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 45px;
+  z-index: 200;
 }
 
 .feature-intro-word{
-  margin: 60px auto;
+  padding-top: 60px;
   margin-bottom: 0;
   text-align: center;
   h1 {
@@ -135,22 +201,27 @@ body {
       margin-left: 40px;
       border-left: 4px solid @GREENSEA;
       .time-line-item {
-        margin-left: -30px;
+        margin-left: -28px;
         margin-bottom: 65px;
         .left-icon {
           //background-color: @CLOUDS;
-          background-color: white;
+          background-color: @GREENSEA;
           color: @GREENSEA;
           display: inline-block;
           width: 40px;
           height: 40px;
           padding: 10px 3px 1px 8px;
-          border: 2px solid #95A5A6;
+          //border: 2px solid #95A5A6;
           .border-radius(30px);
-          span {
-            font-size: 26px;
-            padding-left: 5px;
-            margin-top: 10px;
+          .icon {
+            color:white;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 30px;
+            width: 36px;
+            height: 35px;
+            text-align: center;
+            display: inline-block;
           }
         }
         .titles {
@@ -179,12 +250,14 @@ body {
 
 .all-features {
   .feature-item{
-    //display: none;
+    position: relative;
+    z-index: 10;
     padding: 5px 0 20px 0px;
     background-color: white;
     margin-top: 150px;
     margin-bottom: 0px;
     min-height: 130px;
+    box-shadow: 2px 2px 5px @CONCRETE;
     .border-radius(10px);
     .feature-avatar {
       margin-left: 50px;
@@ -277,6 +350,8 @@ body {
 #info-view{
   margin-top: 50px;
   .info-pic{
+    margin-left: auto;
+    margin-right: auto;
     max-width: 90%;
     background-color: #ffffff;
     border: 10px solid white;
@@ -341,18 +416,27 @@ body {
     }
   }
 }
+#rssModal .modal-body ul li{
+  text-decoration: none;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  width: 100%;
+  white-space: nowrap;
+}
 
 .login-form-new{
-  background-color: #ECEFF1;
+  background-color: white;
   border-radius: 6px;
   padding: 24px 23px 20px;
+  box-shadow: 2px 2px 5px @CONCRETE;
   h4{
     margin-bottom: 20px;
   }
   .login-field{
     display: block;
     width: 100%;
-    text-indent: 10px;
+    text-indent: 35px;
     padding-right: 0;
     padding-left: 0;
   }
@@ -362,9 +446,8 @@ body {
   }
 }
 .login-screen{
-  margin-top: 50px;
   padding: 20px;
-  padding-top: 40px;
+  padding-top: 70px;
   padding-bottom: 60px;
   .login-ask{
     font-size: 40px;
@@ -387,6 +470,7 @@ body {
   }
 }
 .footer-container{
+  width: 100%;
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: @WETASPHALT;
@@ -406,6 +490,51 @@ body {
   }
 }
 
+.list_prefer{
+  min-height: 100%;
+  margin-top: 100px;
+      .tagsinput{
+        .tagsinput-remove-link{
+          padding: 7px 4px 3px 0;
+      }
+  }
+  .ui-state-highlight{
+    height: 32px;
+    width: 60%;
+    border: 1px solid @ORANGE;
+    margin-bottom: 3px;
+    .border-radius(6px);
+  }
+}
+
+  .account-center{
+    min-height: 90%;
+    .account-setting{
+    margin-top: 10px;
+    padding-top: 30px;
+    legend{
+      margin-bottom: 5px;
+    }
+    .username{
+      text-decoration: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      h3 span{
+        text-align: center;
+        display: block;
+      }
+    }
+    .avatar{
+      height: 180px;
+      width: 180px;
+      margin-left: auto;
+      margin-right: auto;
+      img{
+        .border-radius(300px);
+      }
+    }
+  }
+}
 
   // 水平状态的手机及以下
   @media (max-width: 480px) {
