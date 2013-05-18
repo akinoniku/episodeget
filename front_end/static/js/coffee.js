@@ -65,9 +65,7 @@
       },
       success: function(data) {
         if (data.status) {
-          if (data.status) {
-            return window.location = data.url;
-          }
+          return window.location = data.url;
         } else {
           return $login_form.find('.alert').text(data.msg).slideDown('fast');
         }

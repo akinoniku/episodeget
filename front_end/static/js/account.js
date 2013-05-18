@@ -4,4 +4,19 @@
     return $('.account-setting').slideToggle();
   });
 
+  $('#xunleiNeedLogin').find('.btn-primary').click(function() {
+    return $.ajax({
+      url: '/accounts/xunlei',
+      dataType: 'json',
+      type: 'post',
+      data: $('#xunleiNeedLogin').serialize(),
+      success: function(data) {
+        if (data.status) {
+          $('#xunleiNeedLogin').hide();
+          return $('#xunleiLogined').show();
+        }
+      }
+    });
+  });
+
 }).call(this);

@@ -45,7 +45,7 @@ $('.login-form-new').find('.reg-btn').click (e) ->
     error: -> $login_form.find('.alert').slideDown('fast')
     success: (data) ->
       if(data.status)
-        window.location = data.url if data.status
+        window.location = data.url
       else
         $login_form.find('.alert').text(data.msg).slideDown('fast')
   })

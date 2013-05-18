@@ -12,7 +12,8 @@
         <div class="container">
             <div class="row">
                 <div class="span4">
-                    <form class="form-horizontal2">
+                    {% if has_xunlei %}
+                    <form id="xunleiNeedLogin" class="form-horizontal2">
                         <fieldset>
                             <legend>迅雷登录</legend>
                             <div class="control-group">
@@ -36,6 +37,14 @@
                             <input type="submit" class="btn btn-primary" value="保存">
                         </fieldset>
                     </form>
+                    {% else %}
+                        <fieldset id="xunleiLogined">
+                            <legend>一键添加</legend>
+                            <div class="control-group">
+                                <a class="btn btn-primary btn-large" href="#">已经登录了啦</a>
+                            </div>
+                        </fieldset>
+                    {% endif %}
                 </div>
                 <div class="span4">
                     <form>
@@ -62,6 +71,17 @@
                         </div>
                     </fieldset>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="sub-lists">
+        <div class="container">
+            <div class="row">
+                {% for sublist in sub_list %}
+                    <div class="span3">
+                        {% include 'front_end/info_item.html' with info=sublist.info %}
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>

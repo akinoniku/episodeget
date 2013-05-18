@@ -27,6 +27,7 @@ urlpatterns = patterns('',
                        url(r'^accounts/login/success/$', front_end.views.login_success),
                        url(r'^accounts/reg/$', front_end.views.user_reg),
                        url(r'^accounts/prefer/$', front_end.views.user_prefer_list),
+                       url(r'^accounts/xunlei/$', front_end.views.user_xunlei),
                        url(r'^accounts/$', front_end.views.user_account),
                        # url(r'^accounts/login/fail/$', front_end.views.login_fail),
 

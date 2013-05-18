@@ -2,6 +2,7 @@ html {
   height: 100%;
 }
 body {
+  background-color: #ecf0f1;
   height: 100%;
   letter-spacing: 1px;
 }
@@ -55,7 +56,7 @@ input:-moz-placeholder {
   clear: both;
 }
 .header-container {
-  background-color: #ecf0f1;
+  background-color: white;
   height: 54px;
 }
 .header-container #logo :hover {
@@ -279,12 +280,15 @@ input:-moz-placeholder {
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
+  z-index: 2;
 }
 .info-item .info-pic img {
+  position: relative;
   width: 150px;
   height: 220px;
   margin-top: 5px;
   margin-left: 5px;
+  z-index: 2;
 }
 .info-item .info-border {
   position: absolute;
@@ -300,10 +304,11 @@ input:-moz-placeholder {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
-  z-index: -10;
 }
 .info-item .info-details {
   margin: 10px 5px;
+  z-index: 3;
+  position: relative;
 }
 .info-item .info-details .info-title {
   color: #34495e;
@@ -314,8 +319,10 @@ input:-moz-placeholder {
   width: 100%;
   text-align: center;
   white-space: nowrap;
+  z-index: 3;
 }
 .info-item .info-average {
+  z-index: 3;
   margin-right: -10px;
   margin-top: -10px;
   position: absolute;
@@ -489,8 +496,10 @@ input:-moz-placeholder {
 }
 .account-center {
   min-height: 90%;
+  position: relative;
 }
 .account-center .account-setting {
+  background-color: #ffffff;
   margin-top: 10px;
   padding-top: 30px;
 }
@@ -519,6 +528,9 @@ input:-moz-placeholder {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
+}
+.account-center .sub-lists {
+  background-color: #ecf0f1;
 }
 @media (max-width: 480px) {
   

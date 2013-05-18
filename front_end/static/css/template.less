@@ -27,6 +27,7 @@ html {
 }
 
 body {
+  background-color: @CLOUDS;
   height: 100%;
   letter-spacing: 1px;
   h1, h2, h3, h4, h5 {
@@ -81,7 +82,7 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
 }
 
 .header-container {
-  background-color: @CLOUDS;
+  background-color: white;
   height: 54px;
   #logo {
     :hover{
@@ -302,12 +303,15 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
+  z-index: 2;
   .info-pic{
     img{
+      position: relative;
       width: 150px;
       height: 220px;
       margin-top: 5px;
       margin-left: 5px;
+      z-index: 2;
     }
   }
   .info-border{
@@ -319,10 +323,11 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
     border-color: #ffffff;
     border-width: 5px;
     .border-radius(5px);
-    z-index: -10;
   }
   .info-details{
     margin: 10px 5px;
+    z-index: 3;
+    position: relative;
     .info-title{
       color: @WETASPHALT;
       text-decoration: none;
@@ -332,9 +337,11 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
       width: 100%;
       text-align: center;
       white-space: nowrap;
+      z-index: 3;
     }
   }
   .info-average{
+    z-index: 3;
     margin-right: -10px;
     margin-top: -10px;
     position: absolute;
@@ -509,7 +516,9 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
 
   .account-center{
     min-height: 90%;
+    position: relative;
     .account-setting{
+    background-color: #ffffff;
     margin-top: 10px;
     padding-top: 30px;
     legend{
@@ -533,6 +542,9 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
         .border-radius(300px);
       }
     }
+  }
+  .sub-lists{
+    background-color: @CLOUDS;
   }
 }
 

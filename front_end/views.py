@@ -9,7 +9,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
 from feeds_analysis.models import Info, Douban, SubList, Tags
-from user_settings.models import SubListPrefer
+from user_settings.models import SubListPrefer, Xunlei
 
 
 @ensure_csrf_cookie
@@ -47,11 +47,21 @@ def user_prefer_list(request):
 
 
 def user_account(request):
-    var = 1
+    has_xunlei = True if len(Xunlei.objects.filter(user=request.user)) else False
+    added = request.GET['sub_list'] if 'sub_list' in request.GET else False
+
+    sub_list = SubList.objects.select_related().filter(user=request.user)
     return render_to_response('front_end/accounts.html',
-                              {'page': 'user_account'},
+                              {'page': 'user_account',
+                               'sub_list': sub_list,
+                               'added': added,
+                               'has_xunlei': has_xunlei,
+                               },
                               RequestContext(request))
 
+def user_xunlei(request):
+    if 'xunlei_id' in request.POST and 'xunlei-password' in request.POST:
+        import xunlei.lixian_control
 
 def user_reg(request):
     status = True
