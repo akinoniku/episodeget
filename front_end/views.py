@@ -49,7 +49,6 @@ def user_prefer_list(request):
 def user_account(request):
     has_xunlei = True if len(Xunlei.objects.filter(user=request.user)) else False
     added = request.GET['sub_list'] if 'sub_list' in request.GET else False
-
     sub_list = SubList.objects.select_related().filter(user=request.user)
     return render_to_response('front_end/accounts.html',
                               {'page': 'user_account',
@@ -59,9 +58,14 @@ def user_account(request):
                                },
                               RequestContext(request))
 
+
 def user_xunlei(request):
-    if 'xunlei_id' in request.POST and 'xunlei-password' in request.POST:
-        import xunlei.lixian_control
+    status = False
+    if 'xunlei-id' in request.POST and 'xunlei-password' in request.POST:
+        from xunlei.lixian_control import add_user
+        status = add_user(request.user, request.POST['xunlei-id'], request.POST['xunlei-password'])
+    return HttpResponse(json.dumps({'status': status}))
+
 
 def user_reg(request):
     status = True
@@ -116,7 +120,7 @@ def info_view(request, info_id, ):
                                'sub_lists_json': json.dumps(sub_lists_simple, ensure_ascii=False),
                                'tags_json': json.dumps(tags, ensure_ascii=False),
                                'tid_list': tid_list,
-                               },
+                              },
                               RequestContext(request))
 
 
@@ -131,15 +135,14 @@ def get_sub_list_rss(request):
 
 
 def add_sub_list(request):
-    # try:
-        list_id = request.POST['list_id']
-        sub_list = SubList.objects.get(pk=list_id)
-        sub_list.user.add(request.user)
-        sub_list.save()
-        return HttpResponse(json.dumps({'status': 'success'}))
+# try:
+    list_id = request.POST['list_id']
+    sub_list = SubList.objects.get(pk=list_id)
+    sub_list.user.add(request.user)
+    sub_list.save()
+    return HttpResponse(json.dumps({'status': 'success'}))
     #except:
     #    return HttpResponseNotFound('List not found')
-
 
 
 def index_manifest(request):

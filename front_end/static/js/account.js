@@ -4,9 +4,12 @@
     return $('.account-setting').slideToggle();
   });
 
-  $('#xunleiNeedLogin').find('.btn-primary').click(function() {
+  $('#xunleiNeedLogin').find('.btn-primary').click(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $('#xunleiNeedLogin').find('.alert').slideUp('fast');
     return $.ajax({
-      url: '/accounts/xunlei',
+      url: '/accounts/xunlei/',
       dataType: 'json',
       type: 'post',
       data: $('#xunleiNeedLogin').serialize(),
@@ -14,6 +17,8 @@
         if (data.status) {
           $('#xunleiNeedLogin').hide();
           return $('#xunleiLogined').show();
+        } else {
+          return $('#xunleiNeedLogin').find('.alert').slideDown('fast');
         }
       }
     });

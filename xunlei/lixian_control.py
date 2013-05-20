@@ -3,15 +3,17 @@ from xunlei.lixian import XunleiClient
 
 def add_user(user, xunlei_id, xunlei_pass):
     try:
-        xunlei = Xunlei(
-            user=user,
-            xunlei_id=xunlei_id,
-            xunlei_pass=xunlei_pass,
-        )
-        xunlei.save()
-        XunleiClient(username=xunlei_id, password=xunlei_pass, cookie_path=xunlei_id)
+        if not len(Xunlei.objects.filter(user=user)):
+            xunlei = Xunlei(
+                user=user,
+                xunlei_id=xunlei_id,
+                xunlei_pass=xunlei_pass,
+            )
+            xunlei.save()
+        XunleiClient(username=xunlei_id, password=xunlei_pass)
         return True
-    except:
+    except Exception, data:
+        qq = data.message
         return False
 
 def add_task(user, rss):

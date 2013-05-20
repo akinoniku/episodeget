@@ -501,7 +501,8 @@ input:-moz-placeholder {
 .account-center .account-setting {
   background-color: #ffffff;
   margin-top: 10px;
-  padding-top: 30px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 .account-center .account-setting legend {
   margin-bottom: 5px;
