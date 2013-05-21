@@ -123,9 +123,12 @@ def get_douban_by_douban_id(douban_id):
     douban_subject = Douban.objects.filter(douban_id=douban_id)
     if douban_subject:
         return douban_subject[0]
-    douban_subject = urllib2.urlopen(
-        'http://api.douban.com/v2/movie/subject/%s?apikey=020149640d8ca58a0603dc2c28a5f09e' % douban_id).read()
-    douban_subject = json.loads(douban_subject)
+    try:
+        douban_subject = urllib2.urlopen(
+            'http://api.douban.com/v2/movie/subject/%s?apikey=020149640d8ca58a0603dc2c28a5f09e' % douban_id).read()
+        douban_subject = json.loads(douban_subject)
+    except:
+        return False
     new_douban = Douban(
         title=douban_subject['title'],
         aka=json.dumps(douban_subject['aka']),

@@ -108,8 +108,9 @@ class FeedInfoAdmin(admin.ModelAdmin):
             if first_result['total'] > 0:
                 douban_id = first_result['subjects'][0]['id']
                 new_douban = get_douban_by_douban_id(douban_id)
-                info.douban = new_douban
-                info.save()
+                if new_douban:
+                    info.douban = new_douban
+                    info.save()
 
     get_douban.short_description = 'Get Douban'
 

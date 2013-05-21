@@ -55,9 +55,10 @@ def analysis_tags(rss):
 
     if len(rows):
         rows.filter(rss=rss)
-        if len(rows):
+        if not len(rows):
             rows[0].rss.add(rss)
             rows[0].save()
+            send_notification(rss, rows[0])
     else:
         new_list = SubList(
             info=info_tags,
@@ -71,4 +72,10 @@ def analysis_tags(rss):
         for tags in tags_list:
             new_list.tags.add(tags)
         new_list.save()
+        send_notification(rss, new_list)
     return True
+
+
+def send_notification(rss, sub_list):
+    for user in sub_list.user:
+        notify_user(user, rss)
