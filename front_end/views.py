@@ -17,6 +17,11 @@ def index(request):
     return render_to_response('front_end/index.html',
                               {'page': 'index', },
                               RequestContext(request))
+@ensure_csrf_cookie
+def index_old(request):
+    return render_to_response('front_end/home_page.html',
+                              {'page': 'index', },
+                              RequestContext(request))
 
 
 def login_success(request):
