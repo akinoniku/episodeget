@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from feeds_analysis.models import Info, Tags, Rss, Douban, SubList
 
@@ -31,3 +32,9 @@ class SubListSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubList
         # fields = ('id', 'sort', 'tags_index', 'info', 'tags', 'rss', 'user', 'create_time', 'update_time')
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'last_login', 'username', 'email')

@@ -49,6 +49,8 @@ urlpatterns = patterns('',
                        # rest
                        url(r'^rss/$', RssList.as_view(), name='rss-list'),
                        url(r'^rss/(?P<pk>\d+)/$', RssDetail.as_view(), name='rss-detail'),
+                       url(r'^user/$', UserList.as_view(), name='rss-list'),
+                       url(r'^user/(?P<pk>\d+)/$', UserDetail.as_view(), name='rss-detail'),
 
                        # social auth
                        url(r'', include('social_auth.urls')),

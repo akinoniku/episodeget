@@ -4,16 +4,16 @@
             <div style="position: relative;" class="row">
                     <a href="/" id="logo" class="span3"><h1>星祈娘</h1></a>
                 <div style="margin-top: 12px;" class="span9">
-                        <nav>
+                        <nav ng-controller="UserCtrl">
                             <a class="link" href="/list/an"><i class="icon icon-rocket"></i> 动画</a>
                             <a class="link" href="/list/ep"><i class="icon icon-plane"></i> 剧集</a>
                             <a>|</a>
-                                <a class="link" href="/accounts/" ><i class="icon icon-rss"></i> 我的订阅 </a>
-                                <a class="link nav-username" href="#" ><i class="icon icon-user"></i>  {{ user.username }} </a>
-                                <a class="link nav-logout" href="/logout" ><i class="icon icon-signout"></i> 退出 </a>
+                                <a ng-show="{{ user.id }}" class="link" href="/accounts/" ><i class="icon icon-rss"></i> 我的订阅 </a>
+                                <a ng-show="{{ user.id }}" class="link nav-username" href="#" ><i class="icon icon-user"></i>  {{ user.username }} </a>
+                                <a ng-show="{{ user.id }}" class="link nav-logout" href="/logout" ><i class="icon icon-signout"></i> 退出 </a>
                             <!-- login -->
-                                <a class="link nav-login" href="#" ><i class="icon icon-signin"></i> 登录</a>
-                                <a class="link nav-reg" href="#" ><i class="icon icon-bullseye"></i> 注册</a>
+                                <a ng-hide="{{ user.id }}" class="link nav-login" href="#" ><i class="icon icon-signin"></i> 登录</a>
+                                <a ng-hide="{{ user.id }}" class="link nav-reg" href="#" ><i class="icon icon-bullseye"></i> 注册</a>
                         </nav>
                 </div>
                 <div class="span3 index-upper-login">

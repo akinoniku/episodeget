@@ -8,7 +8,10 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidde
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from feeds_analysis.models import Info, Douban, SubList, Tags
+from feeds_analysis.serializers import UserSerializer
 from user_settings.models import SubListPrefer, Xunlei
 
 
@@ -94,6 +97,12 @@ def user_reg(request):
     return HttpResponse(json.dumps({'msg': msg,
                                     'url': '/accounts/prefer/',
                                     'status': status}))
+
+
+@api_view(['GET'])
+def get_current_user(request):
+    user_serializer = UserSerializer(request.user)
+    return Response(data=user_serializer.data)
 
 
 @ensure_csrf_cookie

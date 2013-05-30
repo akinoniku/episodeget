@@ -6,6 +6,13 @@ angular.module('episodeGet.controllers', [])
     $('.hero-help').click -> $.scrollTo('.feature-intro-word',800)
     $('.feature-item').mouseenter -> $(@).stop().addClass('animated swing')
   ])
+  .controller('UserCtrl', ($scope)->
+    $scope.user =
+      id: 0
+      last_login: ""
+      username: "游客"
+      email: ""
+  )
   .controller('NavCtrl', ($scope)->
     $scope.template={name: 'nav.html', url: 'static/partials/nav.html'}
   )
