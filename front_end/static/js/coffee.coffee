@@ -1,33 +1,34 @@
 # maybe all pages
 
 #form csrf
+csrftoken = $.cookie('csrftoken')
 csrfSafeMethod = (method) -> (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method))
 $.ajaxSetup(
     crossDomain: false,
     beforeSend: (xhr, settings) ->
         if not csrfSafeMethod(settings.type)
-            xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'))
+            xhr.setRequestHeader("X-CSRFToken", csrftoken)
     );
 
 #tooltip
 $('.has-tooltip').tooltip()
 
 #login
-$('.nav-login').click ->
-  $('.index-upper-reg').hide();
-  $('.index-upper-login').fadeToggle();
-$('.login-form-new').find('.login-btn').click (e) ->
-  e.preventDefault()
-  $login_form = $(this).parents('.login-form-new')
-  $login_form.find('.alert').slideUp('fast')
-  $.ajax(
-    dataType: 'json'
-    url: $login_form.attr('action')
-    type: 'post'
-    data: $login_form.serialize()
-    error: -> $login_form.find('.alert').slideDown('fast')
-    success: (data) -> window.location = data.url if data.status
-  )
+# $('.nav-login').click ->
+#   $('.index-upper-reg').hide();
+#   $('.index-upper-login').fadeToggle();
+# $('.login-form-new').find('.login-btn').click (e) ->
+#   e.preventDefault()
+#   $login_form = $(this).parents('.login-form-new')
+#   $login_form.find('.alert').slideUp('fast')
+#   $.ajax(
+#     dataType: 'json'
+#     url: $login_form.attr('action')
+#     type: 'post'
+#     data: $login_form.serialize()
+#     error: -> $login_form.find('.alert').slideDown('fast')
+#     success: (data) -> window.location = data.url if data.status
+#   )
 
 #reg
 $('.nav-reg').click ->

@@ -29,6 +29,7 @@ urlpatterns = patterns('',
                        url(r'^accounts/prefer/$', front_end.views.user_prefer_list),
                        url(r'^accounts/xunlei/$', front_end.views.user_xunlei),
                        url(r'^accounts/$', front_end.views.user_account),
+                       url(r'^accounts/current/$', front_end.views.get_current_user),
                        # url(r'^accounts/login/fail/$', front_end.views.login_fail),
 
                        # front_end
@@ -49,8 +50,8 @@ urlpatterns = patterns('',
                        # rest
                        url(r'^rss/$', RssList.as_view(), name='rss-list'),
                        url(r'^rss/(?P<pk>\d+)/$', RssDetail.as_view(), name='rss-detail'),
-                       url(r'^user/$', UserList.as_view(), name='rss-list'),
-                       url(r'^user/(?P<pk>\d+)/$', UserDetail.as_view(), name='rss-detail'),
+                       url(r'^user/$', UserList.as_view(), name='user-list'),
+                       url(r'^user/(?P<pk>\d+)/$', UserDetail.as_view(), name='user-detail'),
 
                        # social auth
                        url(r'', include('social_auth.urls')),

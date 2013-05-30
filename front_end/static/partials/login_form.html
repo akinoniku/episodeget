@@ -1,0 +1,21 @@
+<form ng-controller="UserCtrl" ng-hide="{{ login.logined }}" action="/accounts/login/" method="post" class="login-form-new">
+    <h4>我回来啦</h4>
+    <div class="control-group">
+        <div class="input-icon">
+            <i class="icon icon-user"></i>
+            <input name="username" type="text" class="login-field" value="" placeholder="用户名" id="login-name">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="input-icon">
+            <i class="icon icon-key"></i>
+            <input name="password" type="password" class="login-field" value="" placeholder="密码" id="login-pass">
+        </div>
+    </div>
+    <label class="checkbox checked" for="login-remember-{{ login.login_id }}"><span class="icon"></span><span class="icon-to-fade"></span>
+        <input class="login-remember" name="remember_me" type="checkbox" value="checked" id="login-remember-{{ login.login_id }}">
+        记住我
+    </label>
+    <button type="submit" class="login-btn btn btn-primary btn-large btn-block">登录</button>
+    <div style="margin-top: 10px; margin-bottom: 5px;" class="alert hide">用户名或密码错误</div>
+</form>
