@@ -9,15 +9,14 @@
                             <a class="link" href="/list/ep"><i class="icon icon-plane"></i> 剧集</a>
                             <a>|</a>
                             <a ng-show="{{ login.logined }}" class="link" href="/accounts/" ><i class="icon icon-rss"></i> 我的订阅 </a>
-                            <a ng-show="{{ login.logined }}" class="link nav-username" href="#" ><i class="icon icon-user"></i>  {{ user.username }} </a>
+                            <a ng-show="{{ login.logined }}" class="link nav-username" href="" ><i class="icon icon-user"></i>  {{ user.username }} </a>
                             <a ng-show="{{ login.logined }}" class="link nav-logout" href="/logout" ><i class="icon icon-signout"></i> 退出 </a>
                             <!-- login -->
-                            <a ng-hide="{{ login.logined }}" class="link nav-login" href="#" ><i class="icon icon-signin"></i> 登录</a>
-                            <a ng-hide="{{ login.logined }}" class="link nav-reg" href="#" ><i class="icon icon-bullseye"></i> 注册</a>
+                            <a ng-hide="{{ login.logined }}" ng-click="login.showLogin()" class="link nav-login" href="" ><i class="icon icon-signin"></i> 登录</a>
+                            <a ng-hide="{{ login.logined }}" class="link nav-reg" href="" ><i class="icon icon-bullseye"></i> 注册</a>
                         </nav>
                 </div>
-                <div class="span3 index-upper-login">
-                    <!-- login form -->
+                <div ng-include="'static/partials/login_form.html'" class="span3 index-upper-login">
                 </div>
                 <div class="span3 index-upper-reg">
                     <!-- reg form -->

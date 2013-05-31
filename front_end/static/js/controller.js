@@ -17,15 +17,23 @@
     });
   }).controller('UserCtrl', function($scope, $http) {
     $http.defaults.headers.post['X-CSRFToken'] = $.cookie('csrftoken');
-    $scope.user = {
+    return $scope.user = {
       id: 0,
       last_login: "",
       username: "游客",
       email: ""
     };
+  }).controller('NavCtrl', function($scope, $http) {
     $scope.login = {
+      show: false,
       login_id: 'top',
-      logined: false
+      logined: false,
+      showLogin: function() {
+        return this.show = !this.show;
+      },
+      isShownLogin: function() {
+        return this.show;
+      }
     };
     $scope.checkLogin = function() {
       return $http({
@@ -45,11 +53,6 @@
       });
     };
     return $scope.checkLogin();
-  }).controller('NavCtrl', function($scope) {
-    return $scope.template = {
-      name: 'nav.html',
-      url: 'static/partials/nav.html'
-    };
   });
 
 }).call(this);

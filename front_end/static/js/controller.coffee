@@ -14,9 +14,14 @@ angular.module('episodeGet.controllers', [])
       last_login: ""
       username: "游客"
       email: ""
+  )
+  .controller('NavCtrl', ($scope, $http)->
     $scope.login =
+      show: false
       login_id : 'top'
       logined : false
+      showLogin : () -> @.show = !@.show
+      isShownLogin : () -> @.show
     $scope.checkLogin = () ->
       $http({method: 'GET', url: '/accounts/current/'})
         .success((data, status, headers, config)->
@@ -32,7 +37,4 @@ angular.module('episodeGet.controllers', [])
           $scope.login.logined = false
         )
     $scope.checkLogin()
-  )
-  .controller('NavCtrl', ($scope)->
-    $scope.template={name: 'nav.html', url: 'static/partials/nav.html'}
   )

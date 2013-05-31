@@ -1,4 +1,4 @@
-<form ng-controller="UserCtrl" ng-hide="{{ login.logined }}" action="/accounts/login/" method="post" class="login-form-new">
+<form ng-show="login.isShownLogin()" action="/accounts/login/" method="post" class="login-form-new">
     <h4>我回来啦</h4>
     <div class="control-group">
         <div class="input-icon">
