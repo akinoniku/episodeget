@@ -34,8 +34,11 @@ class InfoSerializer(serializers.ModelSerializer):
 
 
 class SubListSerializer(serializers.ModelSerializer):
+    rss = RelatedField(many=True)
+
     class Meta:
         model = SubList
+        exclude = ('user',)
         # fields = ('id', 'sort', 'tags_index', 'info', 'tags', 'rss', 'user', 'create_time', 'update_time')
 
 

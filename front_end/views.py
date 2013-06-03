@@ -127,7 +127,7 @@ def info_list(request, sort, ):
 @ensure_csrf_cookie
 @api_view(['GET'])
 @permission_classes((AllowAny, ))
-def info_view(request):
+def info_view(request, info_id):
     info = Info.objects.filter(pk=info_id).prefetch_related()
     if not info:
         return HttpResponseNotFound('<h1>Page not found</h1>')

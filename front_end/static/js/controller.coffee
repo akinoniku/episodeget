@@ -49,7 +49,7 @@ angular.module('episodeGet.controllers', [])
   )
   .controller('InfoListCtrl', ($scope, $http, $routeParams, infoListService)->
     sort = $routeParams.sort
-    $scope.$on('infoListService.update', (event, infoList)-> $scope.currentList = infoList.list[sort] )
+    $scope.$on('infoListService.update', (event, List)-> $scope.currentList = List[sort] )
     $scope.currentList = infoListService.infoList.list[sort]
     $scope.sortInfo = infoListService.infoList.sortInfo
     $scope.sort = sort
@@ -58,10 +58,13 @@ angular.module('episodeGet.controllers', [])
   .controller('InfoViewCtrl', ($scope, $http, $routeParams, infoListService)->
     id = $routeParams.id
     sort = $routeParams.sort
-    $scope.$on('infoListService.update', (event, infoList)-> $scope.infoList = infoList )
+    $scope.$on('infoListService.update', (event, List)-> $scope.infoList.list = List )
     bigList = infoListService.infoList.list[sort]
     if bigList
-      $scope.info = bigList[id]
+      for info in bigList
+        if info.id is parseInt(id, 10)
+          $scope.info = info
+          break
     else
       $http({method: 'GET', url: '/info/'+id+'/.json'})
         .success((data) =>

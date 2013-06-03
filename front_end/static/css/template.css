@@ -371,6 +371,7 @@ input:-moz-placeholder {
   line-height: 22px;
   background-color: white;
   padding: 10px;
+  max-height: 100px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;

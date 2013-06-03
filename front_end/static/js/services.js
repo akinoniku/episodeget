@@ -19,7 +19,7 @@
       };
     }
   ]).service('infoListService', [
-    '$rootScope', function($rootScope, $http) {
+    '$rootScope', '$http', function($rootScope, $http) {
       return {
         infoList: {
           list: {

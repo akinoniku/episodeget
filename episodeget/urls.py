@@ -52,8 +52,12 @@ urlpatterns = patterns('',
                        url(r'^rss/(?P<pk>\d+)/$', RssDetail.as_view(), name='rss-detail'),
                        url(r'^info/$', InfoList.as_view(), name='info-list'),
                        url(r'^info/(?P<pk>\d+)/$', InfoDetail.as_view(), name='info-detail'),
+                       url(r'^tags/$', TagsList.as_view(), name='tags-list'),
+                       url(r'^tags/(?P<pk>\d+)/$', TagsDetail.as_view(), name='tags-detail'),
                        url(r'^user/$', UserList.as_view(), name='user-list'),
                        url(r'^user/(?P<pk>\d+)/$', UserDetail.as_view(), name='user-detail'),
+                       url(r'^sub_list/$', SubListList.as_view(), name='sublist-list'),
+                       url(r'^sub_list/(?P<pk>\d+)/$', SubListDetail.as_view(), name='sublist-detail'),
 
                        # social auth
                        url(r'', include('social_auth.urls')),

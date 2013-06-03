@@ -4,8 +4,8 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from rest_framework import generics
 from feeds_analysis.analysiser import analysis_tags
-from feeds_analysis.models import Rss, Info
-from feeds_analysis.serializers import RssSerializer, UserSerializer, InfoSerializer
+from feeds_analysis.models import Rss, Info, SubList, Tags
+from feeds_analysis.serializers import RssSerializer, UserSerializer, InfoSerializer, SubListSerializer, TagsSerializer
 from feeds_analysis.updater import get_ani_rss, get_epi_rss, get_ani_new, get_epi_new
 from old_db_reader.reader import old_db_reader
 from xunlei.lixian_control import add_task
@@ -58,17 +58,35 @@ class InfoDetail(generics.RetrieveAPIView):
     serializer_class = InfoSerializer
 
 
-class RssList(generics.ListCreateAPIView):
+class RssList(generics.ListAPIView):
     model = Rss
     serializer_class = RssSerializer
 
 
-class RssDetail(generics.RetrieveUpdateAPIView):
+class RssDetail(generics.RetrieveAPIView):
     model = Rss
     serializer_class = RssSerializer
 
 
-class UserList(generics.ListCreateAPIView):
+class TagsList(generics.ListAPIView):
+    model = Tags
+    serializer_class = TagsSerializer
+    paginate_by = 300
+
+    def get_queryset(self):
+        queryset = Tags.objects.all()
+        sort = self.request.QUERY_PARAMS.get('sort', None)
+        if sort is not None:
+            queryset = queryset.filter(sort=sort).exclude(style='TL')
+        return queryset
+
+
+class TagsDetail(generics.RetrieveAPIView):
+    model = Tags
+    serializer_class = TagsSerializer
+
+
+class UserList(generics.ListAPIView):
     model = User
     serializer_class = UserSerializer
 
@@ -77,6 +95,23 @@ class UserDetail(generics.RetrieveUpdateAPIView):
     model = User
     serializer_class = UserSerializer
 
+
+class SubListList(generics.ListAPIView):
+    model = SubList
+    serializer_class = SubListSerializer
+    paginate_by = 100
+
+    def get_queryset(self):
+        queryset = SubList.objects.all()
+        info = self.request.QUERY_PARAMS.get('info', None)
+        if info is not None:
+            queryset = queryset.filter(info=info)
+        return queryset
+
+
+class SubListDetail(generics.RetrieveAPIView):
+    model = SubList
+    serializer_class = SubListSerializer
 
 #belows are test function
 def add_task_test(request):

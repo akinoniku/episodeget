@@ -10,7 +10,7 @@ angular.module('episodeGet.services', [])
       @user = user
       $rootScope.$broadcast('userService.update', @user)
   ])
-  .service('infoListService', ['$rootScope', ($rootScope, $http)->
+  .service('infoListService', ['$rootScope', '$http', ($rootScope, $http)->
     infoList:
       list:
         an: angular.fromJson(localStorage.getItem('infoList_an'))

@@ -79,25 +79,35 @@
     var sort;
 
     sort = $routeParams.sort;
-    $scope.$on('infoListService.update', function(event, infoList) {
-      return $scope.currentList = infoList.list[sort];
+    $scope.$on('infoListService.update', function(event, List) {
+      return $scope.currentList = List[sort];
     });
     $scope.currentList = infoListService.infoList.list[sort];
     $scope.sortInfo = infoListService.infoList.sortInfo;
     $scope.sort = sort;
     return infoListService.infoList.getList(sort);
   }).controller('InfoViewCtrl', function($scope, $http, $routeParams, infoListService) {
-    var bigList, id, sort,
+    var bigList, id, info, sort, _i, _len, _results,
       _this = this;
 
     id = $routeParams.id;
     sort = $routeParams.sort;
-    $scope.$on('infoListService.update', function(event, infoList) {
-      return $scope.infoList = infoList;
+    $scope.$on('infoListService.update', function(event, List) {
+      return $scope.infoList.list = List;
     });
     bigList = infoListService.infoList.list[sort];
     if (bigList) {
-      return $scope.info = bigList[id];
+      _results = [];
+      for (_i = 0, _len = bigList.length; _i < _len; _i++) {
+        info = bigList[_i];
+        if (info.id === parseInt(id, 10)) {
+          $scope.info = info;
+          break;
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
     } else {
       return $http({
         method: 'GET',
