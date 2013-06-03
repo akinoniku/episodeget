@@ -13,6 +13,7 @@ angular.module('episodeGet.controllers', [])
     $scope.user = userService.user
     $scope.$on('userService.update', (event, user)-> $scope.user = user )
   )
+
   .controller('NavCtrl', ($scope, $http, userService)->
     $scope.login =
       username: ''
@@ -47,27 +48,33 @@ angular.module('episodeGet.controllers', [])
             )
     $scope.login.checkLogin()
   )
+
   .controller('InfoListCtrl', ($scope, $http, $routeParams, infoListService)->
     sort = $routeParams.sort
     $scope.$on('infoListService.update', (event, List)-> $scope.currentList = List[sort] )
-    $scope.currentList = infoListService.infoList.list[sort]
-    $scope.sortInfo = infoListService.infoList.sortInfo
+    $scope.currentList = infoListService.list[sort]
+    $scope.sortInfo = infoListService.sortInfo
     $scope.sort = sort
-    infoListService.infoList.getList(sort)
+    infoListService.getList(sort)
   )
-  .controller('InfoViewCtrl', ($scope, $http, $routeParams, infoListService)->
+
+  .controller('InfoViewCtrl', ($scope, $http, $routeParams, infoListService, infoService, tagsListService, subListService)->
     id = $routeParams.id
     sort = $routeParams.sort
-    $scope.$on('infoListService.update', (event, List)-> $scope.infoList.list = List )
-    bigList = infoListService.infoList.list[sort]
-    if bigList
-      for info in bigList
-        if info.id is parseInt(id, 10)
-          $scope.info = info
-          break
-    else
-      $http({method: 'GET', url: '/info/'+id+'/.json'})
-        .success((data) =>
-          $scope.info = data
-        )
+
+    # for list information
+    $scope.$on('infoListService.update', (event, List)-> $scope.list = List )
+    $scope.info = infoService.getInfo(sort, id)
+
+    # tags info
+    $scope.$on('tagsListService.update', (event, list)-> $scope.tagsList = list )
+    tagsListService.getList(sort)
+    $scope.tagsList = tagsListService.list[sort]
+
+    # sublist
+    subListService.getList(sort, id)
+    $scope.$on('subListService.update', (event, subList, subListTags)->
+      $scope.subList = subList
+      $scope.subListTags = subListTags
+    )
   )

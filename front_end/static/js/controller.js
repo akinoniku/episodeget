@@ -82,40 +82,29 @@
     $scope.$on('infoListService.update', function(event, List) {
       return $scope.currentList = List[sort];
     });
-    $scope.currentList = infoListService.infoList.list[sort];
-    $scope.sortInfo = infoListService.infoList.sortInfo;
+    $scope.currentList = infoListService.list[sort];
+    $scope.sortInfo = infoListService.sortInfo;
     $scope.sort = sort;
-    return infoListService.infoList.getList(sort);
-  }).controller('InfoViewCtrl', function($scope, $http, $routeParams, infoListService) {
-    var bigList, id, info, sort, _i, _len, _results,
-      _this = this;
+    return infoListService.getList(sort);
+  }).controller('InfoViewCtrl', function($scope, $http, $routeParams, infoListService, infoService, tagsListService, subListService) {
+    var id, sort;
 
     id = $routeParams.id;
     sort = $routeParams.sort;
     $scope.$on('infoListService.update', function(event, List) {
-      return $scope.infoList.list = List;
+      return $scope.list = List;
     });
-    bigList = infoListService.infoList.list[sort];
-    if (bigList) {
-      _results = [];
-      for (_i = 0, _len = bigList.length; _i < _len; _i++) {
-        info = bigList[_i];
-        if (info.id === parseInt(id, 10)) {
-          $scope.info = info;
-          break;
-        } else {
-          _results.push(void 0);
-        }
-      }
-      return _results;
-    } else {
-      return $http({
-        method: 'GET',
-        url: '/info/' + id + '/.json'
-      }).success(function(data) {
-        return $scope.info = data;
-      });
-    }
+    $scope.info = infoService.getInfo(sort, id);
+    $scope.$on('tagsListService.update', function(event, list) {
+      return $scope.tagsList = list;
+    });
+    tagsListService.getList(sort);
+    $scope.tagsList = tagsListService.list[sort];
+    subListService.getList(sort, id);
+    return $scope.$on('subListService.update', function(event, subList, subListTags) {
+      $scope.subList = subList;
+      return $scope.subListTags = subListTags;
+    });
   });
 
 }).call(this);
