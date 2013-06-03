@@ -331,6 +331,8 @@ input:-moz-placeholder {
   background-color: #27ae60;
   padding: 13px 10px ;
   border-radius: 30px;
+  width: 22px;
+  text-align: center;
 }
 #info-view {
   margin-top: 50px;

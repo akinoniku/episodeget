@@ -1,12 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework.relations import RelatedField, SlugRelatedField
 from feeds_analysis.models import Info, Tags, Rss, Douban, SubList
 
-
-class InfoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Info
-        # fields = ('id', 'sort', 'title', 'tags', 'douban', 'weekday', 'bgm_count', 'now_playing', 'image')
 
 
 class TagsSerializer(serializers.ModelSerializer):
@@ -26,6 +22,15 @@ class DoubanSerializer(serializers.ModelSerializer):
         model = Douban
         # fields = ('id', 'title', 'aka', 'original_title', 'alt', 'countries', 'current_season',
         #           'directors', 'genres', 'images', 'douban_id', 'average', 'episodes_count', 'summary', 'year')
+
+
+class InfoSerializer(serializers.ModelSerializer):
+    douban = DoubanSerializer()
+    tags = SlugRelatedField(slug_field='tags')
+
+    class Meta:
+        model = Info
+        # fields = ('id', 'sort', 'title', 'tags', 'douban', 'weekday', 'bgm_count', 'now_playing', 'image')
 
 
 class SubListSerializer(serializers.ModelSerializer):

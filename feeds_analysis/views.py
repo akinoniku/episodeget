@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 from rest_framework import generics
 from feeds_analysis.analysiser import analysis_tags
 from feeds_analysis.models import Rss, Info
-from feeds_analysis.serializers import RssSerializer, UserSerializer
+from feeds_analysis.serializers import RssSerializer, UserSerializer, InfoSerializer
 from feeds_analysis.updater import get_ani_rss, get_epi_rss, get_ani_new, get_epi_new
 from old_db_reader.reader import old_db_reader
 from xunlei.lixian_control import add_task
@@ -35,6 +35,27 @@ def ana_rss_all(request):
 def read_old_db(request):
     old_db_reader()
     return HttpResponse("Read Old db Done")
+
+
+class InfoList(generics.ListCreateAPIView):
+    model = Info
+    serializer_class = InfoSerializer
+    paginate_by = 100
+
+    def get_queryset(self):
+        queryset = Info.objects.all()
+        sort = self.request.QUERY_PARAMS.get('sort', None)
+        now_playing = self.request.QUERY_PARAMS.get('now_playing', None)
+        if sort is not None:
+            queryset = queryset.filter(sort=sort)
+        if now_playing is not None:
+            queryset = queryset.filter(now_playing=now_playing)
+        return queryset
+
+
+class InfoDetail(generics.RetrieveAPIView):
+    model = Info
+    serializer_class = InfoSerializer
 
 
 class RssList(generics.ListCreateAPIView):

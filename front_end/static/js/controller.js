@@ -2,6 +2,7 @@
 (function() {
   angular.module('episodeGet.controllers', []).controller('HomePageCtrl', function($scope, $http) {
     $http.defaults.headers.post['X-CSRFToken'] = $.cookie('csrftoken');
+    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     $('.home-hero').height($(window).height() - 4);
     $(window).resize(function() {
       return $('.home-hero').height($(window).height() - 4);
@@ -15,44 +16,96 @@
     return $('.feature-item').mouseenter(function() {
       return $(this).stop().addClass('animated swing');
     });
-  }).controller('UserCtrl', function($scope, $http) {
+  }).controller('UserCtrl', function($scope, $http, userService) {
     $http.defaults.headers.post['X-CSRFToken'] = $.cookie('csrftoken');
-    return $scope.user = {
-      id: 0,
-      last_login: "",
-      username: "游客",
-      email: ""
-    };
-  }).controller('NavCtrl', function($scope, $http) {
+    $scope.user = userService.user;
+    return $scope.$on('userService.update', function(event, user) {
+      return $scope.user = user;
+    });
+  }).controller('NavCtrl', function($scope, $http, userService) {
     $scope.login = {
+      username: '',
+      password: '',
+      status: true,
       show: false,
       login_id: 'top',
-      logined: false,
+      logined: !!userService.user.id,
       showLogin: function() {
         return this.show = !this.show;
       },
       isShownLogin: function() {
         return this.show;
+      },
+      isLogined: function() {
+        return this.logined;
+      },
+      loginActionStatus: function() {
+        return this.status;
+      },
+      loginSubmit: function() {
+        return $http({
+          method: 'POST',
+          url: '/accounts/login/ajax/',
+          data: $.param({
+            username: this.username,
+            password: this.password
+          })
+        }).success(function(data) {
+          $scope.login.status = !!data.id;
+          if (data.id) {
+            userService.updateUser(data);
+            $scope.login.logined = true;
+            return $scope.login.show = false;
+          }
+        });
+      },
+      checkLogin: function() {
+        if (!$scope.login.logined) {
+          return $http({
+            method: 'GET',
+            url: '/accounts/current/'
+          }).success(function(data) {
+            userService.updateUser(data);
+            return $scope.login.logined = data.id !== 0;
+          }).error(function(data) {
+            $scope.user = userService.user;
+            return $scope.login.logined = false;
+          });
+        }
       }
     };
-    $scope.checkLogin = function() {
+    return $scope.login.checkLogin();
+  }).controller('InfoListCtrl', function($scope, $http, $routeParams, infoListService) {
+    var sort;
+
+    sort = $routeParams.sort;
+    $scope.$on('infoListService.update', function(event, infoList) {
+      return $scope.currentList = infoList.list[sort];
+    });
+    $scope.currentList = infoListService.infoList.list[sort];
+    $scope.sortInfo = infoListService.infoList.sortInfo;
+    $scope.sort = sort;
+    return infoListService.infoList.getList(sort);
+  }).controller('InfoViewCtrl', function($scope, $http, $routeParams, infoListService) {
+    var bigList, id, sort,
+      _this = this;
+
+    id = $routeParams.id;
+    sort = $routeParams.sort;
+    $scope.$on('infoListService.update', function(event, infoList) {
+      return $scope.infoList = infoList;
+    });
+    bigList = infoListService.infoList.list[sort];
+    if (bigList) {
+      return $scope.info = bigList[id];
+    } else {
       return $http({
         method: 'GET',
-        url: '/accounts/current/'
-      }).success(function(data, status, headers, config) {
-        $scope.user = data;
-        return $scope.login.logined = data.id === !0;
-      }).error(function(data) {
-        $scope.user = {
-          id: 0,
-          last_login: "",
-          username: "游客",
-          email: ""
-        };
-        return $scope.login.logined = false;
+        url: '/info/' + id + '/.json'
+      }).success(function(data) {
+        return $scope.info = data;
       });
-    };
-    return $scope.checkLogin();
+    }
   });
 
 }).call(this);

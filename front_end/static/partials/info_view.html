@@ -1,0 +1,81 @@
+<div ng-controller="NavCtrl" ng-include="'static/partials/nav.html'"></div>
+<div id="nav" class="container">
+    <div class="row">
+        <div class="span3"></div>
+        <div class="span9">
+        </div>
+    </div>
+</div>
+<div ng-controller="InfoViewCtrl" id="info-view" data-id="{{ info.id }}" data-sort="{{ info.sort }}">
+        <div class="container">
+            <div class="row">
+                <div class="span3">
+                    <img class="info-pic" ng-src="{{ info.douban.images }}" alt="{{ info.title }}">
+                </div>
+                <div class="span9">
+                    <h1>{{ info.title }}  <a class="douban-link" href="{{ info.douban.url }}">豆瓣评分: <span>{{ info.douban.average }}</span></a></h1>
+                    <h2><small>{{ info.douban.original_title }}</small></h2>
+                    <div class="btns">
+                        <a href="{{ info.douban.url }}" class="btn-add btn btn-primary btn-large">一键添加</a>
+                        <a target="_blank" href="{{ info.douban.url }}" class="btn-douban btn btn-info btn-large">查看豆瓣</a>
+                    </div>
+                    <p class="summary">{{ info.douban.summary }}</p>
+                </div>
+            </div>
+            <div class="complex-selector hidden-phone">
+                <hr class="nice-hr">
+                <h2 class="mid">精确订阅<br><small>多数人都用不着吧？</small></h2>
+                <div class="tags">
+                    <div class="row">
+                        <div class=" span3">
+                            <div class="tagsinput selected-tags">
+                                <h4>已选条件</h4>
+                            </div>
+                            <div class="add-select dk_container span3 dk_shown dk_theme_default" tabindex="1">
+                                <a class="dk_toggle"><span class="dk_label">请先从右边添加条件</span><span class="select-icon"></span></a>
+                                <div class="dk_options" style="top: 38px;">
+                                    <ul id="list-selector-dp" class="dk_options_inner">
+                                        <li><a>还什么都没有选呢！</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span9">
+                            <div class="tags-picker">
+                                {% regroup tags|dictsortreversed:"style" by style as tags_r %}
+                                {% for style in tags_r %}
+                                    <div class="tagsinput {{ style.grouper }}">
+                                        <h4>{% cycle '字幕组' '字幕语言' '格式' '清晰度' %}</h4>
+                                        {% for value in style.list %}
+                                            {% if value.id in tid_list %}
+                                                <span id="sub-list-tag-id-{{ value.id }}" data-style="{{ value.style }}"
+                                                      data-title="{{ value.title }}" data-id="{{ value.id }}" class="tag">
+                                                    <span>{{ value.title }}&nbsp;&nbsp;</span>
+                                                    <a class="tagsinput-remove-link fui-plus-16"></a>
+                                                </span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div id="rssModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">就是你了？</h3>
+    </div>
+    <div class="modal-body">
+        <ul class="unstyled">
+
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary">选定啦</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">不要</button>
+    </div>
+</div>

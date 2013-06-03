@@ -8,7 +8,8 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidde
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from feeds_analysis.models import Info, Douban, SubList, Tags
 from feeds_analysis.serializers import UserSerializer
@@ -20,6 +21,8 @@ def index(request):
     return render_to_response('front_end/index.html',
                               {'page': 'index', },
                               RequestContext(request))
+
+
 @ensure_csrf_cookie
 def index_old(request):
     return render_to_response('front_end/home_page.html',
@@ -27,9 +30,17 @@ def index_old(request):
                               RequestContext(request))
 
 
-def login_success(request):
-    return HttpResponse(json.dumps({'url': '/accounts/',
-                                    'status': True}))
+@api_view(['POST'])
+@permission_classes((AllowAny, ))
+def login_ajax(request):
+    if request.POST and request.is_ajax:
+        user = authenticate(username=request.POST['username'], password=request.POST['password'])
+        if user is not None:
+            login(request, user)
+            user_serializer = UserSerializer(user)
+            return Response(data=user_serializer.data)
+        else:
+            return HttpResponse(json.dumps({'id': 0}), content_type='application/json')
 
 
 def user_prefer_list(request):
@@ -46,7 +57,7 @@ def user_prefer_list(request):
     list_an = Tags.objects.filter(sort='AN').exclude(style='TL')
     list_ep = Tags.objects.filter(sort='EP').exclude(style='TL')
     titles = {'TM': '字幕组', 'CL': '清晰度', 'FM': '格式', 'TL': '字幕语言'}
-    return render_to_response('front_end/list_prefer.html',
+    return Response('front_end/list_prefer.html',
                               {'page': 'list_prefer',
                                'titles': titles,
                                'an': list_an,
@@ -63,7 +74,7 @@ def user_account(request):
                                'sub_list': sub_list,
                                'added': added,
                                'has_xunlei': has_xunlei,
-                               },
+                              },
                               RequestContext(request))
 
 
@@ -71,6 +82,7 @@ def user_xunlei(request):
     status = False
     if 'xunlei-id' in request.POST and 'xunlei-password' in request.POST:
         from xunlei.lixian_control import add_user
+
         status = add_user(request.user, request.POST['xunlei-id'], request.POST['xunlei-password'])
     return HttpResponse(json.dumps({'status': status}))
 
@@ -100,6 +112,7 @@ def user_reg(request):
 
 
 @api_view(['GET'])
+@permission_classes((AllowAny, ))
 def get_current_user(request):
     user_serializer = UserSerializer(request.user)
     return Response(data=user_serializer.data)
@@ -112,7 +125,9 @@ def info_list(request, sort, ):
 
 
 @ensure_csrf_cookie
-def info_view(request, info_id, ):
+@api_view(['GET'])
+@permission_classes((AllowAny, ))
+def info_view(request):
     info = Info.objects.filter(pk=info_id).prefetch_related()
     if not info:
         return HttpResponseNotFound('<h1>Page not found</h1>')

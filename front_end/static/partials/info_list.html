@@ -1,0 +1,9 @@
+<div ng-controller="NavCtrl" ng-include="'static/partials/nav.html'"></div>
+<div id="info_intro">
+    <div class="container">
+        <div ng-controller="InfoListCtrl" class="row">
+            <div ng-repeat="info in currentList | orderBy:sortInfo" ng-include="'static/partials/info_item.html'" class="span3">
+            </div>
+        </div>
+    </div>
+</div>
