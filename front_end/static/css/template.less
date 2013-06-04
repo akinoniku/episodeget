@@ -35,6 +35,11 @@ body {
   }
 }
 
+.main-body{
+  background-color: @CLOUDS;
+  min-height: 700px;
+}
+
 a{
   text-decoration: none;
 }
@@ -387,7 +392,6 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
   p.summary {
     text-indent: 30px;
     line-height: 22px;
-    background-color: white;
     padding: 10px;
     max-height: 100px;
     overflow: hidden;
@@ -412,7 +416,11 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
       }
     }
   }
+  .list-btns li{
+    margin-top: 10px;
+  }
   .complex-selector {
+    min-height: 800px;
     margin-bottom: 50px;
     margin-top: 50px;
     .add-select.dk_container {
@@ -423,6 +431,9 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
           left: 15px;
         }
       }
+    }
+    .tags-in-list{
+      margin-right: 5px;
     }
   }
 }

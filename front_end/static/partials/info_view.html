@@ -27,27 +27,19 @@
                 <h2 class="mid">精确订阅<br><small>多数人都用不着吧？</small></h2>
                 <div class="tags">
                     <div class="row">
-                        <div class=" span3">
-                            <div class="tagsinput selected-tags">
-                                <h4>已选条件</h4>
-                            </div>
-                            <div class="add-select dk_container span3 dk_shown dk_theme_default" tabindex="1">
-                                <a class="dk_toggle"><span class="dk_label">请先从右边添加条件</span><span class="select-icon"></span></a>
-                                <div class="dk_options" style="top: 38px;">
-                                    <ul id="list-selector-dp" class="dk_options_inner">
-                                        <li><a>还什么都没有选呢！</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <div style="margin-top: 30px" class=" span9">
+                            <ul class="unstyled list-btns">
+                                <li ng-repeat="list in subList"><a class="btn btn-block btn-large btn-info" data-value="list.id"><span class="tags-in-list" ng-repeat="tagId in list.tags">{{ tagId | getTagNameById:list.sort }}</span> </a></li>
+                            </ul>
                         </div>
-                        <div class="span9">
+                        <div class="span3">
                             <div class="tags-picker">
-                                <div ng-repeat="subListTagType in subListTags" class="tagsinput">
-                                    <h4>'字幕组' '字幕语言' '格式' '清晰度' </h4>
-                                    <span ng-repeat="tag in subListTagType" id="sub-list-tag-id-{{ tag.id }}" data-style="{{ tag.style }}"
+                                <div ng-repeat="(keyStyle, subListTagType) in subListTags" class="tagsinput">
+                                    <h4>{{ keyStyle | tagStyle }}</h4>
+                                    <span ng-repeat="(id, tag) in subListTagType" id="sub-list-tag-id-{{ tag.id }}" data-style="{{ tag.style }}"
                                           data-title="{{ tag.title }}" data-id="{{ tag.id }}" class="tag">
                                         <span>{{ tag.title }}&nbsp;&nbsp;</span>
-                                        <a class="tagsinput-remove-link fui-plus-16"></a>
+                                        <a class="tagsinput-remove-link icon-plus"></a>
                                     </span>
                                 </div>
                             </div>

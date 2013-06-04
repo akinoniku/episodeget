@@ -99,9 +99,17 @@
                 sort: sort
               }
             }).success(function(data) {
-              localStorage.setItem('tagsList_' + sort, angular.toJson(data.results));
-              _this.list[sort] = data.results;
-              return _this.updateList(sort, data.results);
+              var tag, tagListWithIDKey, _i, _len, _ref;
+
+              tagListWithIDKey = {};
+              _ref = data.results;
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                tag = _ref[_i];
+                tagListWithIDKey[tag.id] = tag;
+              }
+              localStorage.setItem('tagsList_' + sort, angular.toJson(tagListWithIDKey));
+              _this.list[sort] = tagListWithIDKey;
+              return _this.updateList(sort, tagListWithIDKey);
             });
           }
         },
@@ -131,7 +139,7 @@
               info: info
             }
           }).success(function(data) {
-            var checkExtArray, subList, tag, tagId, tagsList, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
+            var checkExtArray, id, subList, tag, tagId, tagsList, _i, _j, _len, _len1, _ref, _ref1;
 
             _this.subList = data.results;
             _this.subListTags = {
@@ -151,8 +159,8 @@
                 tagId = parseInt(tagId, 10);
                 if (__indexOf.call(checkExtArray, tagId) < 0) {
                   checkExtArray.push(tagId);
-                  for (_k = 0, _len2 = tagsList.length; _k < _len2; _k++) {
-                    tag = tagsList[_k];
+                  for (id in tagsList) {
+                    tag = tagsList[id];
                     if (parseInt(tag.id, 10) === tagId) {
                       _this.subListTags[tag.style].push(tag);
                       break;

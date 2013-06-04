@@ -50,9 +50,12 @@ angular.module('episodeGet.services', [])
       if not @list[sort]
         $http({method: 'GET', url: '/tags/.json', params:{sort: sort}})
           .success((data) =>
-            localStorage.setItem('tagsList_' + sort, angular.toJson(data.results))
-            @list[sort] = data.results
-            @updateList(sort ,data.results)
+            tagListWithIDKey = {}
+            for tag in data.results
+              tagListWithIDKey[tag.id] = tag
+            localStorage.setItem('tagsList_' + sort, angular.toJson(tagListWithIDKey))
+            @list[sort] = tagListWithIDKey
+            @updateList(sort ,tagListWithIDKey)
           )
     updateList: (sort ,list) ->
       @list[sort] = list
@@ -83,7 +86,7 @@ angular.module('episodeGet.services', [])
               tagId = parseInt(tagId, 10)
               if tagId not in checkExtArray
                 checkExtArray.push(tagId)
-                for tag in tagsList
+                for id, tag of tagsList
                   if parseInt(tag.id, 10) is tagId
                     @subListTags[tag.style].push(tag)
                     break

@@ -1,4 +1,4 @@
-angular.module('episodeGet', ['episodeGet.controllers', 'episodeGet.services', 'ngCookies'])
+angular.module('episodeGet', ['episodeGet.controllers', 'episodeGet.services', 'episodeGet.filter'], null)
   .config(['$routeProvider', ($routeProvider) ->
     $routeProvider
       .when('/', {templateUrl: 'static/partials/home_page.html', controller:'HomePageCtrl'})

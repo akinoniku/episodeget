@@ -13,6 +13,10 @@ body h4,
 body h5 {
   font-weight: normal;
 }
+.main-body {
+  background-color: #ecf0f1;
+  min-height: 700px;
+}
 a {
   text-decoration: none;
 }
@@ -369,7 +373,6 @@ input:-moz-placeholder {
 #info-view p.summary {
   text-indent: 30px;
   line-height: 22px;
-  background-color: white;
   padding: 10px;
   max-height: 100px;
   overflow: hidden;
@@ -397,7 +400,11 @@ input:-moz-placeholder {
 #info-view .tags .tagsinput .tag.disabled {
   background-color: #bdc3c7;
 }
+#info-view .list-btns li {
+  margin-top: 10px;
+}
 #info-view .complex-selector {
+  min-height: 800px;
   margin-bottom: 50px;
   margin-top: 50px;
 }
@@ -409,6 +416,9 @@ input:-moz-placeholder {
 }
 #info-view .complex-selector .add-select.dk_container .dk_options :before {
   left: 15px;
+}
+#info-view .complex-selector .tags-in-list {
+  margin-right: 5px;
 }
 #rssModal .modal-body ul li {
   text-decoration: none;
