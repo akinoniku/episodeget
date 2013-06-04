@@ -131,10 +131,17 @@
               info: info
             }
           }).success(function(data) {
-            var subList, tag, tagId, tagsList, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
+            var checkExtArray, subList, tag, tagId, tagsList, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
 
             _this.subList = data.results;
+            _this.subListTags = {
+              TM: [],
+              CL: [],
+              FM: [],
+              LG: []
+            };
             tagsList = tagsListService.list[sort];
+            checkExtArray = [];
             _ref = _this.subList;
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
               subList = _ref[_i];
@@ -142,7 +149,8 @@
               for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
                 tagId = _ref1[_j];
                 tagId = parseInt(tagId, 10);
-                if (__indexOf.call(_this.subListTags, tagId) < 0) {
+                if (__indexOf.call(checkExtArray, tagId) < 0) {
+                  checkExtArray.push(tagId);
                   for (_k = 0, _len2 = tagsList.length; _k < _len2; _k++) {
                     tag = tagsList[_k];
                     if (parseInt(tag.id, 10) === tagId) {

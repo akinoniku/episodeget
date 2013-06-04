@@ -62,7 +62,7 @@ angular.module('episodeGet.controllers', [])
     id = $routeParams.id
     sort = $routeParams.sort
 
-    # for list information
+    # # for list information
     $scope.$on('infoListService.update', (event, List)-> $scope.list = List )
     $scope.info = infoService.getInfo(sort, id)
 

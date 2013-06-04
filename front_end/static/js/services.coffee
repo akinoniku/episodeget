@@ -70,12 +70,19 @@ angular.module('episodeGet.services', [])
       $http({method: 'GET', url: '/sub_list/.json', params:{info: info}})
         .success((data)=>
           @subList = data.results
+          @subListTags =
+            TM: []
+            CL: []
+            FM: []
+            LG: []
           #getSubListTags
           tagsList = tagsListService.list[sort]
+          checkExtArray = []
           for subList in @subList
             for tagId in subList.tags
               tagId = parseInt(tagId, 10)
-              if tagId not in @subListTags
+              if tagId not in checkExtArray
+                checkExtArray.push(tagId)
                 for tag in tagsList
                   if parseInt(tag.id, 10) is tagId
                     @subListTags[tag.style].push(tag)

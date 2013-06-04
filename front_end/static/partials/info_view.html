@@ -6,7 +6,7 @@
         </div>
     </div>
 </div>
-<div ng-controller="InfoViewCtrl" id="info-view" data-id="{{ info.id }}" data-sort="{{ info.sort }}">
+<div id="info-view" data-id="{{ info.id }}" data-sort="{{ info.sort }}">
         <div class="container">
             <div class="row">
                 <div class="span3">
@@ -42,21 +42,14 @@
                         </div>
                         <div class="span9">
                             <div class="tags-picker">
-                                {% regroup tags|dictsortreversed:"style" by style as tags_r %}
-                                {% for style in tags_r %}
-                                    <div class="tagsinput {{ style.grouper }}">
-                                        <h4>{% cycle '字幕组' '字幕语言' '格式' '清晰度' %}</h4>
-                                        {% for value in style.list %}
-                                            {% if value.id in tid_list %}
-                                                <span id="sub-list-tag-id-{{ value.id }}" data-style="{{ value.style }}"
-                                                      data-title="{{ value.title }}" data-id="{{ value.id }}" class="tag">
-                                                    <span>{{ value.title }}&nbsp;&nbsp;</span>
-                                                    <a class="tagsinput-remove-link fui-plus-16"></a>
-                                                </span>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                {% endfor %}
+                                <div ng-repeat="subListTagType in subListTags" class="tagsinput">
+                                    <h4>'字幕组' '字幕语言' '格式' '清晰度' </h4>
+                                    <span ng-repeat="tag in subListTagType" id="sub-list-tag-id-{{ tag.id }}" data-style="{{ tag.style }}"
+                                          data-title="{{ tag.title }}" data-id="{{ tag.id }}" class="tag">
+                                        <span>{{ tag.title }}&nbsp;&nbsp;</span>
+                                        <a class="tagsinput-remove-link fui-plus-16"></a>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
