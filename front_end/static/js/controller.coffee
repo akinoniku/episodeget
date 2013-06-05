@@ -77,4 +77,12 @@ angular.module('episodeGet.controllers', [])
       $scope.subList = subList
       $scope.subListTags = subListTags
     )
+
+    #tag select
+    $scope.tagClass = ()->
+      if @tag.switch then 'tag' else 'tag disabled'
+    $scope.pickTag = (style, id)->
+      subListService.pickTag(style, id)
+    $scope.filterClean = ()->
+      subListService.filterClean()
   )

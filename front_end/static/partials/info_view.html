@@ -18,26 +18,29 @@
                     <div class="btns">
                         <a href="{{ info.douban.url }}" class="btn-add btn btn-primary btn-large">一键添加</a>
                         <a target="_blank" href="{{ info.douban.url }}" class="btn-douban btn btn-info btn-large">查看豆瓣</a>
+                        <a ng-click="showComplex = !showComplex" ng-init="showComplex = false" class="btn btn-inverse btn-large btn-douban" href="">精确订阅</a>
                     </div>
                     <p class="summary">{{ info.douban.summary }}</p>
                 </div>
             </div>
-            <div class="complex-selector hidden-phone">
+            <div ng-show="showComplex" class="complex-selector hidden-phone">
                 <hr class="nice-hr">
                 <h2 class="mid">精确订阅<br><small>多数人都用不着吧？</small></h2>
                 <div class="tags">
                     <div class="row">
-                        <div style="margin-top: 30px" class=" span9">
+                        <div class="span9">
                             <ul class="unstyled list-btns">
-                                <li ng-repeat="list in subList"><a class="btn btn-block btn-large btn-info" data-value="list.id"><span class="tags-in-list" ng-repeat="tagId in list.tags">{{ tagId | getTagNameById:list.sort }}</span> </a></li>
+                                <li ng-show="list.show" ng-click="list.show = false" ng-repeat="list in subList"><a class="btn btn-block btn-large btn-info" data-value="list.id"><span class="tags-in-list" ng-repeat="tagId in list.tags">{{ tagId | getTagNameById:list.sort }}</span> </a></li>
                             </ul>
                         </div>
                         <div class="span3">
+                            <h3 style="display: inline-block">过滤器：</h3>
+                            <a style="margin-top: 7px;" ng-click="filterClean()" class="btn pull-right" href="">清除已选</a>
                             <div class="tags-picker">
                                 <div ng-repeat="(keyStyle, subListTagType) in subListTags" class="tagsinput">
                                     <h4>{{ keyStyle | tagStyle }}</h4>
-                                    <span ng-repeat="(id, tag) in subListTagType" id="sub-list-tag-id-{{ tag.id }}" data-style="{{ tag.style }}"
-                                          data-title="{{ tag.title }}" data-id="{{ tag.id }}" class="tag">
+                                    <span ng-class="tagClass()" ng-click="pickTag(tag.style, tag.id)" ng-repeat="(id, tag) in subListTagType" id="sub-list-tag-id-{{ tag.id }}" data-style="{{ tag.style }}"
+                                          data-title="{{ tag.title }}" data-id="{{ tag.id }}" >
                                         <span>{{ tag.title }}&nbsp;&nbsp;</span>
                                         <a class="tagsinput-remove-link icon-plus"></a>
                                     </span>

@@ -139,9 +139,14 @@
               info: info
             }
           }).success(function(data) {
-            var checkExtArray, id, subList, tag, tagId, tagsList, _i, _j, _len, _len1, _ref, _ref1;
+            var checkExtArray, id, list, subList, tag, tagId, tagsList, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
 
             _this.subList = data.results;
+            _ref = _this.subList;
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              list = _ref[_i];
+              list.show = true;
+            }
             _this.subListTags = {
               TM: [],
               CL: [],
@@ -150,18 +155,19 @@
             };
             tagsList = tagsListService.list[sort];
             checkExtArray = [];
-            _ref = _this.subList;
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              subList = _ref[_i];
-              _ref1 = subList.tags;
-              for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-                tagId = _ref1[_j];
+            _ref1 = _this.subList;
+            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+              subList = _ref1[_j];
+              _ref2 = subList.tags;
+              for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
+                tagId = _ref2[_k];
                 tagId = parseInt(tagId, 10);
                 if (__indexOf.call(checkExtArray, tagId) < 0) {
                   checkExtArray.push(tagId);
                   for (id in tagsList) {
                     tag = tagsList[id];
                     if (parseInt(tag.id, 10) === tagId) {
+                      tag["switch"] = true;
                       _this.subListTags[tag.style].push(tag);
                       break;
                     }
@@ -171,6 +177,73 @@
             }
             return $rootScope.$broadcast('subListService.update', _this.subList, _this.subListTags);
           });
+        },
+        pickTag: function(style, tagId) {
+          var avaliableTags, key, list, tag, tagStyle, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m, _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6;
+
+          _ref = this.subListTags[style];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            tag = _ref[_i];
+            if (tag.id === tagId) {
+              if (tag["switch"]) {
+                tag["switch"] = false;
+              } else {
+                return;
+              }
+            }
+          }
+          _ref1 = this.subList;
+          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+            list = _ref1[_j];
+            if (list.show) {
+              list.show = (_ref2 = parseInt(tagId, 10), __indexOf.call(list.tags, _ref2) >= 0);
+            }
+          }
+          avaliableTags = [];
+          _ref3 = this.subList;
+          for (_k = 0, _len2 = _ref3.length; _k < _len2; _k++) {
+            list = _ref3[_k];
+            if (list.show) {
+              _ref4 = list.tags;
+              for (_l = 0, _len3 = _ref4.length; _l < _len3; _l++) {
+                tag = _ref4[_l];
+                tag = parseInt(tag, 10);
+                if (__indexOf.call(avaliableTags, tag) < 0) {
+                  avaliableTags.push(tag);
+                }
+              }
+            }
+          }
+          _ref5 = this.subListTags;
+          for (key in _ref5) {
+            tagStyle = _ref5[key];
+            for (_m = 0, _len4 = tagStyle.length; _m < _len4; _m++) {
+              tag = tagStyle[_m];
+              if (_ref6 = parseInt(tag.id, 10), __indexOf.call(avaliableTags, _ref6) < 0) {
+                tag["switch"] = false;
+              }
+            }
+          }
+          return $rootScope.$broadcast('subListService.update', this.subList, this.subListTags);
+        },
+        filterClean: function() {
+          var key, list, tag, tagStyle, _i, _j, _len, _len1, _ref, _ref1, _results;
+
+          _ref = this.subListTags;
+          for (key in _ref) {
+            tagStyle = _ref[key];
+            for (_i = 0, _len = tagStyle.length; _i < _len; _i++) {
+              tag = tagStyle[_i];
+              tag["switch"] = true;
+            }
+          }
+          _ref1 = this.subList;
+          _results = [];
+          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+            list = _ref1[_j];
+            _results.push(list.show = true);
+          }
+          return _results;
         }
       };
     }

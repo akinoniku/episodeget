@@ -101,10 +101,23 @@
     tagsListService.getList(sort);
     $scope.tagsList = tagsListService.list[sort];
     subListService.getList(sort, id);
-    return $scope.$on('subListService.update', function(event, subList, subListTags) {
+    $scope.$on('subListService.update', function(event, subList, subListTags) {
       $scope.subList = subList;
       return $scope.subListTags = subListTags;
     });
+    $scope.tagClass = function() {
+      if (this.tag["switch"]) {
+        return 'tag';
+      } else {
+        return 'tag disabled';
+      }
+    };
+    $scope.pickTag = function(style, id) {
+      return subListService.pickTag(style, id);
+    };
+    return $scope.filterClean = function() {
+      return subListService.filterClean();
+    };
   });
 
 }).call(this);

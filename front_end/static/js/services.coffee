@@ -73,6 +73,8 @@ angular.module('episodeGet.services', [])
       $http({method: 'GET', url: '/sub_list/.json', params:{info: info}})
         .success((data)=>
           @subList = data.results
+          for list in @subList
+            list.show = true
           @subListTags =
             TM: []
             CL: []
@@ -88,8 +90,33 @@ angular.module('episodeGet.services', [])
                 checkExtArray.push(tagId)
                 for id, tag of tagsList
                   if parseInt(tag.id, 10) is tagId
+                    tag.switch = true
                     @subListTags[tag.style].push(tag)
                     break
           $rootScope.$broadcast('subListService.update', @subList, @subListTags)
         )
+    pickTag: (style, tagId) ->
+      for tag in @subListTags[style]
+        if tag.id is tagId
+          if tag.switch then tag.switch = false else return
+      for list in @subList
+        if list.show then list.show = parseInt(tagId, 10) in list.tags
+      avaliableTags = []
+      for list in @subList
+        if list.show
+          for tag in list.tags
+            tag = parseInt(tag, 10)
+            if tag not in avaliableTags
+              avaliableTags.push(tag)
+      for key, tagStyle of @subListTags
+        for tag in tagStyle
+          if parseInt(tag.id, 10) not in avaliableTags
+            tag.switch = false
+      $rootScope.$broadcast('subListService.update', @subList, @subListTags)
+    filterClean: () ->
+      for key, tagStyle of @subListTags
+        for tag in tagStyle
+            tag.switch = true
+      for list in @subList
+        list.show = true
   ])
