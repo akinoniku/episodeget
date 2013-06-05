@@ -139,7 +139,7 @@
               info: info
             }
           }).success(function(data) {
-            var checkExtArray, id, list, subList, tag, tagId, tagsList, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
+            var checkExtArray, id, list, string, subList, tag, tagId, tagsList, v, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2, _ref3;
 
             _this.subList = data.results;
             _ref = _this.subList;
@@ -158,9 +158,16 @@
             _ref1 = _this.subList;
             for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
               subList = _ref1[_j];
-              _ref2 = subList.tags;
+              string = '';
+              _ref2 = subList.rss;
               for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
-                tagId = _ref2[_k];
+                v = _ref2[_k];
+                string += v + '<br>';
+              }
+              subList.listRss = string;
+              _ref3 = subList.tags;
+              for (_l = 0, _len3 = _ref3.length; _l < _len3; _l++) {
+                tagId = _ref3[_l];
                 tagId = parseInt(tagId, 10);
                 if (__indexOf.call(checkExtArray, tagId) < 0) {
                   checkExtArray.push(tagId);

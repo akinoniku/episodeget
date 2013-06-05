@@ -10,7 +10,7 @@
                             <a>|</a>
                             <!-- login -->
                             <a ng-show="login.isLogined()" class="link" ng-href="/#/accounts/" ><i class="icon icon-rss"></i> 我的订阅 </a>
-                            <a ng-show="login.isLogined()" class="link nav-username" href="" ><i class="icon icon-user"></i> {{ user.username }}</a>
+                            <a ng-show="login.isLogined()" class="link nav-username"  ng-href="/#/accounts/" ><i class="icon icon-user"></i> {{ user.username }}</a>
                             <a ng-show="login.isLogined()" class="link nav-logout" ng-href="/#/logout" ><i class="icon icon-signout"></i> 退出 </a>
                             <a ng-hide="login.isLogined()" ng-click="login.showLogin()" class="link nav-login" href="" ><i class="icon icon-signin"></i> 登录</a>
                             <a ng-hide="login.isLogined()" class="link nav-reg" href="" ><i class="icon icon-bullseye"></i> 注册</a>

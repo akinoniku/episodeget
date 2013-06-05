@@ -1,5 +1,14 @@
 html {
   height: 100%;
+  overflow: -moz-scrollbars-vertical;
+  /* For FF */
+
+  -ms-overflow-y: scroll;
+  /* For IE */
+
+  overflow-y: scroll;
+  /* For others & old IE */
+
 }
 body {
   background-color: #ecf0f1;

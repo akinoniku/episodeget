@@ -84,6 +84,11 @@ angular.module('episodeGet.services', [])
           tagsList = tagsListService.list[sort]
           checkExtArray = []
           for subList in @subList
+            string = ''
+            for v in subList.rss
+              string += v + '<br>'
+            subList.listRss = string
+            #get a tags list
             for tagId in subList.tags
               tagId = parseInt(tagId, 10)
               if tagId not in checkExtArray

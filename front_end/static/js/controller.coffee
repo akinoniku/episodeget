@@ -1,13 +1,12 @@
 angular.module('episodeGet.controllers', [])
   .controller('HomePageCtrl', ($scope, $http) ->
-    $http.defaults.headers.post['X-CSRFToken']=$.cookie('csrftoken');
-    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     $('.home-hero').height $(window).height()-4
     $(window).resize -> $('.home-hero').height $(window).height()-4
     $('.btn-reg-top').click -> $.scrollTo('.login-screen',1000)
     $('.hero-help').click -> $.scrollTo('.feature-intro-word',800)
     $('.feature-item').mouseenter -> $(@).stop().addClass('animated swing')
   )
+
   .controller('UserCtrl', ($scope, $http, userService)->
     $http.defaults.headers.post['X-CSRFToken']=$.cookie('csrftoken');
     $scope.user = userService.user
@@ -15,6 +14,8 @@ angular.module('episodeGet.controllers', [])
   )
 
   .controller('NavCtrl', ($scope, $http, userService)->
+    $http.defaults.headers.post['X-CSRFToken']=$.cookie('csrftoken');
+    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     $scope.login =
       username: ''
       password: ''
@@ -85,4 +86,8 @@ angular.module('episodeGet.controllers', [])
       subListService.pickTag(style, id)
     $scope.filterClean = ()->
       subListService.filterClean()
+  )
+
+  .controller('UserAccountCtrl', ($scope, $http) ->
+    $scope.test = 1
   )
