@@ -164,14 +164,14 @@ def get_sub_list_rss(request):
 
 
 def add_sub_list(request):
-# try:
-    list_id = request.POST['list_id']
-    sub_list = SubList.objects.get(pk=list_id)
-    sub_list.user.add(request.user)
-    sub_list.save()
-    return HttpResponse(json.dumps({'status': 'success'}))
-    #except:
-    #    return HttpResponseNotFound('List not found')
+    try:
+        list_id = request.POST['list_id']
+        sub_list = SubList.objects.get(pk=list_id)
+        sub_list.user.add(request.user)
+        sub_list.save()
+        return HttpResponse(json.dumps({'status': 'success'}))
+    except:
+        return HttpResponseNotFound('List not found')
 
 
 def index_manifest(request):

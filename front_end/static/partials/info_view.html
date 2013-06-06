@@ -9,8 +9,8 @@
                     <h1>{{ info.title }}  <a class="douban-link" href="{{ info.douban.url }}">豆瓣评分: <span>{{ info.douban.average }}</span></a></h1>
                     <h2><small>{{ info.douban.original_title }}</small></h2>
                     <div class="btns">
-                        <a href="{{ info.douban.url }}" class="btn-add btn btn-primary btn-large">一键添加</a>
-                        <a target="_blank" href="{{ info.douban.url }}" class="btn-douban btn btn-info btn-large">查看豆瓣</a>
+                        <a href="{{ info.douban.alt }}" class="btn-add btn btn-primary btn-large">一键添加</a>
+                        <a target="_blank" ng-href="{{ info.douban.alt }}" class="btn-douban btn btn-info btn-large">查看豆瓣</a>
                         <a ng-click="hideComplex = !hideComplex" ng-init="hideComplex = true" class="btn btn-inverse btn-large btn-douban" href="">精确订阅</a>
                     </div>
                     <p class="summary">{{ info.douban.summary }}</p>
@@ -23,14 +23,13 @@
                     <div class="row">
                         <div class="span9">
                             <ul class="unstyled list-btns">
-                                <li ng-init="list.hideRss = true" collapse="!list.show" ng-repeat="list in subList">
+                                <li ng-init="list.hideRss = true" ng-show="list.show" ng-repeat="list in subList">
                                     <a ng-click="list.hideRss = !list.hideRss" class="btn btn-block btn-large btn-info" data-value="list.id"><span class="tags-in-list" ng-repeat="tagId in list.tags">{{ tagId | getTagNameById:list.sort }}</span> </a>
                                     <div collapse="list.hideRss" class="show-rss">
                                         <p class="update-time">上次更新: {{ list.update_time }}</p>
                                         <p ng-repeat="rss in list.rss">{{ rss }}</p>
                                         <div class="add-sublist">
-                                            <a class="btn btn-primary" href="">订阅更新</a>
-                                            <a class="btn btn-success" href="">订阅更新和旧剧集</a>
+                                            <a ng-click="" class="btn btn-primary" href="">订阅更新</a>
                                         </div>
                                     </div>
                                 </li>
@@ -55,18 +54,3 @@
             </div>
         </div>
     </div>
-<div id="rssModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">就是你了？</h3>
-    </div>
-    <div class="modal-body">
-        <ul class="unstyled">
-
-        </ul>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary">选定啦</button>
-        <button class="btn" data-dismiss="modal" aria-hidden="true">不要</button>
-    </div>
-</div>

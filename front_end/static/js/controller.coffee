@@ -1,5 +1,5 @@
 angular.module('episodeGet.controllers', [])
-  .controller('HomePageCtrl', ($scope, $http) ->
+  .controller('HomePageCtrl', ->
     $('.home-hero').height $(window).height()-4
     $(window).resize -> $('.home-hero').height $(window).height()-4
     $('.btn-reg-top').click -> $.scrollTo('.login-screen',1000)
@@ -7,15 +7,11 @@ angular.module('episodeGet.controllers', [])
     $('.feature-item').mouseenter -> $(@).stop().addClass('animated swing')
   )
 
-  .controller('UserCtrl', ($scope, $http, userService)->
-    $http.defaults.headers.post['X-CSRFToken']=$.cookie('csrftoken');
-    $scope.user = userService.user
-    $scope.$on('userService.update', (event, user)-> $scope.user = user )
-  )
-
   .controller('NavCtrl', ($scope, $http, userService)->
     $http.defaults.headers.post['X-CSRFToken']=$.cookie('csrftoken');
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+    $scope.user = userService.user
+    $scope.$on('userService.update', (event, user)-> $scope.user = user )
     $scope.login =
       username: ''
       password: ''
@@ -29,24 +25,21 @@ angular.module('episodeGet.controllers', [])
       loginActionStatus: () -> @.status
       loginSubmit: () ->
         $http({method: 'POST', url: '/accounts/login/ajax/', data: $.param({username: @.username, password: @.password})})
-          .success((data) ->
+          .success (data) ->
               $scope.login.status = !!data.id
               if data.id
                 userService.updateUser(data)
                 $scope.login.logined = true
                 $scope.login.show = false
-          )
-      checkLogin : () ->
+      checkLogin :  ->
         if not $scope.login.logined
           $http({method: 'GET', url: '/accounts/current/'})
-            .success((data)->
+            .success (data)->
               userService.updateUser(data)
               $scope.login.logined = (data.id isnt 0)
-            )
-            .error((data) ->
+            .error ->
               $scope.user = userService.user
               $scope.login.logined = false
-            )
     $scope.login.checkLogin()
   )
 
@@ -59,9 +52,12 @@ angular.module('episodeGet.controllers', [])
     infoListService.getList(sort)
   )
 
-  .controller('InfoViewCtrl', ($scope, $http, $routeParams, infoListService, infoService, tagsListService, subListService)->
-    id = $routeParams.id
-    sort = $routeParams.sort
+  .controller('InfoViewCtrl', ($scope, $http, $routeParams,
+                               infoListService, infoService, tagsListService, subListService, userService)->
+    [id, sort] = [$routeParams.id, $routeParams.sort]
+    # set user
+    $scope.user = userService.user
+    $scope.$on('userService.update', (event, user)-> $scope.user = user )
 
     # # for list information
     $scope.$on('infoListService.update', (event, List)-> $scope.list = List )
@@ -80,13 +76,18 @@ angular.module('episodeGet.controllers', [])
     )
 
     #tag select
-    $scope.tagClass = ()->
-      if @tag.switch then 'tag' else 'tag disabled'
-    $scope.pickTag = (style, id)->
-      subListService.pickTag(style, id)
-    $scope.filterClean = ()->
-      subListService.filterClean()
-  )
+    $scope.tagClass = -> if @tag.switch then 'tag' else 'tag disabled'
+    $scope.pickTag = (style, id) -> subListService.pickTag(style, id)
+    $scope.filterClean = -> subListService.filterClean()
+
+    #add subList for user
+    $scope.addSubList = (listId) ->
+      $http({method: 'GET', url: 'add_list_ajax/', data: $.param(listId: listId)})
+        .success ->
+          var1 = 1
+        .error ->
+          var1 =1
+    )
 
   .controller('UserAccountCtrl', ($scope, $http) ->
     $scope.test = 1
