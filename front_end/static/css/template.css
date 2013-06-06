@@ -412,8 +412,11 @@ input:-moz-placeholder {
 #info-view .list-btns li {
   margin-top: 10px;
 }
+#info-view .list-btns li .btn-block {
+  text-align: left;
+  text-indent: 30px;
+}
 #info-view .complex-selector {
-  min-height: 800px;
   margin-bottom: 50px;
   margin-top: 50px;
 }
@@ -428,6 +431,36 @@ input:-moz-placeholder {
 }
 #info-view .complex-selector .tags-in-list {
   margin-right: 20px;
+}
+#info-view .show-rss {
+  background-color: white;
+  margin-top: 10px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+#info-view .show-rss p {
+  padding-top: 7px;
+  padding-bottom: 3px;
+  padding-left: 20px;
+  text-decoration: none;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  width: 90%;
+  white-space: nowrap;
+  border-bottom: 1px dotted #DDD;
+}
+#info-view .show-rss .update-time {
+  padding-top: 20px;
+}
+#info-view .show-rss .add-sublist {
+  padding: 10px;
+  float: right;
+  clear: both;
 }
 #rssModal .modal-body ul li {
   text-decoration: none;

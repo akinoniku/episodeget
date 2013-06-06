@@ -11,19 +11,29 @@
                     <div class="btns">
                         <a href="{{ info.douban.url }}" class="btn-add btn btn-primary btn-large">一键添加</a>
                         <a target="_blank" href="{{ info.douban.url }}" class="btn-douban btn btn-info btn-large">查看豆瓣</a>
-                        <a ng-click="showComplex = !showComplex" ng-init="showComplex = false" class="btn btn-inverse btn-large btn-douban" href="">精确订阅</a>
+                        <a ng-click="hideComplex = !hideComplex" ng-init="hideComplex = true" class="btn btn-inverse btn-large btn-douban" href="">精确订阅</a>
                     </div>
                     <p class="summary">{{ info.douban.summary }}</p>
                 </div>
             </div>
-            <div collapse="true" class="complex-selector hidden-phone">
+            <div collapse="hideComplex" class="complex-selector hidden-phone">
                 <hr class="nice-hr">
                 <h2 class="mid">精确订阅<br><small>多数人都用不着吧？</small></h2>
                 <div class="tags">
                     <div class="row">
                         <div class="span9">
                             <ul class="unstyled list-btns">
-                                <li popover="{{ list.listRss }}" ng-show="list.show" ng-click="list.show = false" ng-repeat="list in subList"><a class="btn btn-block btn-large btn-info" data-value="list.id"><span class="tags-in-list" ng-repeat="tagId in list.tags">{{ tagId | getTagNameById:list.sort }}</span> </a></li>
+                                <li ng-init="list.hideRss = true" collapse="!list.show" ng-repeat="list in subList">
+                                    <a ng-click="list.hideRss = !list.hideRss" class="btn btn-block btn-large btn-info" data-value="list.id"><span class="tags-in-list" ng-repeat="tagId in list.tags">{{ tagId | getTagNameById:list.sort }}</span> </a>
+                                    <div collapse="list.hideRss" class="show-rss">
+                                        <p class="update-time">上次更新: {{ list.update_time }}</p>
+                                        <p ng-repeat="rss in list.rss">{{ rss }}</p>
+                                        <div class="add-sublist">
+                                            <a class="btn btn-primary" href="">订阅更新</a>
+                                            <a class="btn btn-success" href="">订阅更新和旧剧集</a>
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                         <div class="span3">

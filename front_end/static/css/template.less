@@ -421,9 +421,12 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
   }
   .list-btns li{
     margin-top: 10px;
+    .btn-block{
+      text-align: left;
+      text-indent: 30px;
+    }
   }
   .complex-selector {
-    min-height: 800px;
     margin-bottom: 50px;
     margin-top: 50px;
     .add-select.dk_container {
@@ -437,6 +440,31 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
     }
     .tags-in-list{
       margin-right: 20px;
+    }
+  }
+  .show-rss{
+    background-color: white;
+    margin-top: 10px;
+    .border-radius(4px);
+    p {
+      padding-top: 7px;
+      padding-bottom: 3px;
+      padding-left: 20px;
+      text-decoration: none;
+      overflow: hidden;
+      display: inline-block;
+      text-overflow: ellipsis;
+      width: 90%;
+      white-space: nowrap;
+      border-bottom: 1px dotted #DDD;
+    }
+    .update-time{
+      padding-top: 20px;
+    }
+    .add-sublist{
+      padding: 10px;
+      float: right;
+      clear: both;
     }
   }
 }

@@ -34,10 +34,10 @@ angular.module('episodeGet.services', [])
       if bigInfoList
         for info in bigInfoList
           if info.id is parseInt(id, 10)
-            return info
             break
+        return info
       else
-        $http({method: 'GET', url: '/info/'+id+'/.json'})
+        $http({method: 'GET', url: "/info/#{id}/.json"})
           .success((data) =>
             return data
           )
@@ -84,10 +84,6 @@ angular.module('episodeGet.services', [])
           tagsList = tagsListService.list[sort]
           checkExtArray = []
           for subList in @subList
-            string = ''
-            for v in subList.rss
-              string += v + '<br>'
-            subList.listRss = string
             #get a tags list
             for tagId in subList.tags
               tagId = parseInt(tagId, 10)
