@@ -104,8 +104,11 @@ class SubListList(generics.ListAPIView):
     def get_queryset(self):
         queryset = SubList.objects.all()
         info = self.request.QUERY_PARAMS.get('info', None)
+        user = self.request.QUERY_PARAMS.get('user', None)
         if info is not None:
             queryset = queryset.filter(info=info)
+        elif user is not None:
+            queryset = queryset.filter(user=self.request.user)
         return queryset
 
 

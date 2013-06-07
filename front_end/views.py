@@ -170,8 +170,8 @@ def add_sub_list(request):
         sub_list.user.add(request.user)
         sub_list.save()
         return HttpResponse(json.dumps({'status': 'success'}))
-    except:
-        return HttpResponseNotFound('List not found')
+    except Exception,e:
+        return HttpResponseForbidden(e)
 
 
 def index_manifest(request):

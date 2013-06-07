@@ -1,14 +1,27 @@
 angular.module('episodeGet.services', [])
-  .service('userService', ['$rootScope',($rootScope) ->
+  .service('userService', ['$rootScope', '$http',($rootScope, $http) ->
     user:
       id: 0
-      last_login: ""
+      last_login: null
       username: "游客"
-      email: ""
+      email: null
+      list: null
       showUsername: () -> @username
     updateUser: (user) ->
       @user = user
       $rootScope.$broadcast('userService.update', @user)
+    loginSubmit: (username, password) ->
+      $http({method: 'POST', url: '/accounts/login/ajax/', data: $.param({username: username, password: password})})
+        .success( (data) =>
+          @user = data
+          $rootScope.$broadcast('userService.login', @user)
+        )
+    listUpdate: ->
+      $http({method: 'GET', url: '/sub_list/.json', params:{user: 'me'}})
+        .success((data) =>
+          @user.list = data.results
+          $rootScope.$broadcast('userService.listUpdate', @user)
+        )
   ])
   .service('infoListService', ['$rootScope', '$http', ($rootScope, $http)->
       list:

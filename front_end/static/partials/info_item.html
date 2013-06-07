@@ -2,9 +2,9 @@
     <a target="_blank" href="{{ info.douban.alt }}" class="info-average">{{ info.douban.average }}</a>
     <div class="info-border"> </div>
     <div class="info-pic">
-        <a ng-href="/#/view/{{ sort }}/{{ info.id }}"><img ng-src="{{ info.douban.images }}" ></a>
+        <a ng-href="/#/view/{{ info.sort | lowercase }}/{{ info.id }}"><img ng-src="{{ info.douban.images }}" ></a>
     </div>
     <div class="info-details">
-        <a ng-href="/#/view/{{ sort }}/{{ info.id }}" class="info-title">{{ info.title }}</a>
+        <a ng-href="/#/view/{{ info.sort | lowercase }}/{{ info.id }}" class="info-title">{{ info.title }}</a>
     </div>
 </div>

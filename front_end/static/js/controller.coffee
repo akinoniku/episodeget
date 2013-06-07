@@ -19,27 +19,29 @@ angular.module('episodeGet.controllers', [])
       show: false
       login_id : 'top'
       logined : !!userService.user.id
-      showLogin : () -> @.show = !@.show
-      isShownLogin : () -> @.show
-      isLogined : () ->@.logined
-      loginActionStatus: () -> @.status
-      loginSubmit: () ->
-        $http({method: 'POST', url: '/accounts/login/ajax/', data: $.param({username: @.username, password: @.password})})
-          .success (data) ->
-              $scope.login.status = !!data.id
-              if data.id
-                userService.updateUser(data)
-                $scope.login.logined = true
-                $scope.login.show = false
-      checkLogin :  ->
+      showLogin : () -> @show = !@show
+      isShownLogin : () -> @show
+      isLogined : () ->@logined
+      loginActionStatus: () -> @status
+      loginSubmit: () -> $scope.login.status = userService.loginSubmit(@username, @password)
+      checkLogin:  ->
         if not $scope.login.logined
           $http({method: 'GET', url: '/accounts/current/'})
-            .success (data)->
+            .success((data)->
               userService.updateUser(data)
               $scope.login.logined = (data.id isnt 0)
-            .error ->
+            )
+            .error(->
               $scope.user = userService.user
               $scope.login.logined = false
+            )
+    $scope.$on('userService.login', (event, user)->
+      $scope.user = user
+      $scope.login.status = !!user.id
+      if user.id
+        $scope.login.logined = true
+        $scope.login.show = false
+    )
     $scope.login.checkLogin()
   )
 
@@ -52,8 +54,8 @@ angular.module('episodeGet.controllers', [])
     infoListService.getList(sort)
   )
 
-  .controller('InfoViewCtrl', ($scope, $http, $routeParams,
-                               infoListService, infoService, tagsListService, subListService, userService)->
+  .controller('InfoViewCtrl', ($scope, $http, $routeParams, $location, infoListService, infoService, tagsListService, subListService, userService)->
+
     [id, sort] = [$routeParams.id, $routeParams.sort]
     # set user
     $scope.user = userService.user
@@ -79,16 +81,18 @@ angular.module('episodeGet.controllers', [])
     $scope.tagClass = -> if @tag.switch then 'tag' else 'tag disabled'
     $scope.pickTag = (style, id) -> subListService.pickTag(style, id)
     $scope.filterClean = -> subListService.filterClean()
+    $scope.addListBtn = '添加'
 
     #add subList for user
-    $scope.addSubList = (listId) ->
-      $http({method: 'GET', url: 'add_list_ajax/', data: $.param(listId: listId)})
-        .success ->
-          var1 = 1
-        .error ->
-          var1 =1
-    )
+    $scope.addSubList = ->
+      $http({method: 'POST', url: 'add_list_ajax/', data: $.param(list_id: @list.id)})
+        .success(-> $location.path('/accounts'))
+        .error(-> $scope.addListBtn = '咦，好像出错了' )
+  )
 
-  .controller('UserAccountCtrl', ($scope, $http) ->
-    $scope.test = 1
+  .controller('UserAccountCtrl', ($scope, $http, userService, tagsListService, infoListService) ->
+    $scope.user = userService.user
+    userService.listUpdate()
+    $scope.$on('userService.listUpdate', (event, user)-> $scope.user = user)
+
   )

@@ -420,15 +420,6 @@ input:-moz-placeholder {
   margin-bottom: 50px;
   margin-top: 50px;
 }
-#info-view .complex-selector .add-select.dk_container {
-  margin-top: 20px;
-}
-#info-view .complex-selector .add-select.dk_container .dk_options {
-  width: auto;
-}
-#info-view .complex-selector .add-select.dk_container .dk_options :before {
-  left: 15px;
-}
 #info-view .complex-selector .tags-in-list {
   margin-right: 20px;
 }
@@ -455,10 +446,13 @@ input:-moz-placeholder {
   border-bottom: 1px dotted #DDD;
 }
 #info-view .show-rss .update-time {
-  padding-top: 20px;
+  font-size: 18px;
+  width: 75%;
+  margin-top: 10px;
 }
 #info-view .show-rss .add-sublist {
-  padding: 10px;
+  padding-top: 15px;
+  padding-right: 15px;
   float: right;
   clear: both;
 }

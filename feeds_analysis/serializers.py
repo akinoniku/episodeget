@@ -35,6 +35,7 @@ class InfoSerializer(serializers.ModelSerializer):
 
 class SubListSerializer(serializers.ModelSerializer):
     rss = RelatedField(many=True)
+    info = InfoSerializer()
 
     class Meta:
         model = SubList
