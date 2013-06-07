@@ -361,6 +361,22 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
     width: 22px;
     text-align: center;
   }
+  .info-average:hover{
+    background-color: @EMERLAND;
+    border-color: @EMERLAND;
+  }
+  .last-update {
+    color: @MIDNIGHTBLUE;
+    position: relative;
+    background: rgba(255, 255, 255, 0.7);
+    display: block;
+    text-align: right;
+    margin-top: -25px;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    padding-right: 8px;
+    z-index: 10;
+  }
 }
 
 #info-view{
@@ -587,6 +603,72 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
   .sub-lists{
     background-color: @CLOUDS;
   }
+}
+@-webkit-keyframes extendBorder {
+  from {
+  border-width: 5px 5px 5px 5px;
+  margin-left: 0;
+  margin-top: 0;
+  }
+  to {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top:-15px;
+  }
+}
+
+.extentBorderEle{
+  border-width: 25px 25px 40px 25px;
+  margin-left: -20px;
+  margin-top:-15px;
+}
+
+.smallBorderEle{
+  border-width: 5px 5px 5px 5px;
+  margin-left: 0;
+  margin-top: 0;
+}
+
+@-moz-keyframes extendBorder {
+  from { .smallBorderEle }
+  to { .extentBorderEle }
+}
+@-ms-keyframes extendBorder {
+  from { .smallBorderEle }
+  to { .extentBorderEle }
+}
+@-o-keyframes extendBorder {
+  from { .smallBorderEle }
+  to { .extentBorderEle }
+}
+@keyframes extendBorder {
+  from { .smallBorderEle }
+  to { .extentBorderEle }
+}
+
+@-moz-keyframes smallBar {
+  from { .extentBorderEle }
+  to { .smallBorderEle }
+}
+@-ms-keyframes smallBar {
+  from { .extentBorderEle }
+  to { .smallBorderEle }
+}
+@-o-keyframes smallBar {
+  from { .extentBorderEle }
+  to { .smallBorderEle }
+}
+@keyframes smallBar {
+  from { .extentBorderEle }
+  to { .smallBorderEle }
+}
+
+.addBorder{
+  .animation(extendBar 1s linear)
+}
+
+.removeBorder{
+  .animation(smallBar 1s linear)
 }
 
   // 水平状态的手机及以下

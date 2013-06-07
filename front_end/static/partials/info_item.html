@@ -1,4 +1,4 @@
-<div class="info-item" data-id="{{ info.id }}">
+<div ng-show="inListView" class="info-item" data-id="{{ info.id }}">
     <a target="_blank" href="{{ info.douban.alt }}" class="info-average">{{ info.douban.average }}</a>
     <div class="info-border"> </div>
     <div class="info-pic">
@@ -6,5 +6,16 @@
     </div>
     <div class="info-details">
         <a ng-href="/#/view/{{ info.sort | lowercase }}/{{ info.id }}" class="info-title">{{ info.title }}</a>
+    </div>
+</div>
+<div tooltip="{{ list.tagsString }}" ng-show="inAccount" class="info-item" data-id="{{ info.id }}">
+    <a target="_blank" ng-click="removeSubList()" class="info-average" href=""><i class="icon icon-remove"></i></a>
+    <div class="info-border"> </div>
+    <div class="info-pic">
+        <a ng-href=""><img ng-src="{{ info.douban.images }}" ></a>
+        <span class="last-update"><i class="icon icon-calendar"></i> {{ list.create_time | niceTime }}</span>
+    </div>
+    <div class="info-details">
+        <a ng-href="" class="info-title">{{ info.title }}</a>
     </div>
 </div>

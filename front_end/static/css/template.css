@@ -347,6 +347,22 @@ input:-moz-placeholder {
   width: 22px;
   text-align: center;
 }
+.info-item .info-average:hover {
+  background-color: #2ecc71;
+  border-color: #2ecc71;
+}
+.info-item .last-update {
+  color: #2c3e50;
+  position: relative;
+  background: rgba(255, 255, 255, 0.7);
+  display: block;
+  text-align: right;
+  margin-top: -25px;
+  padding-top: 5px;
+  padding-bottom: 3px;
+  padding-right: 8px;
+  z-index: 10;
+}
 #info-view {
   margin-top: 50px;
 }
@@ -581,6 +597,138 @@ input:-moz-placeholder {
 }
 .account-center .sub-lists {
   background-color: #ecf0f1;
+}
+@-webkit-keyframes extendBorder {
+  from {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+  to {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+}
+.extentBorderEle {
+  border-width: 25px 25px 40px 25px;
+  margin-left: -20px;
+  margin-top: -15px;
+}
+.smallBorderEle {
+  border-width: 5px 5px 5px 5px;
+  margin-left: 0;
+  margin-top: 0;
+}
+@-moz-keyframes extendBorder {
+  from {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+  to {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+}
+@-ms-keyframes extendBorder {
+  from {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+  to {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+}
+@-o-keyframes extendBorder {
+  from {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+  to {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+}
+@keyframes extendBorder {
+  from {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+  to {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+}
+@-moz-keyframes smallBar {
+  from {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+  to {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+@-ms-keyframes smallBar {
+  from {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+  to {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+@-o-keyframes smallBar {
+  from {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+  to {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+@keyframes smallBar {
+  from {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+  to {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+.addBorder {
+  -webkit-animation: extendBar 1s linear;
+  -moz-animation: extendBar 1s linear;
+  -ms-animation: extendBar 1s linear;
+  -o-animation: extendBar 1s linear;
+  animation: extendBar 1s linear;
+}
+.removeBorder {
+  -webkit-animation: smallBar 1s linear;
+  -moz-animation: smallBar 1s linear;
+  -ms-animation: smallBar 1s linear;
+  -o-animation: smallBar 1s linear;
+  animation: smallBar 1s linear;
 }
 @media (max-width: 480px) {
   

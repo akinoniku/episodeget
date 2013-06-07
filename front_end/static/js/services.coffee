@@ -84,31 +84,32 @@ angular.module('episodeGet.services', [])
       LG: []
     getList: (sort, info)->
       $http({method: 'GET', url: '/sub_list/.json', params:{info: info}})
-        .success((data)=>
-          @subList = data.results
-          for list in @subList
-            list.show = true
-          @subListTags =
-            TM: []
-            CL: []
-            FM: []
-            LG: []
-          #getSubListTags
-          tagsList = tagsListService.list[sort]
-          checkExtArray = []
-          for subList in @subList
-            #get a tags list
-            for tagId in subList.tags
-              tagId = parseInt(tagId, 10)
-              if tagId not in checkExtArray
-                checkExtArray.push(tagId)
-                for id, tag of tagsList
-                  if parseInt(tag.id, 10) is tagId
-                    tag.switch = true
-                    @subListTags[tag.style].push(tag)
-                    break
-          $rootScope.$broadcast('subListService.update', @subList, @subListTags)
-        )
+        .success((data)=> @calList(data.results))
+    calList:(subList=@subList) ->
+      @subList = subList
+      for list in @subList
+        list.show = true
+      @subListTags =
+        TM: []
+        CL: []
+        FM: []
+        LG: []
+      #getSubListTags
+      checkExtArray = []
+      for subList in @subList
+        tagsList = tagsListService.list[angular.lowercase(subList.sort)]
+        #get a tags list
+        for tagId in subList.tags
+          tagId = parseInt(tagId, 10)
+          if tagId not in checkExtArray
+            checkExtArray.push(tagId)
+            for id, tag of tagsList
+              if parseInt(tag.id, 10) is tagId
+                tag.switch = true
+                @subListTags[tag.style].push(tag)
+                break
+      $rootScope.$broadcast('subListService.update', @subList, @subListTags)
+
     pickTag: (style, tagId) ->
       for tag in @subListTags[style]
         if tag.id is tagId
@@ -127,6 +128,7 @@ angular.module('episodeGet.services', [])
           if parseInt(tag.id, 10) not in avaliableTags
             tag.switch = false
       $rootScope.$broadcast('subListService.update', @subList, @subListTags)
+
     filterClean: () ->
       for key, tagStyle of @subListTags
         for tag in tagStyle

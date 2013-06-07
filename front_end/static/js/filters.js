@@ -25,6 +25,39 @@
         return (_ref = (_ref1 = tagsListService.list[angular.lowercase(sort)][input]) != null ? _ref1.title : void 0) != null ? _ref : '';
       };
     }
+  ]).filter('niceTime', [
+    function() {
+      return function(input) {
+        var days, hours, longtime, minutes, months, myDate, nowtime, second, twomonths;
+
+        second = 1000;
+        minutes = second * 60;
+        hours = minutes * 60;
+        days = hours * 24;
+        months = days * 30;
+        twomonths = days * 365;
+        myDate = new Date(Date.parse(input));
+        if (isNaN(myDate)) {
+          myDate = new Date(input.replace(/-/g, "/"));
+        }
+        nowtime = new Date();
+        longtime = nowtime.getTime() - myDate.getTime();
+        switch (false) {
+          case !(longtime > months):
+            return "" + (Math.floor(longtime / months)) + "个月前";
+          case !(longtime > days):
+            return "" + (Math.floor(longtime / (days * 7))) + "周前";
+          case !(longtime > days):
+            return "" + (Math.floor(longtime / days)) + "天前";
+          case !(longtime > hours):
+            return "" + (Math.floor(longtime / hours)) + "小时前";
+          case !(longtime > minutes):
+            return "" + (Math.floor(longtime / minutes)) + "分钟前";
+          default:
+            return "刚刚";
+        }
+      };
+    }
   ]);
 
 }).call(this);

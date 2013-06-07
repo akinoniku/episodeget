@@ -82,7 +82,6 @@ def user_xunlei(request):
     status = False
     if 'xunlei-id' in request.POST and 'xunlei-password' in request.POST:
         from xunlei.lixian_control import add_user
-
         status = add_user(request.user, request.POST['xunlei-id'], request.POST['xunlei-password'])
     return HttpResponse(json.dumps({'status': status}))
 
@@ -168,6 +167,17 @@ def add_sub_list(request):
         list_id = request.POST['list_id']
         sub_list = SubList.objects.get(pk=list_id)
         sub_list.user.add(request.user)
+        sub_list.save()
+        return HttpResponse(json.dumps({'status': 'success'}))
+    except Exception,e:
+        return HttpResponseForbidden(e)
+
+
+def remove_sub_list(request):
+    try:
+        list_id = request.POST['list_id']
+        sub_list = SubList.objects.get(pk=list_id)
+        sub_list.user.remove(request.user)
         sub_list.save()
         return HttpResponse(json.dumps({'status': 'success'}))
     except Exception,e:

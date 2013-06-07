@@ -51,6 +51,7 @@ angular.module('episodeGet.controllers', [])
     $scope.currentList = infoListService.list[sort]
     $scope.sortInfo = infoListService.sortInfo
     $scope.sort = sort
+    $scope.inListView = true;
     infoListService.getList(sort)
   )
 
@@ -90,9 +91,18 @@ angular.module('episodeGet.controllers', [])
         .error(-> $scope.addListBtn = '咦，好像出错了' )
   )
 
-  .controller('UserAccountCtrl', ($scope, $http, userService, tagsListService, infoListService) ->
+  .controller('UserAccountCtrl', ($scope, $http, userService, $filter)->
+    $scope.inAccount = true;
     $scope.user = userService.user
     userService.listUpdate()
-    $scope.$on('userService.listUpdate', (event, user)-> $scope.user = user)
-
+    $scope.$on('userService.listUpdate', (event, user)->
+      $scope.user = user
+      for list in user.list
+        list.tagsString = ''
+        for tag in list.tags
+         list.tagsString += ' '+ $filter('getTagNameById')(tag, list.sort)
+    )
+    $scope.removeSubList = ->
+      $http({method: 'POST', url: 'remove_list_ajax/', data: $.param(list_id: @list.id)})
+        .success(-> userService.listUpdate() )
   )
