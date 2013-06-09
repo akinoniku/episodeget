@@ -24,14 +24,19 @@
                         <div class="span9">
                             <ul class="unstyled list-btns">
                                 <li ng-init="list.hideRss = true" ng-show="list.show" ng-repeat="list in subList">
-                                    <a ng-click="list.hideRss = !list.hideRss" class="btn btn-block btn-large btn-info" data-value="list.id"><span class="tags-in-list" ng-repeat="tagId in list.tags">{{ tagId | getTagNameById:list.sort }}</span> </a>
+                                    <a ng-click="list.hideRss = !list.hideRss" class="btn btn-block btn-large btn-info" data-value="list.id">
+                                        <span class="tags">
+                                            <span class="tags-in-list" ng-repeat="tagId in list.tags">{{ tagId | getTagNameById:list.sort }}</span>
+                                        </span>
+                                        <span class="tags-in-list pull-right">{{ list.rss | averageDate }}</span>
+                                    </a>
                                     <div collapse="list.hideRss" class="show-rss">
                                         <div class="add-sublist">
                                             <a ng-show="!!user.id" ng-click="addSubList()" class="btn btn-primary" href="">{{ addListBtn }}</a>
                                             <a ng-show="!user.id" class="btn btn-inverse disabled" href="">请先登录</a>
                                         </div>
                                         <p class="update-time">上次更新: {{ list.update_time }} </p>
-                                        <p ng-repeat="rss in list.rss">{{ rss }}</p>
+                                        <p ng-repeat="rss in list.rss"><a href="{{ rss.link }}" target="_blank">{{ rss.title }}</a></p>
                                     </div>
                                 </li>
                             </ul>

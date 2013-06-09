@@ -6,4 +6,11 @@ angular.module('episodeGet', ['ui.bootstrap', 'episodeGet.controllers', 'episode
       .when('/view/:sort/:id', {templateUrl: 'static/partials/info_view.html', controller:'InfoViewCtrl'})
       .when('/accounts/', {templateUrl: 'static/partials/accounts.html', controller:'UserAccountCtrl'})
       .otherwise({redirectTo: '/'})
-])
+  ])
+  .config(['$compileProvider', ($compileProvider) ->
+    $compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|magnet):/)
+  ])
+  .config(['$httpProvider', ($httpProvider) ->
+    $httpProvider.defaults.headers.post['X-CSRFToken']=$.cookie('csrftoken')
+    $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded"
+  ])

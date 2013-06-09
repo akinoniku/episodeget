@@ -432,6 +432,13 @@ input:-moz-placeholder {
   text-align: left;
   text-indent: 30px;
 }
+#info-view .list-btns li .btn-block .tags {
+  max-width: 75%;
+  display: inline-block;
+  overflow: hidden;
+  height: 20px;
+  margin-left: -30px;
+}
 #info-view .complex-selector {
   margin-bottom: 50px;
   margin-top: 50px;

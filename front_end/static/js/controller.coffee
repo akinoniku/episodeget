@@ -8,8 +8,6 @@ angular.module('episodeGet.controllers', [])
   )
 
   .controller('NavCtrl', ($scope, $http, userService)->
-    $http.defaults.headers.post['X-CSRFToken']=$.cookie('csrftoken');
-    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     $scope.user = userService.user
     $scope.$on('userService.update', (event, user)-> $scope.user = user )
     $scope.login =
