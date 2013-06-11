@@ -175,12 +175,12 @@ class Douban(models.Model):
 class SubList(models.Model):
     sort = models.CharField(max_length=2, choices=SORT_CHOICES)
     tags_index = models.CharField(max_length=300, blank=True, null=True)
-    info = models.ForeignKey(Info, blank=True, null=True)
+    info = models.ManyToManyField(Info, blank=True, null=True)
     tags = models.ManyToManyField(Tags, blank=True, null=True)
     rss = models.ManyToManyField(Rss, blank=True, null=True)
     user = models.ManyToManyField(User, blank=True, null=True)
     create_time = models.DateTimeField(auto_created=True)
-    update_time = models.DateTimeField(auto_now=True)
+    update_time = models.DateTimeField()
 
     def count_rss(self):
         return self.rss.all().count()
