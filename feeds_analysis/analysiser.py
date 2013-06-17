@@ -38,8 +38,10 @@ def analysis_tags(rss):
         for tag in tag_list:
             if rss.title.find(tag) != -1:
                 if tags.style == 'TL':
-                    info_tags = Info.objects.filter(title=tags.title)
-                    info_tags = info_tags[0]
+                    try:
+                        info_tags = Info.objects.get(title=tags.title)
+                    except Exception, e:
+                        info_tags = None
                 tags_list.append(tags)
                 break
     if not len(tags_list):
@@ -51,17 +53,19 @@ def analysis_tags(rss):
 
     tag_string_list.sort()
     tag_string_list = ','.join(str(i) for i in tag_string_list)
-    rows = SubList.objects.filter(tags_index=tag_string_list)
+    try:
+        resultList = SubList.objects.get(tags_index=tag_string_list)
+    except:
+        resultList = None
 
-    if len(rows):
-        rows.filter(rss=rss)
-        if not len(rows):
-            rows[0].rss.add(rss)
-            rows[0].save()
-            send_notification(rss, rows[0])
+    if resultList:
+        if resultList.rss is rss:
+            resultList.rss.add(rss)
+            resultList.rss.update_time = datetime.now()
+            resultList.save()
+            # send_notification(rss, rows[0])
     else:
         new_list = SubList(
-            info=info_tags,
             sort=rss.sort,
             tags_index=tag_string_list,
             create_time=datetime.now(),
@@ -69,10 +73,12 @@ def analysis_tags(rss):
         )
         new_list.save()
         new_list.rss.add(rss)
+        if info_tags:
+            new_list.info.add(info_tags)
         for tags in tags_list:
             new_list.tags.add(tags)
         new_list.save()
-        send_notification(rss, new_list)
+        # send_notification(rss, new_list)
     return True
 
 

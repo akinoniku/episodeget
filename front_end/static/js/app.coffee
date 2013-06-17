@@ -5,6 +5,7 @@ angular.module('episodeGet', ['ui.bootstrap', 'episodeGet.controllers', 'episode
       .when('/list/:sort', {templateUrl: 'static/partials/info_list.html', controller:'InfoListCtrl'})
       .when('/view/:sort/:id', {templateUrl: 'static/partials/info_view.html', controller:'InfoViewCtrl'})
       .when('/accounts/', {templateUrl: 'static/partials/accounts.html', controller:'UserAccountCtrl'})
+      .when('/accounts/prefer/', {templateUrl: 'static/partials/prefer.html', controller:'PreferCtrl'})
       .otherwise({redirectTo: '/'})
   ])
   .config(['$compileProvider', ($compileProvider) ->

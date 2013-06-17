@@ -104,3 +104,11 @@ angular.module('episodeGet.controllers', [])
       $http({method: 'POST', url: 'remove_list_ajax/', data: $.param(list_id: @list.id)})
         .success(-> userService.listUpdate() )
   )
+  .controller('PreferCtrl', ($scope, $http)->
+    $scope.inAccount = true;
+    $scope.user = userService.user
+    # this should be sortable
+    # get the tags local storage
+    # preview the prefer list in old style
+    # render to responce
+  )
