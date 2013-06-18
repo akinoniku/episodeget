@@ -1,4 +1,4 @@
-angular.module('episodeGet', ['ui.bootstrap','ui.directives.sortable', 'episodeGet.controllers', 'episodeGet.services', 'episodeGet.filter'], null)
+angular.module('episodeGet', ['ui.bootstrap','ui.sortable', 'episodeGet.controllers', 'episodeGet.services', 'episodeGet.filter'], null)
   .config(['$routeProvider', ($routeProvider) ->
     $routeProvider
       .when('/', {templateUrl: 'static/partials/home_page.html', controller:'HomePageCtrl'})
