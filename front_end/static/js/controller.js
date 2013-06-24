@@ -171,9 +171,9 @@
     $scope.user = userService.user;
     $scope.tagsList = {};
     resortTag = function(tags) {
-      var k, subListTags, tag;
+      var k, preSubListTags, subListTags, tag;
 
-      subListTags = {
+      preSubListTags = {
         'TM': [],
         'CL': [],
         'FM': [],
@@ -181,7 +181,12 @@
       };
       for (k in tags) {
         tag = tags[k];
-        subListTags[tag.style].push(tag);
+        preSubListTags[tag.style].push(tag);
+      }
+      subListTags = [];
+      for (k in preSubListTags) {
+        tags = preSubListTags[k];
+        subListTags.push(tags);
       }
       return subListTags;
     };

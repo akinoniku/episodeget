@@ -109,9 +109,12 @@ angular.module('episodeGet.controllers', [])
     $scope.user = userService.user
     $scope.tagsList = {}
     resortTag = (tags) ->
-      subListTags = {'TM': [], 'CL': [], 'FM': [], 'LG': []}
+      preSubListTags = {'TM': [], 'CL': [], 'FM': [], 'LG': []}
       for k,tag of tags
-        subListTags[tag.style].push(tag)
+        preSubListTags[tag.style].push(tag)
+      subListTags = []
+      for k,tags of preSubListTags
+        subListTags.push tags
       subListTags
 
     for sort in ['an', 'ep']

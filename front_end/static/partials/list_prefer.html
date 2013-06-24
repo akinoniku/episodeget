@@ -13,20 +13,12 @@
     </div>
     <hr class="nice-hr container">
     <div class="container p-container an">
-        <div ng-model="tagsList[sort]" class="row p-sort">
-            <div ui-sortable ng-repeat="(typeKey,type) in tagsList[sort]" class="p-tags span3">
-                <div class="styles">
-                    <h4 style="text-align: center; cursor: move;">{{ typeKey | tagStyle }}</h4>
-                    <ul ui-sortable ng-model="type" class="unstyled tagsinput" style="height: auto;">
-                        <li style="cursor: move;" ng-repeat="(key, item) in type" >
-                            <span class="tag">
-                                <span> {{ item.title }} </span>
-                                <a class="tagsinput-remove-link fui-menu-16"></a>
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <accordion ui-sortable ng-model="tagsList[sort]" class="row p-sort">
+            <accordion-group ng-repeat="(typeKey,type) in tagsList[sort]" heading="{{ type.0.style | tagStyle }}">
+                <ul class="unstyled" ui-sortable ng-model="type">
+                    <li ng-repeat="(key, item) in type"><span>{{ item.title }}</span></li>
+                </ul>
+            </accordion-group>
+        </accordion>
     </div>
 </div>
