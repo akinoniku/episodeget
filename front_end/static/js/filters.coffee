@@ -20,7 +20,6 @@ angular.module('episodeGet.filter', [])
       hours = minutes * 60
       days = hours * 24
       months = days * 30
-      twomonths = days * 365
       myDate = new Date(Date.parse(input))
       myDate = new Date(input.replace(/-/g, "/")) if (isNaN(myDate))
       nowtime = new Date()

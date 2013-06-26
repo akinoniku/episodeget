@@ -9,16 +9,34 @@
                 </div>
             </div>
         </div>
-        <a ng-init="sort = 'an'" style="font-size: 18px; padding: 10px 14px 9px; margin-top: 10px;" class="btn btn-success save-btn pull-right">保存</a>
+        <a ng-click="savePrefer()" style="font-size: 18px; padding: 10px 14px 9px; margin-top: 10px;" class="btn btn-success save-btn pull-right">保存</a>
     </div>
     <hr class="nice-hr container">
-    <div class="container p-container an">
-        <accordion ui-sortable ng-model="tagsList[sort]" class="row p-sort">
-            <accordion-group ng-repeat="(typeKey,type) in tagsList[sort]" heading="{{ type.0.style | tagStyle }}">
-                <ul class="unstyled" ui-sortable ng-model="type">
-                    <li ng-repeat="(key, item) in type"><span>{{ item.title }}</span></li>
-                </ul>
-            </accordion-group>
-        </accordion>
+    <div class="container">
+        <div class="row">
+            <accordion ng-model="tagsList[sort]" class="span8">
+                <accordion-group ng-repeat="(typeKey,type) in tagsList[sort]" heading="{{ type.0.style | tagStyle }}">
+                    <ul style="height: auto;" class="unstyled tagsinput" ng-model="type">
+                        <li ng-click="addTag(item);" class="tag" ng-repeat="(key, item) in type"><span>{{ item.title }}</span><a style="margin-left: 5px;" class="icon icon-plus"></a></li>
+                    </ul>
+                </accordion-group>
+            </accordion>
+            <div class="span4">
+                <div id="tagsinput_tagsinput" class="tagsinput " style="height: 100%;">
+                    <span ui-sortable ng-model="userPrefer[sort]" >
+                        <span class="selected-tags" ng-repeat="(key,tag) in userPrefer[sort]">
+                            <span ng-click="removeTag(key)" class="tag clearfix">
+                                <span>{{ tag.title }}</span><a style="margin-left: 5px;" class="icon icon-minus"></a></span>
+                        </span>
+                    </span>
+                    <div class="tagsinput-add-container">
+                        <input placeholder="直接搜索添加" type="text" ng-model="searchInput" style="width: auto; border: 2px solid #DCE4EC; padding: 2px 0 2px 5px;">
+                        <ul ng-show="!!searchInput" class="typeahead dropdown-menu tag-search">
+                            <li ng-click="addTag(tag);" ng-repeat="tag in searchTags(sort, searchInput)"><a href="">{{ tag.title }}</a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

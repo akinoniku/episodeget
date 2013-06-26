@@ -65,11 +65,13 @@ angular.module('episodeGet.services', [])
           .success((data) =>
             tagListWithIDKey = {}
             for tag in data.results
+              tag.tags = angular.fromJson(tag.tags)
               tagListWithIDKey[tag.id] = tag
             localStorage.setItem('tagsList_' + sort, angular.toJson(tagListWithIDKey))
             @list[sort] = tagListWithIDKey
             @updateList(sort ,tagListWithIDKey)
           )
+      $rootScope.$broadcast('tagsListService.update', @list)
     updateList: (sort ,list) ->
       @list[sort] = list
       $rootScope.$broadcast('tagsListService.update', @list)

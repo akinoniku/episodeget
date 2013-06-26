@@ -28,14 +28,13 @@
   ]).filter('niceTime', [
     function() {
       return function(input) {
-        var days, hours, longtime, minutes, months, myDate, nowtime, second, twomonths;
+        var days, hours, longtime, minutes, months, myDate, nowtime, second;
 
         second = 1000;
         minutes = second * 60;
         hours = minutes * 60;
         days = hours * 24;
         months = days * 30;
-        twomonths = days * 365;
         myDate = new Date(Date.parse(input));
         if (isNaN(myDate)) {
           myDate = new Date(input.replace(/-/g, "/"));

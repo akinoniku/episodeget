@@ -551,8 +551,25 @@ input:-moz-placeholder {
   min-height: 100%;
   margin-top: 100px;
 }
-.list_prefer .tagsinput .tagsinput-remove-link {
-  padding: 7px 4px 3px 0;
+.list_prefer .tagsinput .tag .icon-plus:hover {
+  color: white;
+}
+.list_prefer .tagsinput .accordion-toggle {
+  color: #005580;
+}
+.list_prefer .tagsinput .tagsinput-add-container {
+  display: block;
+}
+.list_prefer .tagsinput .tagsinput-add-container .tag-search {
+  display: block;
+  position: absolute;
+  left: auto;
+  top: auto;
+  margin-left: 2px;
+  margin-top: -2px;
+}
+.list_prefer .tagsinput .selected-tags {
+  display: block;
 }
 .list_prefer .ui-state-highlight {
   height: 32px;

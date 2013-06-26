@@ -104,26 +104,46 @@ angular.module('episodeGet.controllers', [])
       $http({method: 'POST', url: 'remove_list_ajax/', data: $.param(list_id: @list.id)})
         .success(-> userService.listUpdate() )
   )
+
   .controller('PreferCtrl', ($scope, $http, userService, tagsListService)->
-    $scope.inAccount = true;
+    $scope.inAccount = true
+    $scope.sort= 'an'
     $scope.user = userService.user
     $scope.tagsList = {}
+    $scope.unsortTags = {}
+    $scope.userPrefer = {an: [], ep: []}
+    $scope.searchInput = ''
+
     resortTag = (tags) ->
       preSubListTags = {'TM': [], 'CL': [], 'FM': [], 'LG': []}
-      for k,tag of tags
-        preSubListTags[tag.style].push(tag)
+      preSubListTags[tag.style].push(tag) for k,tag of tags
       subListTags = []
-      for k,tags of preSubListTags
-        subListTags.push tags
+      subListTags.push tags for k,tags of preSubListTags
       subListTags
 
-    for sort in ['an', 'ep']
-      $scope.$on('tagsListService.update', (event, list)-> $scope.tagsList[sort] = resortTag(list) )
-      tagsListService.getList(sort)
-      $scope.tagsList[sort] = resortTag(tagsListService.list[sort])
+    $scope.searchTags = (sort, input) ->
+      return false if not input
+      tags = []
+      for key,tag of $scope.unsortTags[sort]
+        tags.push(tag) if tag.tags.toString().indexOf(input) isnt -1
+      tags
 
-    # this should be sortable
-    # get the tags local storage
-    # preview the prefer list in old style
-    # render to responce
+    for sort in ['an', 'ep']
+      $scope.$on('tagsListService.update', (event, list)->
+        $scope.tagsList[sort] = resortTag(list[sort])
+        $scope.unsortTags[sort] = list[sort]
+      )
+      tagsListService.getList(sort)
+
+    $scope.addTag = (tag) ->
+      $scope.userPrefer[$scope.sort].push tag if tag not in $scope.userPrefer
+      $scope.searchInput = ''
+
+    $scope.removeTag = (key) -> $scope.userPrefer[$scope.sort].splice(key,1)
+
+    $scope.savePrefer = ->
+      list = {an: [], ep: []}
+      for sort in ['an', 'ep']
+        list[sort].push tag.id for tag in $scopte.userPrefer[sort]
+      return list
   )

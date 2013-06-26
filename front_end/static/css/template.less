@@ -564,8 +564,25 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
   min-height: 100%;
   margin-top: 100px;
       .tagsinput{
-        .tagsinput-remove-link{
-          padding: 7px 4px 3px 0;
+        .tag .icon-plus:hover{
+          color: white;
+        }
+        .accordion-toggle {
+          color: #005580;
+        }
+        .tagsinput-add-container{
+          display: block;
+          .tag-search{
+            display: block;
+            position: absolute;
+            left: auto;
+            top: auto;
+            margin-left: 2px;
+            margin-top: -2px;
+          }
+        }
+      .selected-tags{
+        display: block;
       }
   }
   .ui-state-highlight{
@@ -575,12 +592,13 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
     margin-bottom: 3px;
     .border-radius(6px);
   }
+
 }
 
-  .account-center{
-    min-height: 90%;
-    position: relative;
-    .account-setting{
+.account-center{
+  min-height: 90%;
+  position: relative;
+  .account-setting{
     background-color: #ffffff;
     margin-top: 10px;
     padding-top: 50px;
@@ -613,9 +631,9 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
 }
 @-webkit-keyframes extendBorder {
   from {
-  border-width: 5px 5px 5px 5px;
-  margin-left: 0;
-  margin-top: 0;
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
   }
   to {
     border-width: 25px 25px 40px 25px;
