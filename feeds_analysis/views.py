@@ -1,7 +1,6 @@
 # coding=utf-8
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
 from rest_framework import generics
 from feeds_analysis.analysiser import analysis_tags
 from feeds_analysis.models import Rss, Info, SubList, Tags
@@ -19,8 +18,8 @@ def update_all(request):
     return HttpResponse("Update Done")
 
 
-def ana_rss(request, id):
-    rss = Rss.objects.get(pk=id)
+def ana_rss(request, rid):
+    rss = Rss.objects.get(pk=rid)
     analysis_tags(rss)
     HttpResponse('Analysis ani Done')
 
@@ -33,7 +32,7 @@ def ana_rss_all(request):
 
 
 def read_old_db(request):
-    old_db_reader(rss=True)
+    old_db_reader(info=True, tags=True)
     return HttpResponse("Read Old db Done")
 
 
