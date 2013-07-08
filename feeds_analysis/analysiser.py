@@ -1,6 +1,7 @@
 # coding=utf-8
 from datetime import datetime
 import json
+import requests
 from django.core.cache import get_cache
 from feeds_analysis.models import Tags, SubList, Info, Rss
 
@@ -84,4 +85,14 @@ def analysis_tags(rss):
 
 def send_notification(rss, sub_list):
     for user in sub_list.user:
-        notify_user(user, rss)
+        url = "https://sendcloud.sohu.com/webapi/mail.send.xml"
+        params = {"api_user": "postmaster@xingqiniang.sendcloud.org",
+                  "api_key": "dBu8lCZz",
+                  "to": user.email,
+                  "from": "aki@foxmail.com",
+                  "fromname": "星祈娘",
+                  "subject": "%s更新啦" % (sub_list.info[0].title),
+                  "html": '''<h1>%s</h1><h3></h3><a href=%s>%s</a>'''
+                          % (user.username, rss.title, rss.link)
+        }
+        r = requests.post(url, data=params)

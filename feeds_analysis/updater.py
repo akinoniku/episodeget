@@ -33,7 +33,6 @@ def loopToStoreRss(rss_json, sort, episode_id=0):
                           episode_id=episode_id, timestamp=datetime.now())
             new_rss.save()
             analysis_tags(new_rss)
-            #TODO send notification
             counter += 1
         else:
             break
@@ -143,7 +142,7 @@ def get_douban_by_douban_id(douban_id):
         average=douban_subject['rating']['average'],
         episodes_count=douban_subject['episodes_count'],
         summary=douban_subject['summary'],
-        year=douban_subject['year'] if len(douban_subject['year']) > 0 else None,
+        year=douban_subject['year'] if 5 > len(douban_subject['year']) > 0 else None,
     )
     new_douban.save()
     return new_douban

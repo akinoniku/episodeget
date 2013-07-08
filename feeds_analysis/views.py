@@ -32,7 +32,7 @@ def ana_rss_all(request):
 
 
 def read_old_db(request):
-    old_db_reader(info=True, tags=True)
+    old_db_reader(rss=True)
     return HttpResponse("Read Old db Done")
 
 

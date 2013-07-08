@@ -227,7 +227,7 @@ def update_with_id(instance, **kwargs):
             average=douban_subject['rating']['average'],
             episodes_count=douban_subject['episodes_count'],
             summary=douban_subject['summary'],
-            year=douban_subject['year'] if len(douban_subject['year']) > 0 else None,
+            year=douban_subject['year'] if 5 > len(douban_subject['year']) > 0 else None,
         )
 
 
