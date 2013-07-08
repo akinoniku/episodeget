@@ -1,11 +1,11 @@
-<div ng-init="list.showRemove = false" ng-click="list.showRemove = !list.showRemove" tooltip="{{ list.tagsString }}" ng-show="inAccount" class="info-item" data-id="{{ info.id }}">
+<div ng-repeat="oneInfo in info" ng-init="list.showRemove = false" ng-click="list.showRemove = !list.showRemove" tooltip="{{ list.tagsString }}" ng-show="inAccount" class="info-item" data-id="{{ info[0].id }}">
     <a ng-show="list.showRemove" target="_blank" ng-click="removeSubList()" class="info-average" href=""><i class="icon icon-remove"></i></a>
     <div class="info-border"> </div>
     <div class="info-pic">
-        <a ng-href=""><img ng-src="{{ info.douban.images }}" ></a>
-        <span class="last-update"><i class="icon icon-calendar"></i> {{ list.create_time | niceTime }}</span>
+        <a ng-href=""><img ng-src="{{ info[0].douban.images }}" ></a>
+        <span class="last-update"><i class="icon icon-calendar"></i> {{ list.update_time | niceTime }}</span>
     </div>
     <div class="info-details">
-        <a ng-href="" class="info-title">{{ info.title }}</a>
+        <a ng-href="" class="info-title">{{ info[0].title }}</a>
     </div>
 </div>

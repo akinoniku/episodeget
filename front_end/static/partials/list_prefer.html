@@ -4,8 +4,8 @@
         <div class="type-select pull-left">
             <div class="btn-toolbar">
                 <div class="btn-group">
-                    <a class="btn btn-primary active" ng-click="sort = 'an'" href="">动画</a>
-                    <a class="btn btn-primary" ng-click="sort = 'ep'" href="">剧集</a>
+                    <a ng-class="getSortClass('an')" ng-click="sort = 'an'" href="">动画</a>
+                    <a ng-class="getSortClass('ep')" ng-click="sort = 'ep'" href="">剧集</a>
                 </div>
             </div>
         </div>

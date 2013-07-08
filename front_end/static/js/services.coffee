@@ -137,4 +137,16 @@ angular.module('episodeGet.services', [])
             tag.switch = true
       for list in @subList
         list.show = true
+
+    getUserPrefer: ->
+      lists = angular.fromJson(localStorage.getItem('test_prefer_list'))
+      tagsList = tagsListService.list
+      result = {an:[], ep:[]}
+      for sort, list of lists
+        for tagId in list
+          result[sort].push tagsList[sort][tagId]
+      return result
+
+    getUserPreferNum: (sort)->
+      return angular.fromJson(localStorage.getItem('test_prefer_list'))[sort]
   ])

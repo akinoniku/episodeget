@@ -201,10 +201,10 @@ class SubList(models.Model):
         return self.__unicode__()
 
     def __unicode__(self):
-        if None != self.info:
-            return self.info.title
+        if self.info.count():
+            return self.info.all()[:1].get().title
         else:
-            return self.tags_index
+            return self.rss.all()[:1].get().title
 
 
 def update_with_id(instance, **kwargs):
