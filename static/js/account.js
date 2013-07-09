@@ -4,4 +4,28 @@
     return $('.account-setting').slideToggle();
   });
 
+  $('#xunleiNeedLogin').find('.btn-primary').click(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $('#xunleiNeedLogin').find('.alert').slideUp('fast');
+    return $.ajax({
+      url: '/accounts/xunlei/',
+      dataType: 'json',
+      type: 'post',
+      data: $('#xunleiNeedLogin').serialize(),
+      success: function(data) {
+        if (data.status) {
+          $('#xunleiNeedLogin').hide();
+          return $('#xunleiLogined').show();
+        } else {
+          return $('#xunleiNeedLogin').find('.alert').slideDown('fast');
+        }
+      }
+    });
+  });
+
 }).call(this);
+
+/*
+//@ sourceMappingURL=account.map
+*/

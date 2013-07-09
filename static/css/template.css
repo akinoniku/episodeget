@@ -1,7 +1,17 @@
 html {
   height: 100%;
+  overflow: -moz-scrollbars-vertical;
+  /* For FF */
+
+  -ms-overflow-y: scroll;
+  /* For IE */
+
+  overflow-y: scroll;
+  /* For others & old IE */
+
 }
 body {
+  background-color: #ecf0f1;
   height: 100%;
   letter-spacing: 1px;
 }
@@ -11,6 +21,10 @@ body h3,
 body h4,
 body h5 {
   font-weight: normal;
+}
+.main-body {
+  background-color: #ecf0f1;
+  min-height: 93%;
 }
 a {
   text-decoration: none;
@@ -55,7 +69,7 @@ input:-moz-placeholder {
   clear: both;
 }
 .header-container {
-  background-color: #ecf0f1;
+  background-color: white;
   height: 54px;
 }
 .header-container #logo :hover {
@@ -146,7 +160,6 @@ input:-moz-placeholder {
 }
 .index-upper-login,
 .index-upper-reg {
-  display: none;
   position: absolute;
   right: 0;
   top: 45px;
@@ -279,12 +292,15 @@ input:-moz-placeholder {
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
+  z-index: 2;
 }
 .info-item .info-pic img {
+  position: relative;
   width: 150px;
   height: 220px;
   margin-top: 5px;
   margin-left: 5px;
+  z-index: 2;
 }
 .info-item .info-border {
   position: absolute;
@@ -300,10 +316,11 @@ input:-moz-placeholder {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
-  z-index: -10;
 }
 .info-item .info-details {
   margin: 10px 5px;
+  z-index: 3;
+  position: relative;
 }
 .info-item .info-details .info-title {
   color: #34495e;
@@ -314,8 +331,10 @@ input:-moz-placeholder {
   width: 100%;
   text-align: center;
   white-space: nowrap;
+  z-index: 3;
 }
 .info-item .info-average {
+  z-index: 3;
   margin-right: -10px;
   margin-top: -10px;
   position: absolute;
@@ -325,6 +344,24 @@ input:-moz-placeholder {
   background-color: #27ae60;
   padding: 13px 10px ;
   border-radius: 30px;
+  width: 22px;
+  text-align: center;
+}
+.info-item .info-average:hover {
+  background-color: #2ecc71;
+  border-color: #2ecc71;
+}
+.info-item .last-update {
+  color: #2c3e50;
+  position: relative;
+  background: rgba(255, 255, 255, 0.7);
+  display: block;
+  text-align: right;
+  margin-top: -25px;
+  padding-top: 5px;
+  padding-bottom: 3px;
+  padding-right: 8px;
+  z-index: 10;
 }
 #info-view {
   margin-top: 50px;
@@ -332,7 +369,7 @@ input:-moz-placeholder {
 #info-view .info-pic {
   margin-left: auto;
   margin-right: auto;
-  max-width: 90%;
+  width: 90%;
   background-color: #ffffff;
   border: 10px solid white;
   -webkit-border-radius: 10px;
@@ -361,8 +398,9 @@ input:-moz-placeholder {
 #info-view p.summary {
   text-indent: 30px;
   line-height: 22px;
-  background-color: white;
   padding: 10px;
+  max-height: 100px;
+  overflow: hidden;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -387,18 +425,59 @@ input:-moz-placeholder {
 #info-view .tags .tagsinput .tag.disabled {
   background-color: #bdc3c7;
 }
+#info-view .list-btns li {
+  margin-top: 10px;
+}
+#info-view .list-btns li .btn-block {
+  text-align: left;
+  text-indent: 30px;
+}
+#info-view .list-btns li .btn-block .tags {
+  max-width: 75%;
+  display: inline-block;
+  overflow: hidden;
+  height: 20px;
+  margin-left: -30px;
+}
 #info-view .complex-selector {
   margin-bottom: 50px;
   margin-top: 50px;
 }
-#info-view .complex-selector .add-select.dk_container {
-  margin-top: 20px;
+#info-view .complex-selector .tags-in-list {
+  margin-right: 20px;
 }
-#info-view .complex-selector .add-select.dk_container .dk_options {
-  width: auto;
+#info-view .show-rss {
+  background-color: white;
+  margin-top: 10px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
 }
-#info-view .complex-selector .add-select.dk_container .dk_options :before {
-  left: 15px;
+#info-view .show-rss p {
+  padding-top: 7px;
+  padding-bottom: 3px;
+  padding-left: 20px;
+  text-decoration: none;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  width: 90%;
+  white-space: nowrap;
+  border-bottom: 1px dotted #DDD;
+}
+#info-view .show-rss .update-time {
+  font-size: 18px;
+  width: 75%;
+  margin-top: 10px;
+}
+#info-view .show-rss .add-sublist {
+  padding-top: 15px;
+  padding-right: 15px;
+  float: right;
+  clear: both;
 }
 #rssModal .modal-body ul li {
   text-decoration: none;
@@ -472,8 +551,25 @@ input:-moz-placeholder {
   min-height: 100%;
   margin-top: 100px;
 }
-.list_prefer .tagsinput .tagsinput-remove-link {
-  padding: 7px 4px 3px 0;
+.list_prefer .tagsinput .tag .icon-plus:hover {
+  color: white;
+}
+.list_prefer .tagsinput .accordion-toggle {
+  color: #005580;
+}
+.list_prefer .tagsinput .tagsinput-add-container {
+  display: block;
+}
+.list_prefer .tagsinput .tagsinput-add-container .tag-search {
+  display: block;
+  position: absolute;
+  left: auto;
+  top: auto;
+  margin-left: 2px;
+  margin-top: -2px;
+}
+.list_prefer .tagsinput .selected-tags {
+  display: block;
 }
 .list_prefer .ui-state-highlight {
   height: 32px;
@@ -489,10 +585,13 @@ input:-moz-placeholder {
 }
 .account-center {
   min-height: 90%;
+  position: relative;
 }
 .account-center .account-setting {
+  background-color: #ffffff;
   margin-top: 10px;
-  padding-top: 30px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 .account-center .account-setting legend {
   margin-bottom: 5px;
@@ -519,6 +618,141 @@ input:-moz-placeholder {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
+}
+.account-center .sub-lists {
+  background-color: #ecf0f1;
+}
+@-webkit-keyframes extendBorder {
+  from {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+  to {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+}
+.extentBorderEle {
+  border-width: 25px 25px 40px 25px;
+  margin-left: -20px;
+  margin-top: -15px;
+}
+.smallBorderEle {
+  border-width: 5px 5px 5px 5px;
+  margin-left: 0;
+  margin-top: 0;
+}
+@-moz-keyframes extendBorder {
+  from {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+  to {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+}
+@-ms-keyframes extendBorder {
+  from {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+  to {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+}
+@-o-keyframes extendBorder {
+  from {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+  to {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+}
+@keyframes extendBorder {
+  from {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+  to {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+}
+@-moz-keyframes smallBar {
+  from {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+  to {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+@-ms-keyframes smallBar {
+  from {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+  to {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+@-o-keyframes smallBar {
+  from {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+  to {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+@keyframes smallBar {
+  from {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top: -15px;
+  }
+  to {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+.addBorder {
+  -webkit-animation: extendBar 1s linear;
+  -moz-animation: extendBar 1s linear;
+  -ms-animation: extendBar 1s linear;
+  -o-animation: extendBar 1s linear;
+  animation: extendBar 1s linear;
+}
+.removeBorder {
+  -webkit-animation: smallBar 1s linear;
+  -moz-animation: smallBar 1s linear;
+  -ms-animation: smallBar 1s linear;
+  -o-animation: smallBar 1s linear;
+  animation: smallBar 1s linear;
 }
 @media (max-width: 480px) {
   

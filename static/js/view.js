@@ -182,7 +182,7 @@
               },
               url: '/add_list_ajax/',
               success: function(data) {
-                return console.log(data);
+                return window.location = '/accounts/';
               }
             });
           });
@@ -192,3 +192,7 @@
   };
 
 }).call(this);
+
+/*
+//@ sourceMappingURL=view.map
+*/

@@ -24,14 +24,23 @@
 
 html {
   height: 100%;
+  overflow: -moz-scrollbars-vertical; /* For FF */
+  -ms-overflow-y: scroll; /* For IE */
+  overflow-y: scroll; /* For others & old IE */
 }
 
 body {
+  background-color: @CLOUDS;
   height: 100%;
   letter-spacing: 1px;
   h1, h2, h3, h4, h5 {
     font-weight: normal;
   }
+}
+
+.main-body{
+  background-color: @CLOUDS;
+  min-height: 93%;
 }
 
 a{
@@ -81,7 +90,7 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
 }
 
 .header-container {
-  background-color: @CLOUDS;
+  background-color: white;
   height: 54px;
   #logo {
     :hover{
@@ -171,7 +180,6 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
   }
 }
 .index-upper-login,.index-upper-reg{
-  display: none;
   position: absolute;
   right: 0;
   top: 45px;
@@ -302,12 +310,15 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
+  z-index: 2;
   .info-pic{
     img{
+      position: relative;
       width: 150px;
       height: 220px;
       margin-top: 5px;
       margin-left: 5px;
+      z-index: 2;
     }
   }
   .info-border{
@@ -319,10 +330,11 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
     border-color: #ffffff;
     border-width: 5px;
     .border-radius(5px);
-    z-index: -10;
   }
   .info-details{
     margin: 10px 5px;
+    z-index: 3;
+    position: relative;
     .info-title{
       color: @WETASPHALT;
       text-decoration: none;
@@ -332,9 +344,11 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
       width: 100%;
       text-align: center;
       white-space: nowrap;
+      z-index: 3;
     }
   }
   .info-average{
+    z-index: 3;
     margin-right: -10px;
     margin-top: -10px;
     position: absolute;
@@ -344,6 +358,24 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
     background-color: @NEPHRITIS;
     padding: 13px 10px ;
     border-radius: 30px;
+    width: 22px;
+    text-align: center;
+  }
+  .info-average:hover{
+    background-color: @EMERLAND;
+    border-color: @EMERLAND;
+  }
+  .last-update {
+    color: @MIDNIGHTBLUE;
+    position: relative;
+    background: rgba(255, 255, 255, 0.7);
+    display: block;
+    text-align: right;
+    margin-top: -25px;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    padding-right: 8px;
+    z-index: 10;
   }
 }
 
@@ -352,7 +384,7 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
   .info-pic{
     margin-left: auto;
     margin-right: auto;
-    max-width: 90%;
+    width: 90%;
     background-color: #ffffff;
     border: 10px solid white;
     .border-radius(10px);
@@ -379,8 +411,9 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
   p.summary {
     text-indent: 30px;
     line-height: 22px;
-    background-color: white;
     padding: 10px;
+    max-height: 100px;
+    overflow: hidden;
     .border-radius(10px)
   }
   h2.mid{
@@ -402,17 +435,54 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
       }
     }
   }
+  .list-btns li{
+    margin-top: 10px;
+    .btn-block{
+      text-align: left;
+      text-indent: 30px;
+      .tags {
+        max-width: 75%;
+        display: inline-block;
+        overflow: hidden;
+        height: 20px;
+        margin-left: -30px;
+      }
+    }
+  }
   .complex-selector {
     margin-bottom: 50px;
     margin-top: 50px;
-    .add-select.dk_container {
-      margin-top: 20px;
-      .dk_options{
-        width: auto;
-        :before {
-          left: 15px;
-        }
-      }
+    .tags-in-list{
+      margin-right: 20px;
+    }
+  }
+  .show-rss{
+    background-color: white;
+    margin-top: 10px;
+    .border-radius(4px);
+    p {
+      padding-top: 7px;
+      padding-bottom: 3px;
+      padding-left: 20px;
+      text-decoration: none;
+      overflow: hidden;
+      display: inline-block;
+      text-overflow: ellipsis;
+      width: 90%;
+      white-space: nowrap;
+      border-bottom: 1px dotted #DDD;
+    }
+
+    .update-time{
+      font-size: 18px;
+      width: 75%;
+      margin-top: 10px;
+    }
+    .add-sublist{
+      padding-top: 15px;
+      padding-right: 15px;
+      float: right;
+      clear: both;
     }
   }
 }
@@ -494,8 +564,25 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
   min-height: 100%;
   margin-top: 100px;
       .tagsinput{
-        .tagsinput-remove-link{
-          padding: 7px 4px 3px 0;
+        .tag .icon-plus:hover{
+          color: white;
+        }
+        .accordion-toggle {
+          color: #005580;
+        }
+        .tagsinput-add-container{
+          display: block;
+          .tag-search{
+            display: block;
+            position: absolute;
+            left: auto;
+            top: auto;
+            margin-left: 2px;
+            margin-top: -2px;
+          }
+        }
+      .selected-tags{
+        display: block;
       }
   }
   .ui-state-highlight{
@@ -505,13 +592,17 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
     margin-bottom: 3px;
     .border-radius(6px);
   }
+
 }
 
-  .account-center{
-    min-height: 90%;
-    .account-setting{
+.account-center{
+  min-height: 90%;
+  position: relative;
+  .account-setting{
+    background-color: #ffffff;
     margin-top: 10px;
-    padding-top: 30px;
+    padding-top: 50px;
+    padding-bottom: 50px;
     legend{
       margin-bottom: 5px;
     }
@@ -534,6 +625,75 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
       }
     }
   }
+  .sub-lists{
+    background-color: @CLOUDS;
+  }
+}
+@-webkit-keyframes extendBorder {
+  from {
+    border-width: 5px 5px 5px 5px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+  to {
+    border-width: 25px 25px 40px 25px;
+    margin-left: -20px;
+    margin-top:-15px;
+  }
+}
+
+.extentBorderEle{
+  border-width: 25px 25px 40px 25px;
+  margin-left: -20px;
+  margin-top:-15px;
+}
+
+.smallBorderEle{
+  border-width: 5px 5px 5px 5px;
+  margin-left: 0;
+  margin-top: 0;
+}
+
+@-moz-keyframes extendBorder {
+  from { .smallBorderEle }
+  to { .extentBorderEle }
+}
+@-ms-keyframes extendBorder {
+  from { .smallBorderEle }
+  to { .extentBorderEle }
+}
+@-o-keyframes extendBorder {
+  from { .smallBorderEle }
+  to { .extentBorderEle }
+}
+@keyframes extendBorder {
+  from { .smallBorderEle }
+  to { .extentBorderEle }
+}
+
+@-moz-keyframes smallBar {
+  from { .extentBorderEle }
+  to { .smallBorderEle }
+}
+@-ms-keyframes smallBar {
+  from { .extentBorderEle }
+  to { .smallBorderEle }
+}
+@-o-keyframes smallBar {
+  from { .extentBorderEle }
+  to { .smallBorderEle }
+}
+@keyframes smallBar {
+  from { .extentBorderEle }
+  to { .smallBorderEle }
+}
+
+.addBorder{
+  .animation(extendBar 1s linear)
+}
+
+.removeBorder{
+  .animation(smallBar 1s linear)
 }
 
   // 水平状态的手机及以下

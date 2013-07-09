@@ -116,6 +116,6 @@ aviable_list =(current_list) ->
             data: list_id: list_id
             url: '/add_list_ajax/'
             success: (data) ->
-                console.log(data)
+              window.location ='/accounts/'
           )
     )
