@@ -17,7 +17,6 @@
       return $(this).stop().addClass('animated swing');
     });
   }).controller('NavCtrl', function($scope, $http, userService) {
-    setupLabel();
     $scope.user = userService.user;
     $scope.$on('userService.update', function(event, user) {
       return $scope.user = user;
