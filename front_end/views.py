@@ -11,7 +11,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from feeds_analysis.models import Info, Douban, SubList, Tags
+from feeds_analysis.models import Info, Douban, SubList, Tags, Rss
 from feeds_analysis.serializers import UserSerializer
 from user_settings.models import SubListPrefer, Xunlei
 
@@ -19,13 +19,6 @@ from user_settings.models import SubListPrefer, Xunlei
 @ensure_csrf_cookie
 def index(request):
     return render_to_response('front_end/index.html',
-                              {'page': 'index', },
-                              RequestContext(request))
-
-
-@ensure_csrf_cookie
-def index_old(request):
-    return render_to_response('front_end/home_page.html',
                               {'page': 'index', },
                               RequestContext(request))
 
@@ -58,11 +51,11 @@ def user_prefer_list(request):
     list_ep = Tags.objects.filter(sort='EP').exclude(style='TL')
     titles = {'TM': '字幕组', 'CL': '清晰度', 'FM': '格式', 'TL': '字幕语言'}
     return Response('front_end/list_prefer.html',
-                              {'page': 'list_prefer',
-                               'titles': titles,
-                               'an': list_an,
-                               'ep': list_ep},
-                              RequestContext(request))
+                    {'page': 'list_prefer',
+                     'titles': titles,
+                     'an': list_an,
+                     'ep': list_ep},
+                    RequestContext(request))
 
 
 def user_account(request):
@@ -82,13 +75,17 @@ def user_xunlei(request):
     status = False
     if 'xunlei-id' in request.POST and 'xunlei-password' in request.POST:
         from xunlei.lixian_control import add_user
+
         status = add_user(request.user, request.POST['xunlei-id'], request.POST['xunlei-password'])
     return HttpResponse(json.dumps({'status': status}))
 
 
+@api_view(['POST'])
+@permission_classes((AllowAny, ))
 def user_reg(request):
     status = True
     msg = '没有错误'
+    user_serializer = False
     try:
         username = request.POST['username']
         password = request.POST['password']
@@ -96,25 +93,29 @@ def user_reg(request):
         if len(User.objects.filter(email=email)):
             status = False
             msg = "Email 已经被注册过了"
-        if username and password and email:
+        elif username and password and email:
             User.objects.create_user(username, email, password)
             user = authenticate(username=username, password=password)
             login(request, user)
+            user_serializer = UserSerializer(user).data
     except BaseException, e:
         status = False
         msg = '未知错误'
         if e.args[0] == 1062:
             msg = '跟别人重名了！'
-    return HttpResponse(json.dumps({'msg': msg,
-                                    'url': '/accounts/prefer/',
-                                    'status': status}))
+    return Response({'msg': msg,
+                     'user': user_serializer,
+                     'status': status})
 
 
 @api_view(['GET'])
 @permission_classes((AllowAny, ))
 def get_current_user(request):
-    user_serializer = UserSerializer(request.user)
-    return Response(data=user_serializer.data)
+    if request.user.id:
+        user_serializer = UserSerializer(request.user)
+        return Response(data=user_serializer.data)
+    else:
+        return HttpResponseForbidden()
 
 
 @ensure_csrf_cookie
@@ -169,7 +170,7 @@ def add_sub_list(request):
         sub_list.user.add(request.user)
         sub_list.save()
         return HttpResponse(json.dumps({'status': 'success'}))
-    except Exception,e:
+    except Exception, e:
         return HttpResponseForbidden(e)
 
 
@@ -180,7 +181,7 @@ def remove_sub_list(request):
         sub_list.user.remove(request.user)
         sub_list.save()
         return HttpResponse(json.dumps({'status': 'success'}))
-    except Exception,e:
+    except Exception, e:
         return HttpResponseForbidden(e)
 
 
@@ -219,10 +220,13 @@ def get_tags_list_cache(sort):
     return result_list
 
 
-def rss_feed(request):
-    user = request.user
-    sub_lists = SubList.objects.filter(user=user).prefetch_related().all()
+def rss_feed(userId):
+    user = User.objects.get(id=userId)
+    sub_lists = SubList.objects.filter(user=user).select_related()
+    all_rss = []
     for sub_list in sub_lists:
-        rss = sub_list.rss.all()
-        ar = 1
-    return rss
+        all_rss = all_rss + list(sub_list.rss.all())
+        if len(all_rss) > 50:
+            break
+    all_rss.sort(key=lambda x: x.timestamp, reverse=True)
+    return all_rss

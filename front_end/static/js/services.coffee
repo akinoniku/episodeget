@@ -16,6 +16,24 @@ angular.module('episodeGet.services', [])
           @user = data
           $rootScope.$broadcast('userService.login', @user)
         )
+    regSubmit: (email, username, password) ->
+      $http({method: 'POST', url: '/accounts/reg/', data: $.param({email: email, username: username, password: password})})
+      .success( (data) =>
+          @user = data.user if data.status
+          $rootScope.$broadcast('userService.reg', @user, data.status, data.msg)
+        )
+    logoutSubmit: ->
+      $http({method: 'GET', url: '/accounts/logout/'})
+      .success( (data) =>
+          @user =
+            id: 0
+            last_login: null
+            username: "游客"
+            email: null
+            list: null
+          $rootScope.$broadcast('userService.logout', @user)
+        )
+
     listUpdate: ->
       $http({method: 'GET', url: '/sub_list/.json', params:{user: 'me'}})
         .success((data) =>

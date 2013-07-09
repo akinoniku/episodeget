@@ -8,21 +8,23 @@ angular.module('episodeGet.controllers', [])
   )
 
   .controller('NavCtrl', ($scope, $http, userService)->
+    setupLabel();
     $scope.user = userService.user
     $scope.$on('userService.update', (event, user)-> $scope.user = user )
 
     $scope.login =
+      email:''
       username: ''
       password: ''
-      status: true
-      show: false
+      status: true # login status
+      show: false # login form shown
+      show_reg: false
+      msg: ''
       login_id : 'top'
       logined : !!userService.user.id
-      showLogin : () -> @show = !@show
-      isShownLogin : () -> @show
-      isLogined : () ->@logined
-      loginActionStatus: () -> @status
-      loginSubmit: () -> $scope.login.status = userService.loginSubmit(@username, @password)
+      loginSubmit: -> $scope.login.status = userService.loginSubmit(@username, @password)
+      regSubmit: -> userService.regSubmit(@email ,@username, @password)
+      logout: -> userService.logoutSubmit()
       checkLogin:  ->
         if not $scope.login.logined
           $http({method: 'GET', url: '/accounts/current/'})
@@ -37,8 +39,27 @@ angular.module('episodeGet.controllers', [])
     $scope.$on('userService.login', (event, user)->
       $scope.user = user
       $scope.login.status = !!user.id
-      if user.id
+      if user.id isnt 0
         $scope.login.logined = true
+        $scope.login.show = false
+        $scope.login.show_reg = false
+    )
+    $scope.$on('userService.reg', (event, user, status, msg)->
+      $scope.user = user
+      $scope.login.status = status
+      $scope.login.msg = ''
+      if status
+        $scope.login.logined = true
+        $scope.login.show = false
+        $scope.login.show_reg = false
+      else
+        $scope.login.msg = msg
+    )
+    $scope.$on('userService.logout', (event, user)->
+      $scope.user = user
+      $scope.login.status = !!user.id
+      if not user.id
+        $scope.login.logined = false
         $scope.login.show = false
     )
     $scope.login.checkLogin()

@@ -12,18 +12,18 @@ __author__ = 'akino'
 all_tags_cache = {}
 
 
-def get_tags_with_cache(type):
+def get_tags_with_cache(sort):
     allTags = {}
     key_string = 'allTagsA'
-    key_string += type
-    if not type in all_tags_cache:
+    key_string += sort
+    if not sort in all_tags_cache:
         cache = get_cache('default')
-        allTags[type] = cache.get(key_string)
-        if not allTags[type]:
-            allTags[type] = Tags.objects.filter(sort=type).order_by('id').reverse()
-            cache.set(key_string, allTags[type], 3600)
-        all_tags_cache[type] = allTags[type]
-    return all_tags_cache[type]
+        allTags[sort] = cache.get(key_string)
+        if not allTags[sort]:
+            allTags[sort] = Tags.objects.filter(sort=sort).order_by('id').reverse()
+            cache.set(key_string, allTags[sort], 3600)
+        all_tags_cache[sort] = allTags[sort]
+    return all_tags_cache[sort]
 
 
 def analysis_tags(rss):
@@ -62,20 +62,20 @@ def analysis_tags(rss):
         resultList = None
 
     if resultList:
-        try:
-            resultList.rss.get(id=rss.id)
-        except:
-            return True
-        resultList.rss.add(rss)
-        resultList.rss.update_time = datetime.now()
-        resultList.save()
-        # send_notification(rss, rows[0])
+        if not resultList.rss.filter(id=rss.id).count():
+            resultList.rss.add(rss)
+            resultList.update_time = rss.timestamp
+            resultList.save()
+            # send_notification(rss, rows[0])
+        else:
+            #already added
+            pass
     else:
         new_list = SubList(
             sort=rss.sort,
             tags_index=tag_string_list,
-            create_time=datetime.now(),
-            update_time=datetime.now(),
+            create_time=rss.timestamp,
+            update_time=rss.timestamp,
         )
         new_list.save()
         new_list.rss.add(rss)
@@ -105,7 +105,6 @@ def send_notification(rss, sub_list):
         username = 'postmaster@xingqiniang.sendcloud.org'
         password = 'dBu8lCZz'
         s = smtplib.SMTP('smtpcloud.sohu.com:25')
-        s.set_debuglevel(1)
         s.login(username, password)
         s.sendmail(fromEmail, toEmail, msg.as_string())
         s.quit()

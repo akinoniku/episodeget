@@ -1,4 +1,4 @@
-<form ng-show="login.isShownLogin()" method="post" class="login-form-new">
+<form ng-show="login.show" method="post" class="login-form-new">
     <h4>我回来啦</h4>
     <div class="control-group">
         <div class="input-icon">
@@ -12,10 +12,10 @@
             <input ng-model="login.password" name="password" type="password" class="login-field" value="" placeholder="密码" id="login-pass">
         </div>
     </div>
-    <label class="checkbox checked" for="login-remember-{{ login.login_id }}"><span class="icon"></span><span class="icon-to-fade"></span>
+    <label class="checkbox checked hide" for="login-remember-{{ login.login_id }}"><span class="icon"></span><span class="icon-to-fade"></span>
         <input class="login-remember" name="remember_me" type="checkbox" value="checked" id="login-remember-{{ login.login_id }}">
         记住我
     </label>
     <button type="btn" ng-click="login.loginSubmit()" class="login-btn btn btn-primary btn-large btn-block">登录</button>
-    <div ng-hide="login.loginActionStatus()" style="margin-top: 10px; margin-bottom: 5px;" class="alert">用户名或密码错误</div>
+    <div ng-hide="login.status" style="margin-top: 10px; margin-bottom: 5px;" class="alert">用户名或密码错误</div>
 </form>

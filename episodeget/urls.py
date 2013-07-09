@@ -6,6 +6,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from feeds_analysis.views import *
 from front_end import views
 import front_end
+from front_end.UserFeed import UserFeed
 
 admin.autodiscover()
 
@@ -40,7 +41,7 @@ urlpatterns = patterns('',
                        # url(r'^list_ajax/$', front_end.views.get_sub_list_rss),
                        url(r'^add_list_ajax/$', front_end.views.add_sub_list),
                        url(r'^remove_list_ajax/$', front_end.views.remove_sub_list),
-                       url(r'^rss_feed/$', front_end.views.rss_feed),
+                       url(r'^feed/(?P<userId>\d+)$', UserFeed()),
 
                        # feed_analysis
                        url(r'^update_all$', update_all),

@@ -34,6 +34,41 @@
             return $rootScope.$broadcast('userService.login', _this.user);
           });
         },
+        regSubmit: function(email, username, password) {
+          var _this = this;
+
+          return $http({
+            method: 'POST',
+            url: '/accounts/reg/',
+            data: $.param({
+              email: email,
+              username: username,
+              password: password
+            })
+          }).success(function(data) {
+            if (data.status) {
+              _this.user = data.user;
+            }
+            return $rootScope.$broadcast('userService.reg', _this.user, data.status, data.msg);
+          });
+        },
+        logoutSubmit: function() {
+          var _this = this;
+
+          return $http({
+            method: 'GET',
+            url: '/accounts/logout/'
+          }).success(function(data) {
+            _this.user = {
+              id: 0,
+              last_login: null,
+              username: "游客",
+              email: null,
+              list: null
+            };
+            return $rootScope.$broadcast('userService.logout', _this.user);
+          });
+        },
         listUpdate: function() {
           var _this = this;
 
