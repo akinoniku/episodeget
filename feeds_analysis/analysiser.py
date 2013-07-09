@@ -1,9 +1,11 @@
 # coding=utf-8
 from datetime import datetime
 import json
-import requests
 from django.core.cache import get_cache
 from feeds_analysis.models import Tags, SubList, Info, Rss
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 __author__ = 'akino'
 
@@ -60,11 +62,14 @@ def analysis_tags(rss):
         resultList = None
 
     if resultList:
-        if resultList.rss is rss:
-            resultList.rss.add(rss)
-            resultList.rss.update_time = datetime.now()
-            resultList.save()
-            # send_notification(rss, rows[0])
+        try:
+            resultList.rss.get(id=rss.id)
+        except:
+            return True
+        resultList.rss.add(rss)
+        resultList.rss.update_time = datetime.now()
+        resultList.save()
+        # send_notification(rss, rows[0])
     else:
         new_list = SubList(
             sort=rss.sort,
@@ -84,15 +89,24 @@ def analysis_tags(rss):
 
 
 def send_notification(rss, sub_list):
-    for user in sub_list.user:
-        url = "https://sendcloud.sohu.com/webapi/mail.send.xml"
-        params = {"api_user": "postmaster@xingqiniang.sendcloud.org",
-                  "api_key": "dBu8lCZz",
-                  "to": user.email,
-                  "from": "aki@foxmail.com",
-                  "fromname": "星祈娘",
-                  "subject": "%s更新啦" % (sub_list.info[0].title),
-                  "html": '''<h1>%s</h1><h3></h3><a href=%s>%s</a>'''
-                          % (user.username, rss.title, rss.link)
-        }
-        r = requests.post(url, data=params)
+    for user in sub_list.user.all():
+        info = sub_list.info.get()
+        fromEmail = 'aki@foxmail.com'
+        toEmail = user.email
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = u"%s更新啦" % info.title
+        msg['From'] = fromEmail
+        msg['To'] = toEmail
+
+        html = """<h3>%s,</h3><p>请点击下载</p><a href=%s>%s</a>""" % (user.username, rss.link, rss.title)
+        part = MIMEText(html.encode('utf-8'), 'html')
+        msg.attach(part)
+
+        username = 'postmaster@xingqiniang.sendcloud.org'
+        password = 'dBu8lCZz'
+        s = smtplib.SMTP('smtpcloud.sohu.com:25')
+        s.set_debuglevel(1)
+        s.login(username, password)
+        s.sendmail(fromEmail, toEmail, msg.as_string())
+        s.quit()
+        return True

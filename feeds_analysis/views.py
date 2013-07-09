@@ -2,7 +2,7 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from rest_framework import generics
-from feeds_analysis.analysiser import analysis_tags
+from feeds_analysis.analysiser import analysis_tags, send_notification
 from feeds_analysis.models import Rss, Info, SubList, Tags
 from feeds_analysis.serializers import RssSerializer, UserSerializer, InfoSerializer, SubListSerializer, TagsSerializer
 from feeds_analysis.updater import get_ani_rss, get_epi_rss, get_ani_new, get_epi_new
@@ -118,6 +118,12 @@ class SubListDetail(generics.RetrieveAPIView):
 #belows are test function
 def add_task_test(request):
     add_task('', Rss.objects.get(pk=5))
+
+
+def test_notification(request):
+    rss = Rss.objects.get(id=30710)
+    sub_list = SubList.objects.get(id=2668)
+    send_notification(rss, sub_list)
 
 
 def init_test(request):

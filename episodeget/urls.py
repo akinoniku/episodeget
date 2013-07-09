@@ -40,6 +40,7 @@ urlpatterns = patterns('',
                        # url(r'^list_ajax/$', front_end.views.get_sub_list_rss),
                        url(r'^add_list_ajax/$', front_end.views.add_sub_list),
                        url(r'^remove_list_ajax/$', front_end.views.remove_sub_list),
+                       url(r'^rss_feed/$', front_end.views.rss_feed),
 
                        # feed_analysis
                        url(r'^update_all$', update_all),
@@ -47,6 +48,8 @@ urlpatterns = patterns('',
                        url(r'^ana_rss_all$', ana_rss_all),
                        url(r'^read_old_db$', read_old_db),
                        url(r'^add_task$', add_task_test),
+                       url(r'^test_notification$', test_notification),
+
 
                        # rest
                        url(r'^rss/$', RssList.as_view(), name='rss-list'),

@@ -217,3 +217,12 @@ def get_tags_list_cache(sort):
             result_list.append({'style': tag.style, 'id': tag.id, 'title': tag.title})
         cache.set(cache_key, result_list, 3600)
     return result_list
+
+
+def rss_feed(request):
+    user = request.user
+    sub_lists = SubList.objects.filter(user=user).prefetch_related().all()
+    for sub_list in sub_lists:
+        rss = sub_list.rss.all()
+        ar = 1
+    return rss
