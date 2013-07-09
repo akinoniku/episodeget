@@ -8,6 +8,7 @@ angular.module('episodeGet.controllers', [])
   )
 
   .controller('NavCtrl', ($scope, $http, userService)->
+    setupLabel();
     $scope.user = userService.user
     $scope.$on('userService.update', (event, user)-> $scope.user = user )
 

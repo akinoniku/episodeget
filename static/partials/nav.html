@@ -1,0 +1,24 @@
+<div class="header-container clearfix">
+    <div class="container">
+        <header class="wrapper clearfix">
+            <div style="position: relative;" class="row">
+                    <a ng-href="/#/" id="logo" class="span3"><h1>星祈娘</h1></a>
+                <div style="margin-top: 12px;" class="span9">
+                        <nav>
+                            <a class="link" ng-href="/#/list/an/"><i class="icon icon-rocket"></i> 动画</a>
+                            <a class="link" ng-href="/#/list/ep/"><i class="icon icon-plane"></i> 剧集</a>
+                            <a>|</a>
+                            <!-- login -->
+                            <a ng-show="login.logined" class="link" ng-href="/#/accounts/" ><i class="icon icon-rss"></i> 我的订阅 </a>
+                            <a ng-show="login.logined" class="link nav-username"  ng-href="/#/accounts/" ><i class="icon icon-user"></i> {{ user.username }}</a>
+                            <a ng-show="login.logined" ng-click="login.logout()" class="link nav-logout" ng-href="/#/logout" ><i class="icon icon-signout"></i> 退出 </a>
+                            <a ng-hide="login.logined" ng-click="login.show_reg = false; login.show = !login.show" class="link nav-login" href="" ><i class="icon icon-signin"></i> 登录</a>
+                            <a ng-hide="login.logined" ng-click="login.show = false; login.show_reg = !login.show_reg"class="link nav-reg" href="" ><i class="icon icon-bullseye"></i> 注册</a>
+                        </nav>
+                </div>
+                <div ng-include="'static/partials/login_form.html'" class="span3 index-upper-login"></div>
+                <div ng-include="'static/partials/reg_form.html'" class="span3 index-upper-reg"></div>
+            </div>
+        </header>
+    </div>
+</div>

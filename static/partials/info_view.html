@@ -1,0 +1,62 @@
+<div ng-controller="NavCtrl" ng-include="'static/partials/nav.html'"></div>
+<div id="info-view" data-id="{{ info.id }}" data-sort="{{ info.sort }}">
+        <div class="container">
+            <div class="row">
+                <div class="span3">
+                    <img class="info-pic" ng-src="{{ info.douban.images }}" alt="{{ info.title }}">
+                </div>
+                <div class="span9">
+                    <h1>{{ info.title }}  <a class="douban-link" href="{{ info.douban.url }}">豆瓣评分: <span>{{ info.douban.average }}</span></a></h1>
+                    <h2><small>{{ info.douban.original_title }}</small></h2>
+                    <div class="btns">
+                        <a ng-click="calOneClick()" href="" class="btn-add btn btn-primary btn-large">一键添加</a>
+                        <a target="_blank" ng-href="{{ info.douban.alt }}" class="btn-douban btn btn-info btn-large">查看豆瓣</a>
+                        <a ng-click="hideComplex = !hideComplex" ng-init="hideComplex = true" class="btn btn-inverse btn-large btn-douban" href="">精确订阅</a>
+                    </div>
+                    <p class="summary">{{ info.douban.summary }}</p>
+                </div>
+            </div>
+            <div collapse="hideComplex" class="complex-selector hidden-phone">
+                <hr class="nice-hr">
+                <h2 class="mid">精确订阅<br><small>多数人都用不着吧？</small></h2>
+                <div class="tags">
+                    <div class="row">
+                        <div class="span9">
+                            <ul class="unstyled list-btns">
+                                <li ng-init="list.hideRss = true" ng-show="list.show" ng-repeat="list in subList">
+                                    <a ng-click="list.hideRss = !list.hideRss" class="btn btn-block btn-large btn-info" data-value="list.id">
+                                        <span class="tags">
+                                            <span class="tags-in-list" ng-repeat="tagId in list.tags">{{ tagId | getTagNameById:list.sort }}</span>
+                                        </span>
+                                        <span class="tags-in-list pull-right">{{ list.rss | averageDate }}</span>
+                                    </a>
+                                    <div collapse="list.hideRss" class="show-rss">
+                                        <div class="add-sublist">
+                                            <a ng-show="!!user.id" ng-click="addSubList(list.id)" class="btn btn-primary" href="">{{ addListBtn }}</a>
+                                            <a ng-show="!user.id" class="btn btn-inverse disabled" href="">请先登录</a>
+                                        </div>
+                                        <p class="update-time">上次更新: {{ list.update_time }} </p>
+                                        <p ng-repeat="rss in list.rss"><a href="{{ rss.link }}" target="_blank">{{ rss.title }}</a></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="span3">
+                            <h3 style="display: inline-block">过滤器：</h3>
+                            <a style="margin-top: 7px;" ng-click="filterClean()" class="btn pull-right" href="">清除已选</a>
+                            <div class="tags-picker">
+                                <div ng-repeat="(keyStyle, subListTagType) in subListTags" class="tagsinput">
+                                    <h4>{{ keyStyle | tagStyle }}</h4>
+                                    <span ng-class="tagClass()" ng-click="pickTag(tag.style, tag.id)" ng-repeat="(id, tag) in subListTagType" id="sub-list-tag-id-{{ tag.id }}" data-style="{{ tag.style }}"
+                                          data-title="{{ tag.title }}" data-id="{{ tag.id }}" >
+                                        <span>{{ tag.title }}&nbsp;&nbsp;</span>
+                                        <a class="tagsinput-remove-link icon-plus"></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

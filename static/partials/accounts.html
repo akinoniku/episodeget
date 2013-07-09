@@ -1,0 +1,87 @@
+<div ng-controller="NavCtrl" ng-include="'static/partials/nav.html'"></div>
+<div class="container page-title">
+    <h1>我的订阅</h1>
+    <div class="pull-right">
+        <a class="btn btn-primary account-setting-btn" ng-href="" ng-click="closeSettings = !closeSettings">账户设置</a>
+    </div>
+</div>
+<div class="account-center">
+    <div collapse="closeSettings" ng-init="closeSettings = true" >
+        <div class="account-setting">
+            <div class="container">
+                <div class="row">
+                    <div class="span4">
+                        <form id="xunleiNeedLogin" class="form-horizontal2 hide">
+                            <fieldset>
+                                <legend>迅雷登录</legend>
+                                <div class="control-group">
+                                    <label class="control-label hide" for="xunlei-id">帐号</label>
+                                    <div class="controls">
+                                        <div class="input-icon">
+                                            <i class="icon icon-user"></i>
+                                            <input name="xunlei-id" id="xunlei-id" placeholder="帐号" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label hide" for="xunlei-password">密码</label>
+                                    <div class="controls">
+                                        <div class="input-icon">
+                                            <i class="icon icon-key"></i>
+                                            <input name="xunlei-password" id="xunlei-password" placeholder="密码" type="password">
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-primary" value="保存">
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div style="margin-top: 10px; width: 156px;" class="alert hide">登录失败</div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                        <fieldset id="xunleiLogined {% if not has_xunlei %} hide {% endif %}">
+                            <legend>迅雷登录</legend>
+                            <div class="control-group">
+                                <a class="btn btn-primary btn-large" href="#">已经登录了啦</a>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="span4">
+                        <form>
+                            <fieldset>
+                                <legend>连接微博</legend>
+                                <div class="control-group">
+                                    <label class="control-label hide" for="xunlei-id">帐号</label>
+                                    <div class="controls">
+                                        <div class="input-icon">
+                                            <i class="icon icon-heart"></i>
+                                            <input name="weibo-id" id="weibo-id" placeholder="@微博名" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-primary" value="保存">
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="span4">
+                        <fieldset>
+                            <legend>一键添加</legend>
+                            <div class="control-group">
+                                <a class="btn btn-primary btn-large" href="/#/accounts/prefer">修改订阅偏好</a>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sub-lists">
+        <div class="container">
+            <div class="row">
+                    <div ng-include="'static/partials/info_item_in_account.html'" ng-init="info = list.info" ng-repeat="list in user.list" class="span3">
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
