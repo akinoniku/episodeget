@@ -2051,7 +2051,6 @@ body.vjs-full-window {
   .vjs-rewind-control div {
     width: 19px;
     height: 16px;
-    background: url("video-js.png");
     margin: 0.5em auto 0; }
 
 .vjs-mute-control {

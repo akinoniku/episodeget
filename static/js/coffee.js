@@ -65,7 +65,3 @@
   });
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=coffee.map
-*/

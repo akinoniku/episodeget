@@ -123,6 +123,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    #compress
+    #'django.middleware.gzip.GZipMiddleware',
+    #'pipeline.middleware.MinifyHTMLMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -167,6 +170,7 @@ INSTALLED_APPS = (
     'user_settings',
     'rest_framework',
     'social_auth',
+    'pipeline',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -246,3 +250,50 @@ WEIBO_CLIENT_SECRET = '8dc7673a12260bade71826f4d6590c58'
 # LOGIN_URL = '/login-form/'
 LOGIN_REDIRECT_URL = '/accounts/login/success/'
 LOGIN_ERROR_URL = '/accounts/login/fail/'
+
+# pipeline js & css
+#STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.slimit.SlimItCompressor'
+#PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
+#PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.cssmin.CSSMinCompressor'
+#PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
+
+PIPELINE_YUGLIFY_BINARY = 'C:/Users/Richard/node_modules/.bin/yuglify.cmd'
+#PIPELINE_CSSMIN_BINARY = 'C:/Users/Richard/node_modules/.bin/cssmin.cmd'
+# PIPELINE_ENABLED = True
+
+PIPELINE_CSS = {
+    'main_css': {
+        'source_filenames': (
+            "css/bootstrap.min.css",
+            "css/bootstrap-responsive.min.css",
+            "css/flat-ui.css",
+            "css/font-awesome.min.css",
+            "css/animate.min.css",
+            "css/main.css",
+            "css/template.css",
+        ),
+        'output_filename': 'css/main_css.css',
+    },
+}
+
+PIPELINE_JS = {
+    'main_js': {
+        'source_filenames': (
+            "js/vendor/jquery-ui-1.10.0.custom.min.js",
+            "js/vendor/jquery.ui.sortable.min.js",
+            "js/vendor/ui-bootstrap-tpls-0.3.0.min.js",
+            "js/app.js",
+            "js/controller.js",
+            "js/services.js",
+            "js/filters.js",
+            "js/vendor/sortable.js",
+            "js/vendor/jquery.dropkick-1.0.0.js"
+            "js/vendor/jquery.placeholder.js",
+            "js/vendor/jquery.tagsinput.js",
+            "js/vendor/jquery.cookie.js",
+        ),
+        'output_filename': 'js/main_js.js',
+    }
+}

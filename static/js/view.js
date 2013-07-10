@@ -192,7 +192,3 @@
   };
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=view.map
-*/
