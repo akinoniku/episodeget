@@ -11,6 +11,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from episodeget.settings import SAE_VERSION
 from feeds_analysis.models import Info, Douban, SubList, Tags, Rss
 from feeds_analysis.serializers import UserSerializer
 from user_settings.models import SubListPrefer, Xunlei
@@ -19,7 +20,9 @@ from user_settings.models import SubListPrefer, Xunlei
 @ensure_csrf_cookie
 def index(request):
     return render_to_response('front_end/index.html',
-                              {'page': 'index', },
+                              {'page': 'index',
+                               'IS_SAE': SAE_VERSION
+                               },
                               RequestContext(request))
 
 

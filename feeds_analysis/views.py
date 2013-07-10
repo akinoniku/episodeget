@@ -1,4 +1,5 @@
 # coding=utf-8
+from datetime import timedelta, datetime
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from rest_framework import generics
@@ -45,10 +46,14 @@ class InfoList(generics.ListCreateAPIView):
         queryset = Info.objects.all()
         sort = self.request.QUERY_PARAMS.get('sort', None)
         now_playing = self.request.QUERY_PARAMS.get('now_playing', None)
+        weeks = self.request.QUERY_PARAMS.get('weeks', None)
         if sort is not None:
             queryset = queryset.filter(sort=sort)
         if now_playing is not None:
             queryset = queryset.filter(now_playing=now_playing)
+        #if weeks is not None:
+        if True:
+            queryset = queryset.filter(sublist__update_time__gt=(datetime.now() - timedelta(days=40))).distinct()
         return queryset
 
 
