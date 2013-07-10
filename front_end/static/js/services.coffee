@@ -12,16 +12,16 @@ angular.module('episodeGet.services', [])
       $rootScope.$broadcast('userService.update', @user)
     loginSubmit: (username, password) ->
       $http({method: 'POST', url: '/accounts/login/ajax/', data: $.param({username: username, password: password})})
-        .success( (data) =>
+      .success( (data) =>
           @user = data
           $rootScope.$broadcast('userService.login', @user)
-        )
+          )
     regSubmit: (email, username, password) ->
       $http({method: 'POST', url: '/accounts/reg/', data: $.param({email: email, username: username, password: password})})
       .success( (data) =>
           @user = data.user if data.status
           $rootScope.$broadcast('userService.reg', @user, data.status, data.msg)
-        )
+          )
     logoutSubmit: ->
       $http({method: 'GET', url: '/accounts/logout/'})
       .success( (data) =>
@@ -33,10 +33,9 @@ angular.module('episodeGet.services', [])
             list: null
           $rootScope.$broadcast('userService.logout', @user)
         )
-
     listUpdate: ->
       $http({method: 'GET', url: '/sub_list/.json', params:{user: 'me'}})
-        .success((data) =>
+      .success((data) =>
           @user.list = data.results
           $rootScope.$broadcast('userService.listUpdate', @user)
         )

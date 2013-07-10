@@ -113,6 +113,7 @@ class SubListList(generics.ListAPIView):
             queryset = queryset.filter(info=info)
         elif user is not None:
             queryset = queryset.filter(user=self.request.user)
+        queryset = queryset.filter(update_time__gt=(datetime.now() - timedelta(days=40)))
         return queryset
 
 
