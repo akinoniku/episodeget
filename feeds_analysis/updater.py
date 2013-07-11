@@ -1,7 +1,6 @@
 # coding=utf-8
+from django.http import HttpResponse
 from feeds_analysis.analysiser import analysis_tags
-
-__author__ = 'akinoniku'
 from datetime import datetime
 import re
 import urllib2
@@ -14,7 +13,7 @@ def get_ani_rss():
         'http://pipes.yahoo.com/pipes/pipe.run?_id=2a1aee3dda9a657eaa4d8eece5441f8f&_render=json').read()
     rss_json = json.loads(rss_json)['value']['items']
     loopToStoreRss(rss_json, 'AN')
-    # return render_to_response('feeds_analysis/get_ani_rss.html', {'rss_json': rss_json})
+    return HttpResponse("Get ani rss done!")
 
 
 def get_epi_rss():
@@ -22,7 +21,7 @@ def get_epi_rss():
         'http://pipes.yahoo.com/pipes/pipe.run?_id=4059b898dc1eef8661b3eabcfc1d905a&_render=json').read()
     rss_json = json.loads(rss_json)['value']['items']
     loopToStoreRss(rss_json, 'EP')
-    # return render_to_response('feeds_analysis/get_ani_rss.html', {'rss_json': rss_json})
+    return HttpResponse("Get epi rss done!")
 
 
 def loopToStoreRss(rss_json, sort, episode_id=0):
@@ -43,7 +42,7 @@ def get_ani_new():
     ani_json = urllib2.urlopen('http://www.bilibili.tv/index/bangumi.json').read()
     ani_json = json.loads(ani_json)
     loopToStoreAni(ani_json)
-    # return HttpResponse("Get ani done!")
+    return HttpResponse("Get new ani done!")
 
 
 def loopToStoreAni(ani_json):
@@ -85,7 +84,7 @@ def get_epi_new():
         'http://pipes.yahoo.com/pipes/pipe.run?_id=47147fbe121a2a307f87d2de85a416be&_render=json').read()
     epi_json = json.loads(epi_json)
     loopToStoreEpi(epi_json)
-    # return HttpResponse("Get epi done!")
+    return HttpResponse("Get new epi done!")
 
 
 def loopToStoreEpi(epi_json):

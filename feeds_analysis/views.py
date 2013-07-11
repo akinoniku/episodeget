@@ -3,6 +3,8 @@ from datetime import timedelta, datetime
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from rest_framework import generics
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import AllowAny
 from feeds_analysis.analysiser import analysis_tags, send_notification
 from feeds_analysis.models import Rss, Info, SubList, Tags
 from feeds_analysis.serializers import RssSerializer, UserSerializer, InfoSerializer, SubListSerializer, TagsSerializer
@@ -37,6 +39,7 @@ def read_old_db(request):
     return HttpResponse("Read Old db Done")
 
 
+@permission_classes((AllowAny, ))
 class InfoList(generics.ListCreateAPIView):
     model = Info
     serializer_class = InfoSerializer
@@ -100,6 +103,7 @@ class UserDetail(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
 
 
+@permission_classes((AllowAny, ))
 class SubListList(generics.ListAPIView):
     model = SubList
     serializer_class = SubListSerializer

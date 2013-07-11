@@ -46,11 +46,13 @@
             method: 'GET',
             url: '/accounts/current/'
           }).success(function(data) {
-            userService.updateUser(data);
-            return $scope.login.logined = data.id !== 0;
-          }).error(function() {
-            $scope.user = userService.user;
-            return $scope.login.logined = false;
+            if (data) {
+              userService.updateUser(data);
+              return $scope.login.logined = data.id !== 0 && (data.id != null);
+            } else {
+              $scope.user = userService.user;
+              return $scope.login.logined = false;
+            }
           });
         }
       }
@@ -89,14 +91,14 @@
     var sort;
 
     sort = $routeParams.sort;
+    $scope.sort = sort;
+    infoListService.getList(sort);
     $scope.$on('infoListService.update', function(event, List) {
       return $scope.currentList = List[sort];
     });
     $scope.currentList = infoListService.list[sort];
     $scope.sortInfo = infoListService.sortInfo;
-    $scope.sort = sort;
-    $scope.inListView = true;
-    return infoListService.getList(sort);
+    return $scope.inListView = true;
   }).controller('InfoViewCtrl', function($scope, $http, $routeParams, $location, infoListService, infoService, tagsListService, subListService, userService) {
     var id, sort, _ref;
 

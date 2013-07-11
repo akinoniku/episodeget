@@ -9,7 +9,8 @@
                     <h1>{{ info.title }}  <a class="douban-link" href="{{ info.douban.url }}">豆瓣评分: <span>{{ info.douban.average }}</span></a></h1>
                     <h2><small>{{ info.douban.original_title }}</small></h2>
                     <div class="btns">
-                        <a ng-click="calOneClick()" href="" class="btn-add btn btn-primary btn-large">一键添加</a>
+                        <a ng-show="!!user.id" ng-click="calOneClick()" href="" class="btn-add btn btn-primary btn-large">一键添加</a>
+                        <a ng-hide="!!user.id" href="" class="btn-add btn btn-large btn-inverse disabled" >一键添加(未登录)</a>
                         <a target="_blank" ng-href="{{ info.douban.alt }}" class="btn-douban btn btn-info btn-large">查看豆瓣</a>
                         <a ng-click="hideComplex = !hideComplex" ng-init="hideComplex = true" class="btn btn-inverse btn-large btn-douban" href="">精确订阅</a>
                     </div>
@@ -33,7 +34,7 @@
                                     <div collapse="list.hideRss" class="show-rss">
                                         <div class="add-sublist">
                                             <a ng-show="!!user.id" ng-click="addSubList(list.id)" class="btn btn-primary" href="">{{ addListBtn }}</a>
-                                            <a ng-show="!user.id" class="btn btn-inverse disabled" href="">请先登录</a>
+                                            <a ng-show="!user.id" class="btn btn-inverse disabled" href="">请先登录吧</a>
                                         </div>
                                         <p class="update-time">上次更新: {{ list.update_time }} </p>
                                         <p ng-repeat="rss in list.rss"><a href="{{ rss.link }}" target="_blank">{{ rss.title }}</a></p>

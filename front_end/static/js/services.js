@@ -31,7 +31,8 @@
             })
           }).success(function(data) {
             _this.user = data;
-            return $rootScope.$broadcast('userService.login', _this.user);
+            $rootScope.$broadcast('userService.login', _this.user);
+            return $rootScope.$broadcast('userService.update', _this.user);
           });
         },
         regSubmit: function(email, username, password) {

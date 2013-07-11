@@ -28,12 +28,12 @@ angular.module('episodeGet.controllers', [])
         if not $scope.login.logined
           $http({method: 'GET', url: '/accounts/current/'})
             .success((data)->
-              userService.updateUser(data)
-              $scope.login.logined = (data.id isnt 0)
-            )
-            .error(->
-              $scope.user = userService.user
-              $scope.login.logined = false
+              if data
+                userService.updateUser(data)
+                $scope.login.logined = (data.id isnt 0 and data.id?)
+              else
+                $scope.user = userService.user
+                $scope.login.logined = false
             )
     $scope.$on('userService.login', (event, user)->
       $scope.user = user
@@ -66,12 +66,12 @@ angular.module('episodeGet.controllers', [])
 
   .controller('InfoListCtrl', ($scope, $http, $routeParams, infoListService)->
     sort = $routeParams.sort
+    $scope.sort = sort
+    infoListService.getList(sort)
     $scope.$on('infoListService.update', (event, List)-> $scope.currentList = List[sort] )
     $scope.currentList = infoListService.list[sort]
     $scope.sortInfo = infoListService.sortInfo
-    $scope.sort = sort
     $scope.inListView = true;
-    infoListService.getList(sort)
   )
 
   .controller('InfoViewCtrl', ($scope, $http, $routeParams, $location, infoListService, infoService, tagsListService, subListService, userService)->

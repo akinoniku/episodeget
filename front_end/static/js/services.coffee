@@ -15,6 +15,7 @@ angular.module('episodeGet.services', [])
       .success( (data) =>
           @user = data
           $rootScope.$broadcast('userService.login', @user)
+          $rootScope.$broadcast('userService.update', @user)
           )
     regSubmit: (email, username, password) ->
       $http({method: 'POST', url: '/accounts/reg/', data: $.param({email: email, username: username, password: password})})

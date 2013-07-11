@@ -2,6 +2,7 @@
 <div id="info_intro">
     <div class="container">
         <div ng-controller="InfoListCtrl" class="row">
+            <div style="width: 72px; margin-left: auto; margin-right: auto; margin-top: 30%;" ng-hide="currentList"><i style="font-size: 72px; color: white;" class="icon-refresh icon-spin"></i></div>
             <div ng-repeat="info in currentList | orderBy:sortInfo" ng-include="'static/partials/info_item.html'" class="span3">
             </div>
         </div>

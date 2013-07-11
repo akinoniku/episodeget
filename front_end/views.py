@@ -7,7 +7,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from episodeget.settings import SAE_VERSION
 from feeds_analysis.models import Info, Douban, SubList, Tags, Rss
@@ -79,11 +79,13 @@ def get_current_user(request):
         user_serializer = UserSerializer(request.user)
         return Response(data=user_serializer.data)
     else:
-        return HttpResponseForbidden()
+        return Response(data=False)
+        #return HttpResponseForbidden()
 
 
 @ensure_csrf_cookie
 @api_view(['POST'])
+@permission_classes((IsAuthenticated, ))
 def add_sub_list(request):
     try:
         list_id = request.POST['list_id']
@@ -95,6 +97,7 @@ def add_sub_list(request):
         return HttpResponseForbidden(e)
 
 
+@permission_classes((IsAuthenticated, ))
 def remove_sub_list(request):
     try:
         list_id = request.POST['list_id']
