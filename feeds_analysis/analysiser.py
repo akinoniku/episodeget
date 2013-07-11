@@ -64,7 +64,8 @@ def analysis_tags(rss):
     if resultList:
         if not resultList.rss.filter(id=rss.id).count():
             resultList.rss.add(rss)
-            resultList.update_time = rss.timestamp
+            if rss.timestamp > resultList.update_time:
+                resultList.update_time = rss.timestamp
             resultList.save()
             # send_notification(rss, rows[0])
         else:
