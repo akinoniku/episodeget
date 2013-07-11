@@ -35,13 +35,6 @@ def login_ajax(request):
         else:
             return HttpResponse(json.dumps({'id': 0}), content_type='application/json')
 
-def user_xunlei(request):
-    status = False
-    if 'xunlei-id' in request.POST and 'xunlei-password' in request.POST:
-        from xunlei.lixian_control import add_user
-
-        status = add_user(request.user, request.POST['xunlei-id'], request.POST['xunlei-password'])
-    return HttpResponse(json.dumps({'status': status}))
 
 
 @api_view(['POST'])
