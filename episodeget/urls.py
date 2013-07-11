@@ -5,6 +5,7 @@ from feeds_analysis.views import *
 from front_end import views
 import front_end
 from front_end.UserFeed import UserFeed
+from user_settings.views import save_prefer, get_prefer, one_click_add
 
 admin.autodiscover()
 
@@ -29,6 +30,8 @@ urlpatterns = patterns('',
                        #url(r'^accounts/$', front_end.views.user_account),
                        url(r'^accounts/login/ajax/$', front_end.views.login_ajax),
                        url(r'^accounts/current/$', front_end.views.get_current_user),
+                       url(r'^accounts/prefer/save/$', save_prefer),
+                       url(r'^accounts/prefer/get/$', get_prefer),
                        # url(r'^accounts/login/fail/$', front_end.views.login_fail),
 
                        # front_end
@@ -38,6 +41,7 @@ urlpatterns = patterns('',
                        # url(r'^view/(\d+)$', front_end.views.info_view),
                        # url(r'^list_ajax/$', front_end.views.get_sub_list_rss),
                        url(r'^add_list_ajax/$', front_end.views.add_sub_list),
+                       url(r'^add_list_one_click/$', one_click_add),
                        url(r'^remove_list_ajax/$', front_end.views.remove_sub_list),
                        url(r'^feed/(?P<userId>\d+)$', UserFeed()),
 
