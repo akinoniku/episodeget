@@ -15,13 +15,13 @@ angular.module('episodeGet.controllers', [])
       email:''
       username: ''
       password: ''
-      status: true # login status
+      status: false # login status
       show: false # login form shown
       show_reg: false
       msg: ''
       login_id : 'top'
       logined : !!userService.user.id
-      loginSubmit: -> $scope.login.status = userService.loginSubmit(@username, @password)
+      loginSubmit: -> userService.loginSubmit(@username, @password)
       regSubmit: -> userService.regSubmit(@email ,@username, @password)
       logout: -> userService.logoutSubmit()
       checkLogin:  ->
@@ -37,7 +37,7 @@ angular.module('episodeGet.controllers', [])
             )
     $scope.$on('userService.login', (event, user)->
       $scope.user = user
-      $scope.login.status = !!user.id
+      $scope.login.status = !user.id
       if user.id isnt 0
         $scope.login.logined = true
         $scope.login.show = false
