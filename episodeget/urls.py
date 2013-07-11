@@ -22,8 +22,8 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
 
                        # user setting
-                       url(r'^accounts/login/$', 'django.contrib.auth.views.login',
-                           {'template_name': 'front_end/login_form.html'}),
+                       # url(r'^accounts/login/$', 'django.contrib.auth.views.login',
+                       #     {'template_name': 'front_end/login_form.html'}),
                        url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
                        url(r'^accounts/reg/$', front_end.views.user_reg),
                        #url(r'^accounts/prefer/$', front_end.views.user_prefer_list),
@@ -44,12 +44,16 @@ urlpatterns = patterns('',
                        url(r'^feed/(?P<userId>\d+)$', UserFeed()),
 
                        # feed_analysis
-                       url(r'^update_all$', update_all),
+                       url(r'^updater/get_ani_new$', get_ani_new),
+                       url(r'^updater/get_epi_new$', get_epi_new),
+                       url(r'^updater/get_ani_rss$', get_ani_rss),
+                       url(r'^updater/get_epi_rss$', get_epi_rss),
+                       #url(r'^update_all$', update_all),
                        url(r'^ana_rss/(\d+)$', ana_rss),
                        url(r'^ana_rss_all$', ana_rss_all),
                        url(r'^read_old_db$', read_old_db),
                        url(r'^add_task$', add_task_test),
-                       url(r'^test_notification$', test_notification),
+                       #url(r'^test_notification$', test_notification),
 
 
                        # rest
