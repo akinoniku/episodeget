@@ -135,7 +135,7 @@ angular.module('episodeGet.controllers', [])
     userService.listUpdate()
     $scope.$on('userService.listUpdate', (event, user)->
       $scope.user = user
-      $scope.feedUrl = "#{$location.host()}/feed/#{$scope.user.username}"
+      $scope.feedUrl = "http://episodeget.sinaapp.com/feed/#{$scope.user.username}"
       for list in user.list
         list.tagsString = ''
         for tag in list.tags

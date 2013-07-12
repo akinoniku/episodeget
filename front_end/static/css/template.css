@@ -290,6 +290,7 @@ input:-moz-placeholder {
   font-size: 14px;
 }
 .info-item {
+  cursor: pointer;
   position: relative;
   width: 160px;
   margin-top: 50px;

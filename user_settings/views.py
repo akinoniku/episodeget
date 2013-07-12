@@ -49,11 +49,11 @@ def one_click_add(request):
     sub_lists = SubList.objects.filter(update_time__gt=(datetime.now() - timedelta(days=40))).filter().filter(info=info)
 
     #get avg time
-    sum = 0
+    the_sum = 0
     for sub_list in sub_lists:
-        sum += sub_list.rss.count()
+        the_sum += sub_list.rss.count()
     counter = 10
-    avg = sum / sub_lists.count()
+    avg = the_sum / sub_lists.count()
     if (avg/2) < 10:
         counter = avg/2
 
