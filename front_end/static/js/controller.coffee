@@ -7,7 +7,7 @@ angular.module('episodeGet.controllers', [])
     $('.feature-item').mouseenter -> $(@).stop().addClass('animated swing')
   )
 
-  .controller('NavCtrl', ($scope, $http, userService)->
+  .controller('NavCtrl', ($scope,$location, $http, userService)->
     $scope.user = userService.user
     $scope.$on('userService.update', (event, user)-> $scope.user = user )
 
@@ -43,6 +43,7 @@ angular.module('episodeGet.controllers', [])
         $scope.login.show = false
         $scope.login.show_reg = false
     )
+
     $scope.$on('userService.reg', (event, user, status, msg)->
       $scope.user = user
       $scope.login.status = status
@@ -54,6 +55,7 @@ angular.module('episodeGet.controllers', [])
       else
         $scope.login.msg = msg
     )
+
     $scope.$on('userService.logout', (event, user)->
       $scope.user = user
       $scope.login.status = !!user.id
@@ -61,6 +63,15 @@ angular.module('episodeGet.controllers', [])
         $scope.login.logined = false
         $scope.login.show = false
     )
+
+    $scope.tab = ->
+      if $location.path().indexOf('an') isnt -1
+        return 'an'
+      else if $location.path().indexOf('ep') isnt -1
+        return 'ep'
+      else if $location.path().indexOf('accounts') isnt -1
+        return 'accounts'
+
     $scope.login.checkLogin()
   )
 

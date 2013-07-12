@@ -16,7 +16,7 @@
     return $('.feature-item').mouseenter(function() {
       return $(this).stop().addClass('animated swing');
     });
-  }).controller('NavCtrl', function($scope, $http, userService) {
+  }).controller('NavCtrl', function($scope, $location, $http, userService) {
     $scope.user = userService.user;
     $scope.$on('userService.update', function(event, user) {
       return $scope.user = user;
@@ -86,6 +86,15 @@
         return $scope.login.show = false;
       }
     });
+    $scope.tab = function() {
+      if ($location.path().indexOf('an') !== -1) {
+        return 'an';
+      } else if ($location.path().indexOf('ep') !== -1) {
+        return 'ep';
+      } else if ($location.path().indexOf('accounts') !== -1) {
+        return 'accounts';
+      }
+    };
     return $scope.login.checkLogin();
   }).controller('InfoListCtrl', function($scope, $http, $routeParams, infoListService) {
     var sort;

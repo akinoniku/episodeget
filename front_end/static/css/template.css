@@ -116,6 +116,10 @@ input:-moz-placeholder {
   background-color: #1abc9c;
   color: white;
 }
+.header-container .span9 nav a.link.hover {
+  background-color: #1abc9c;
+  color: white;
+}
 .home-hero {
   position: relative;
   height: 100%;
