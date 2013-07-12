@@ -43,7 +43,7 @@ urlpatterns = patterns('',
                        url(r'^add_list_ajax/$', front_end.views.add_sub_list),
                        url(r'^add_list_one_click/$', one_click_add),
                        url(r'^remove_list_ajax/$', front_end.views.remove_sub_list),
-                       url(r'^feed/(?P<userId>\d+)$', UserFeed()),
+                       url(r'^feed/(?P<userId>\w{1,255})$', UserFeed()),
 
                        # feed_analysis
                        url(r'^updater/get_ani_new$', get_ani_new),

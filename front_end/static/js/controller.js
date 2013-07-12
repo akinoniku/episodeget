@@ -2,7 +2,7 @@
 (function() {
   var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  angular.module('episodeGet.controllers', []).controller('HomePageCtrl', function($scope, $location, userService) {
+  angular.module('episodeGet.controllers', []).controller('HomePageCtrl', function() {
     $('.home-hero').height($(window).height() - 4);
     $(window).resize(function() {
       return $('.home-hero').height($(window).height() - 4);
@@ -76,7 +76,10 @@
       if (status) {
         $scope.login.logined = true;
         $scope.login.show = false;
-        return $scope.login.show_reg = false;
+        $scope.login.show_reg = false;
+        if ($location.path() === '/') {
+          return $location.path('/accounts/');
+        }
       } else {
         return $scope.login.msg = msg;
       }
@@ -171,7 +174,7 @@
         return $location.path('/accounts');
       });
     };
-  }).controller('UserAccountCtrl', function($scope, $http, userService, $filter) {
+  }).controller('UserAccountCtrl', function($scope, $location, $http, userService, $filter) {
     $scope.inAccount = true;
     $scope.user = userService.user;
     userService.listUpdate();
@@ -179,6 +182,7 @@
       var list, tag, _i, _len, _ref, _results;
 
       $scope.user = user;
+      $scope.feedUrl = "" + ($location.host()) + "/feed/" + $scope.user.username;
       _ref = user.list;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {

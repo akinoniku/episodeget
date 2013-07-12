@@ -108,7 +108,10 @@ def index_manifest(request):
 
 
 def rss_feed(userId):
-    user = User.objects.get(id=userId)
+    try:
+        user = User.objects.get(username=userId)
+    except:
+        return []
     sub_lists = SubList.objects.filter(user=user).select_related()
     all_rss = []
     for sub_list in sub_lists:

@@ -5,6 +5,12 @@
         <a class="btn btn-primary account-setting-btn" ng-href="" ng-click="closeSettings = !closeSettings">账户设置</a>
     </div>
 </div>
+<div class="container">
+    <span style="margin-top: 20px;" class="pull-right">
+        <span style="margin-top: 7px">RSS地址：</span>
+        <input type="text" value="{{ feedUrl }}" readonly onclick="this.focus();this.select();">
+    </span>
+</div>
 <div class="account-center">
     <div collapse="closeSettings" ng-init="closeSettings = true" >
         <div class="account-setting">

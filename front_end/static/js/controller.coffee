@@ -1,5 +1,5 @@
 angular.module('episodeGet.controllers', [])
-  .controller('HomePageCtrl', ($scope,$location, userService)->
+  .controller('HomePageCtrl', ->
     $('.home-hero').height $(window).height()-4
     $(window).resize -> $('.home-hero').height $(window).height()-4
     $('.feature-item').mouseenter -> $(@).stop().addClass('animated swing')
@@ -54,6 +54,8 @@ angular.module('episodeGet.controllers', [])
         $scope.login.logined = true
         $scope.login.show = false
         $scope.login.show_reg = false
+        if $location.path() is '/'
+          $location.path('/accounts/')
       else
         $scope.login.msg = msg
     )
@@ -127,12 +129,13 @@ angular.module('episodeGet.controllers', [])
       .success(-> $location.path('/accounts'))
   )
 
-  .controller('UserAccountCtrl', ($scope, $http, userService, $filter)->
+  .controller('UserAccountCtrl', ($scope, $location, $http, userService, $filter)->
     $scope.inAccount = true;
     $scope.user = userService.user
     userService.listUpdate()
     $scope.$on('userService.listUpdate', (event, user)->
       $scope.user = user
+      $scope.feedUrl = "#{$location.host()}/feed/#{$scope.user.username}"
       for list in user.list
         list.tagsString = ''
         for tag in list.tags
