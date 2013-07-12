@@ -332,11 +332,13 @@
               an: [],
               ep: []
             };
-            for (sort in lists) {
-              list = lists[sort];
-              for (_i = 0, _len = list.length; _i < _len; _i++) {
-                tagId = list[_i];
-                result[sort.toLowerCase()].push(tagsList[sort.toLowerCase()][tagId]);
+            if (lists !== 'false') {
+              for (sort in lists) {
+                list = lists[sort];
+                for (_i = 0, _len = list.length; _i < _len; _i++) {
+                  tagId = list[_i];
+                  result[sort.toLowerCase()].push(tagsList[sort.toLowerCase()][tagId]);
+                }
               }
             }
             return $rootScope.$broadcast('preferList.update', result);

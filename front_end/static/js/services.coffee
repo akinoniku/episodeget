@@ -162,9 +162,10 @@ angular.module('episodeGet.services', [])
           lists = data
           tagsList = tagsListService.list
           result = {an:[], ep:[]}
-          for sort, list of lists
-            for tagId in list
-              result[sort.toLowerCase()].push tagsList[sort.toLowerCase()][tagId]
+          if lists isnt 'false'
+            for sort, list of lists
+              for tagId in list
+                result[sort.toLowerCase()].push tagsList[sort.toLowerCase()][tagId]
           $rootScope.$broadcast('preferList.update', result)
         )
 

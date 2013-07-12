@@ -26,10 +26,10 @@ def get_prefer(request):
     user = request.user
     try:
         prefer = SubListPrefer.objects.get(user=user)
-        data = prefer.preferList
+        data = json.loads(prefer.preferList)
     except:
         data = False
-    return Response(data=json.loads(data))
+    return Response(data=data)
 
 
 @api_view(['POST'])
