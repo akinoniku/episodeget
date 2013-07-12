@@ -57,7 +57,7 @@ def one_click_add(request):
     if (avg/2) < 10:
         counter = avg/2
 
-    weight = 0
+    weight = 0.0
     this_sub_list = 0
     select_sub_list = 0
     for sub_list in sub_lists:
@@ -65,13 +65,18 @@ def one_click_add(request):
             continue
         else:
             tagIds = sub_list.tags_index.split(',')
-            this_wight = 0
+            this_weight = 0
             this_sub_list = sub_list
             for pre in prefer[info.sort]:
                 if pre in tagIds:
-                    this_wight += 1
-            if this_wight > weight:
-                weight = this_wight
+                    this_weight += 1
+            for tag in sub_list.tags.all():
+                if tag.style == 'TM':
+                    this_weight += 0.3
+                else:
+                    this_weight += 0.1
+            if this_weight > weight:
+                weight = this_weight
                 select_sub_list = this_sub_list
 
     if not select_sub_list:
