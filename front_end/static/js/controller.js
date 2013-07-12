@@ -2,19 +2,19 @@
 (function() {
   var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  angular.module('episodeGet.controllers', []).controller('HomePageCtrl', function() {
+  angular.module('episodeGet.controllers', []).controller('HomePageCtrl', function($scope, $location, userService) {
     $('.home-hero').height($(window).height() - 4);
     $(window).resize(function() {
       return $('.home-hero').height($(window).height() - 4);
     });
+    $('.feature-item').mouseenter(function() {
+      return $(this).stop().addClass('animated swing');
+    });
     $('.btn-reg-top').click(function() {
       return $.scrollTo('.login-screen', 1000);
     });
-    $('.hero-help').click(function() {
+    return $('.hero-help').click(function() {
       return $.scrollTo('.feature-intro-word', 800);
-    });
-    return $('.feature-item').mouseenter(function() {
-      return $(this).stop().addClass('animated swing');
     });
   }).controller('NavCtrl', function($scope, $location, $http, userService) {
     $scope.user = userService.user;
@@ -63,7 +63,10 @@
       if (user.id !== 0) {
         $scope.login.logined = true;
         $scope.login.show = false;
-        return $scope.login.show_reg = false;
+        $scope.login.show_reg = false;
+        if ($location.path() === '/') {
+          return $location.path('/accounts/');
+        }
       }
     });
     $scope.$on('userService.reg', function(event, user, status, msg) {

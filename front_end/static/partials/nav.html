@@ -13,7 +13,7 @@
                             <a ng-show="login.logined" ng-class="{'link':true, 'hover': tab()==='accounts'}" ng-href="/#/accounts/" ><i class="icon icon-user"></i> {{ user.username }}</a>
                             <a ng-show="login.logined" ng-click="login.logout()" class="link nav-logout" ng-href="/#/logout" ><i class="icon icon-signout"></i> 退出 </a>
                             <a ng-hide="login.logined" ng-click="login.show_reg = false; login.show = !login.show" class="link nav-login" href="" ><i class="icon icon-signin"></i> 登录</a>
-                            <a ng-hide="login.logined" ng-click="login.show = false; login.show_reg = !login.show_reg"class="link nav-reg" href="" ><i class="icon icon-bullseye"></i> 注册</a>
+                            <a ng-hide="login.logined" ng-click="login.show = false; login.show_reg = !login.show_reg" class="link nav-reg" href="" ><i class="icon icon-bullseye"></i> 注册</a>
                         </nav>
                 </div>
                 <div ng-include="'static/partials/login_form.html'" class="span3 index-upper-login"></div>

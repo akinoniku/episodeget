@@ -40,16 +40,16 @@
                                 </div>
                             </fieldset>
                         </form>
-                        <fieldset id="xunleiLogined {% if not has_xunlei %} hide {% endif %}">
+                        <fieldset id="xunleiLogined">
                             <legend>迅雷登录</legend>
                             <div class="control-group">
-                                <a class="btn btn-primary btn-large" href="#">已经登录了啦</a>
+                                <a class="btn disabled btn-large" href="#">暂未开放</a>
                             </div>
                         </fieldset>
                     </div>
                     <div class="span4">
                         <form>
-                            <fieldset>
+                            <fieldset class="hide">
                                 <legend>连接微博</legend>
                                 <div class="control-group">
                                     <label class="control-label hide" for="xunlei-id">帐号</label>
@@ -61,6 +61,12 @@
                                     </div>
                                 </div>
                                 <input type="submit" class="btn btn-primary" value="保存">
+                            </fieldset>
+                            <fieldset>
+                                <legend>连接微博</legend>
+                                <div class="control-group">
+                                    <a class="btn disabled btn-large" href="#">暂未开放</a>
+                                </div>
                             </fieldset>
                         </form>
                     </div>

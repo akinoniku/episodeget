@@ -1,10 +1,10 @@
 angular.module('episodeGet.controllers', [])
-  .controller('HomePageCtrl', ->
+  .controller('HomePageCtrl', ($scope,$location, userService)->
     $('.home-hero').height $(window).height()-4
     $(window).resize -> $('.home-hero').height $(window).height()-4
+    $('.feature-item').mouseenter -> $(@).stop().addClass('animated swing')
     $('.btn-reg-top').click -> $.scrollTo('.login-screen',1000)
     $('.hero-help').click -> $.scrollTo('.feature-intro-word',800)
-    $('.feature-item').mouseenter -> $(@).stop().addClass('animated swing')
   )
 
   .controller('NavCtrl', ($scope,$location, $http, userService)->
@@ -42,6 +42,8 @@ angular.module('episodeGet.controllers', [])
         $scope.login.logined = true
         $scope.login.show = false
         $scope.login.show_reg = false
+        if $location.path() is '/'
+          $location.path('/accounts/')
     )
 
     $scope.$on('userService.reg', (event, user, status, msg)->

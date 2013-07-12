@@ -283,6 +283,7 @@ PIPELINE_JS = {
         'source_filenames': (
             "js/vendor/jquery-ui-1.10.0.custom.min.js",
             "js/vendor/jquery.ui.sortable.min.js",
+            "js/vendor/jquery.scrollto.min.js",
             "js/vendor/ui-bootstrap-tpls-0.3.0.min.js",
             "js/app.js",
             "js/controller.js",
