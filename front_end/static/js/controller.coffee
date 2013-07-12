@@ -121,23 +121,8 @@ angular.module('episodeGet.controllers', [])
         .error(-> $scope.addListBtn = '咦，好像出错了' )
 
     $scope.calOneClick = ->
-      list = subListService.getUserPreferNum(sort)
-      largestWeight = 0
-      for subList in $scope.subList
-        for tagId in list
-          if tagId in subList.tags
-            tagStyle = $scope.tagsList[tagId].style
-            subList.styleList ?= []
-            if tagStyle not in subList.styleList
-              subList.styleList.push tagStyle
-              subList.weight = subList.styleList.length
-              largestWeight = subList.weight if largestWeight < subList.weight
-      newList = $scope.subList.filter (x) -> x.weight is largestWeight
-
-      newest = newList[0]
-      for list in newList
-        newest = list if list.update_time > newest.update_time
-      $scope.addSubList(newest.id)
+      $http({method: 'POST', url: 'add_list_one_click/', data: $.param(infoId: id)})
+      .success(-> $location.path('/accounts'))
   )
 
   .controller('UserAccountCtrl', ($scope, $http, userService, $filter)->
@@ -156,14 +141,15 @@ angular.module('episodeGet.controllers', [])
         .success(-> userService.listUpdate() )
   )
 
-  .controller('PreferCtrl', ($scope, $http, userService, tagsListService, subListService)->
+  .controller('PreferCtrl', ($scope, $location, $http, userService, tagsListService, subListService)->
     $scope.inAccount = true
     $scope.sort= 'an'
     $scope.user = userService.user
     $scope.tagsList = {}
     $scope.unsortTags = {}
-    $scope.userPrefer = subListService.getUserPrefer()
+    $scope.userPrefer = {}
     $scope.searchInput = ''
+
 
     # cal init data
     resortTag = (tags) ->
@@ -177,8 +163,15 @@ angular.module('episodeGet.controllers', [])
       $scope.$on('tagsListService.update', (event, list)->
         $scope.tagsList[sort] = resortTag(list[sort])
         $scope.unsortTags[sort] = list[sort]
+
+        subListService.getUserPrefer()
       )
       tagsListService.getList(sort)
+
+
+    $scope.$on('preferList.update', (event, result)->
+      $scope.userPrefer = result
+    )
 
     $scope.searchTags = (sort, input) ->
       return false if not input
@@ -194,11 +187,12 @@ angular.module('episodeGet.controllers', [])
     $scope.removeTag = (key) -> $scope.userPrefer[$scope.sort].splice(key,1)
 
     $scope.savePrefer = ->
-      list = {an: [], ep: []}
-      for sort in ['an', 'ep']
-        list[sort].push tag.id for tag in $scope.userPrefer[sort]
-        localStorage.setItem('test_prefer_list', angular.toJson(list))
-      return list
+      list = {AN: [], EP: []}
+      for sort in ['AN', 'EP']
+        list[sort].push tag.id for tag in $scope.userPrefer[sort.toLowerCase()]
+        #localStorage.setItem('test_prefer_list', angular.toJson(list))
+      $http({method: 'POST', url: '/accounts/prefer/save/', data: $.param({list: angular.toJson(list)})})
+      .success(-> $location.path('/accounts'))
 
     $scope.getSortClass = (sort)->
        if $scope.sort is sort then 'btn btn-primary active' else 'btn btn-primary'
