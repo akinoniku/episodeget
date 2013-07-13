@@ -172,7 +172,8 @@
         return $location.path('/accounts');
       });
     };
-  }).controller('UserAccountCtrl', function($scope, $location, $http, userService, $filter) {
+  }).controller('UserAccountCtrl', function($scope, $location, $http, userService, $filter, tagsListService) {
+    var sort, _i, _len, _ref;
     $scope.inAccount = true;
     $scope.user = userService.user;
     userService.listUpdate();
@@ -198,7 +199,7 @@
       }
       return _results;
     });
-    return $scope.removeSubList = function() {
+    $scope.removeSubList = function() {
       return $http({
         method: 'POST',
         url: 'remove_list_ajax/',
@@ -209,6 +210,15 @@
         return userService.listUpdate();
       });
     };
+    _ref = ['an', 'ep'];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      sort = _ref[_i];
+      tagsListService.getList(sort);
+    }
+    return $scope.$on('tagsListService.update', function(event, list, sort) {
+      $scope.tagsList[sort] = resortTag(list[sort]);
+      return $scope.unsortTags[sort] = list[sort];
+    });
   }).controller('PreferCtrl', function($scope, $location, $http, userService, tagsListService, subListService) {
     var resortTag, sort, _i, _len, _ref;
     $scope.inAccount = true;
@@ -240,13 +250,13 @@
     _ref = ['an', 'ep'];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       sort = _ref[_i];
-      $scope.$on('tagsListService.update', function(event, list) {
-        $scope.tagsList[sort] = resortTag(list[sort]);
-        $scope.unsortTags[sort] = list[sort];
-        return subListService.getUserPrefer();
-      });
       tagsListService.getList(sort);
     }
+    $scope.$on('tagsListService.update', function(event, list, sort) {
+      $scope.tagsList[sort] = resortTag(list[sort]);
+      $scope.unsortTags[sort] = list[sort];
+      return subListService.getUserPrefer();
+    });
     $scope.$on('preferList.update', function(event, result) {
       return $scope.userPrefer = result;
     });

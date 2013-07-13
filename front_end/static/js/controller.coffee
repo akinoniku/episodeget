@@ -129,7 +129,7 @@ angular.module('episodeGet.controllers', [])
       .success(-> $location.path('/accounts'))
   )
 
-  .controller('UserAccountCtrl', ($scope, $location, $http, userService, $filter)->
+  .controller('UserAccountCtrl', ($scope, $location, $http, userService, $filter, tagsListService)->
     $scope.inAccount = true;
     $scope.user = userService.user
     userService.listUpdate()
@@ -144,6 +144,14 @@ angular.module('episodeGet.controllers', [])
     $scope.removeSubList = ->
       $http({method: 'POST', url: 'remove_list_ajax/', data: $.param(list_id: @list.id)})
         .success(-> userService.listUpdate() )
+
+    for sort in ['an', 'ep']
+      tagsListService.getList(sort)
+
+    $scope.$on('tagsListService.update', (event, list, sort)->
+      $scope.tagsList[sort] = resortTag(list[sort])
+      $scope.unsortTags[sort] = list[sort]
+    )
   )
 
   .controller('PreferCtrl', ($scope, $location, $http, userService, tagsListService, subListService)->
@@ -165,14 +173,14 @@ angular.module('episodeGet.controllers', [])
       subListTags
 
     for sort in ['an', 'ep']
-      $scope.$on('tagsListService.update', (event, list)->
-        $scope.tagsList[sort] = resortTag(list[sort])
-        $scope.unsortTags[sort] = list[sort]
-
-        subListService.getUserPrefer()
-      )
       tagsListService.getList(sort)
 
+    $scope.$on('tagsListService.update', (event, list, sort)->
+      $scope.tagsList[sort] = resortTag(list[sort])
+      $scope.unsortTags[sort] = list[sort]
+
+      subListService.getUserPrefer()
+    )
 
     $scope.$on('preferList.update', (event, result)->
       $scope.userPrefer = result

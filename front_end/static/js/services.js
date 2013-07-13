@@ -171,11 +171,11 @@
               return _this.updateList(sort, tagListWithIDKey);
             });
           }
-          return $rootScope.$broadcast('tagsListService.update', this.list);
+          return $rootScope.$broadcast('tagsListService.update', this.list, sort);
         },
         updateList: function(sort, list) {
           this.list[sort] = list;
-          return $rootScope.$broadcast('tagsListService.update', this.list);
+          return $rootScope.$broadcast('tagsListService.update', this.list, sort);
         }
       };
     }

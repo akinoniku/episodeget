@@ -8,7 +8,7 @@ import json
 from feeds_analysis.models import Rss, Douban, Info
 
 
-def get_ani_rss():
+def get_ani_rss(request):
     rss_json = urllib2.urlopen(
         'http://pipes.yahoo.com/pipes/pipe.run?_id=2a1aee3dda9a657eaa4d8eece5441f8f&_render=json').read()
     rss_json = json.loads(rss_json)['value']['items']
@@ -16,7 +16,7 @@ def get_ani_rss():
     return HttpResponse("Get ani rss done!")
 
 
-def get_epi_rss():
+def get_epi_rss(request):
     rss_json = urllib2.urlopen(
         'http://pipes.yahoo.com/pipes/pipe.run?_id=4059b898dc1eef8661b3eabcfc1d905a&_render=json').read()
     rss_json = json.loads(rss_json)['value']['items']
@@ -38,7 +38,7 @@ def loopToStoreRss(rss_json, sort, episode_id=0):
     return counter
 
 
-def get_ani_new():
+def get_ani_new(request):
     ani_json = urllib2.urlopen('http://www.bilibili.tv/index/bangumi.json').read()
     ani_json = json.loads(ani_json)
     loopToStoreAni(ani_json)
@@ -79,7 +79,7 @@ def loopToStoreAni(ani_json):
     return counter
 
 
-def get_epi_new():
+def get_epi_new(request):
     epi_json = urllib2.urlopen(
         'http://pipes.yahoo.com/pipes/pipe.run?_id=47147fbe121a2a307f87d2de85a416be&_render=json').read()
     epi_json = json.loads(epi_json)

@@ -89,10 +89,10 @@ angular.module('episodeGet.services', [])
             @list[sort] = tagListWithIDKey
             @updateList(sort ,tagListWithIDKey)
           )
-      $rootScope.$broadcast('tagsListService.update', @list)
+      $rootScope.$broadcast('tagsListService.update', @list, sort)
     updateList: (sort ,list) ->
       @list[sort] = list
-      $rootScope.$broadcast('tagsListService.update', @list)
+      $rootScope.$broadcast('tagsListService.update', @list, sort)
   ])
 
   .service('subListService', ['$rootScope', '$http', 'tagsListService', ($rootScope, $http, tagsListService)->
