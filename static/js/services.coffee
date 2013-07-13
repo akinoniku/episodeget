@@ -12,16 +12,17 @@ angular.module('episodeGet.services', [])
       $rootScope.$broadcast('userService.update', @user)
     loginSubmit: (username, password) ->
       $http({method: 'POST', url: '/accounts/login/ajax/', data: $.param({username: username, password: password})})
-        .success( (data) =>
+      .success( (data) =>
           @user = data
           $rootScope.$broadcast('userService.login', @user)
-        )
+          $rootScope.$broadcast('userService.update', @user)
+          )
     regSubmit: (email, username, password) ->
       $http({method: 'POST', url: '/accounts/reg/', data: $.param({email: email, username: username, password: password})})
       .success( (data) =>
           @user = data.user if data.status
           $rootScope.$broadcast('userService.reg', @user, data.status, data.msg)
-        )
+          )
     logoutSubmit: ->
       $http({method: 'GET', url: '/accounts/logout/'})
       .success( (data) =>
@@ -33,10 +34,9 @@ angular.module('episodeGet.services', [])
             list: null
           $rootScope.$broadcast('userService.logout', @user)
         )
-
     listUpdate: ->
       $http({method: 'GET', url: '/sub_list/.json', params:{user: 'me'}})
-        .success((data) =>
+      .success((data) =>
           @user.list = data.results
           $rootScope.$broadcast('userService.listUpdate', @user)
         )
@@ -89,10 +89,10 @@ angular.module('episodeGet.services', [])
             @list[sort] = tagListWithIDKey
             @updateList(sort ,tagListWithIDKey)
           )
-      $rootScope.$broadcast('tagsListService.update', @list)
+      $rootScope.$broadcast('tagsListService.update', @list, sort)
     updateList: (sort ,list) ->
       @list[sort] = list
-      $rootScope.$broadcast('tagsListService.update', @list)
+      $rootScope.$broadcast('tagsListService.update', @list, sort)
   ])
 
   .service('subListService', ['$rootScope', '$http', 'tagsListService', ($rootScope, $http, tagsListService)->
@@ -157,13 +157,17 @@ angular.module('episodeGet.services', [])
         list.show = true
 
     getUserPrefer: ->
-      lists = angular.fromJson(localStorage.getItem('test_prefer_list'))
-      tagsList = tagsListService.list
-      result = {an:[], ep:[]}
-      for sort, list of lists
-        for tagId in list
-          result[sort].push tagsList[sort][tagId]
-      return result
+      $http({method: 'GET', url: '/accounts/prefer/get/'})
+      .success((data)->
+          lists = data
+          tagsList = tagsListService.list
+          result = {an:[], ep:[]}
+          if lists isnt 'false'
+            for sort, list of lists
+              for tagId in list
+                result[sort.toLowerCase()].push tagsList[sort.toLowerCase()][tagId]
+          $rootScope.$broadcast('preferList.update', result)
+        )
 
     getUserPreferNum: (sort)->
       return angular.fromJson(localStorage.getItem('test_prefer_list'))[sort]

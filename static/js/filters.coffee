@@ -19,6 +19,7 @@ angular.module('episodeGet.filter', [])
       minutes = second * 60
       hours = minutes * 60
       days = hours * 24
+      weeks = hours * 24 * 7
       months = days * 30
       myDate = new Date(Date.parse(input))
       myDate = new Date(input.replace(/-/g, "/")) if (isNaN(myDate))
@@ -26,7 +27,7 @@ angular.module('episodeGet.filter', [])
       longtime = nowtime.getTime() - myDate.getTime()
       switch
         when longtime > months then "#{ Math.floor(longtime / months)}个月前"
-        when longtime > days then "#{ Math.floor(longtime / (days * 7))}周前"
+        when longtime > weeks then "#{ Math.floor(longtime / (days * 7))}周前"
         when longtime > days then "#{ Math.floor(longtime / days)}天前"
         when longtime > hours then "#{Math.floor(longtime / hours)}小时前"
         when longtime > minutes then "#{Math.floor(longtime / minutes)}分钟前"

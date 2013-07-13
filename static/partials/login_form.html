@@ -17,5 +17,5 @@
         记住我
     </label>
     <button type="btn" ng-click="login.loginSubmit()" class="login-btn btn btn-primary btn-large btn-block">登录</button>
-    <div ng-hide="login.status" style="margin-top: 10px; margin-bottom: 5px;" class="alert">用户名或密码错误</div>
+    <div ng-show="login.status" style="margin-top: 10px; margin-bottom: 5px;" class="alert">用户名或密码错误</div>
 </form>

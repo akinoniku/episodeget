@@ -2,12 +2,12 @@ angular.module('episodeGet.controllers', [])
   .controller('HomePageCtrl', ->
     $('.home-hero').height $(window).height()-4
     $(window).resize -> $('.home-hero').height $(window).height()-4
+    $('.feature-item').mouseenter -> $(@).stop().addClass('animated swing')
     $('.btn-reg-top').click -> $.scrollTo('.login-screen',1000)
     $('.hero-help').click -> $.scrollTo('.feature-intro-word',800)
-    $('.feature-item').mouseenter -> $(@).stop().addClass('animated swing')
   )
 
-  .controller('NavCtrl', ($scope, $http, userService)->
+  .controller('NavCtrl', ($scope,$location, $http, userService)->
     $scope.user = userService.user
     $scope.$on('userService.update', (event, user)-> $scope.user = user )
 
@@ -15,34 +15,37 @@ angular.module('episodeGet.controllers', [])
       email:''
       username: ''
       password: ''
-      status: true # login status
+      status: false # login status
       show: false # login form shown
       show_reg: false
       msg: ''
       login_id : 'top'
       logined : !!userService.user.id
-      loginSubmit: -> $scope.login.status = userService.loginSubmit(@username, @password)
+      loginSubmit: -> userService.loginSubmit(@username, @password)
       regSubmit: -> userService.regSubmit(@email ,@username, @password)
       logout: -> userService.logoutSubmit()
       checkLogin:  ->
         if not $scope.login.logined
           $http({method: 'GET', url: '/accounts/current/'})
             .success((data)->
-              userService.updateUser(data)
-              $scope.login.logined = (data.id isnt 0)
-            )
-            .error(->
-              $scope.user = userService.user
-              $scope.login.logined = false
+              if data
+                userService.updateUser(data)
+                $scope.login.logined = (data.id isnt 0 and data.id?)
+              else
+                $scope.user = userService.user
+                $scope.login.logined = false
             )
     $scope.$on('userService.login', (event, user)->
       $scope.user = user
-      $scope.login.status = !!user.id
+      $scope.login.status = !user.id
       if user.id isnt 0
         $scope.login.logined = true
         $scope.login.show = false
         $scope.login.show_reg = false
+        if $location.path() is '/'
+          $location.path('/accounts/')
     )
+
     $scope.$on('userService.reg', (event, user, status, msg)->
       $scope.user = user
       $scope.login.status = status
@@ -51,9 +54,12 @@ angular.module('episodeGet.controllers', [])
         $scope.login.logined = true
         $scope.login.show = false
         $scope.login.show_reg = false
+        if $location.path() is '/'
+          $location.path('/accounts/')
       else
         $scope.login.msg = msg
     )
+
     $scope.$on('userService.logout', (event, user)->
       $scope.user = user
       $scope.login.status = !!user.id
@@ -61,17 +67,26 @@ angular.module('episodeGet.controllers', [])
         $scope.login.logined = false
         $scope.login.show = false
     )
+
+    $scope.tab = ->
+      if $location.path().indexOf('an') isnt -1
+        return 'an'
+      else if $location.path().indexOf('ep') isnt -1
+        return 'ep'
+      else if $location.path().indexOf('accounts') isnt -1
+        return 'accounts'
+
     $scope.login.checkLogin()
   )
 
   .controller('InfoListCtrl', ($scope, $http, $routeParams, infoListService)->
     sort = $routeParams.sort
+    $scope.sort = sort
+    infoListService.getList(sort)
     $scope.$on('infoListService.update', (event, List)-> $scope.currentList = List[sort] )
     $scope.currentList = infoListService.list[sort]
     $scope.sortInfo = infoListService.sortInfo
-    $scope.sort = sort
     $scope.inListView = true;
-    infoListService.getList(sort)
   )
 
   .controller('InfoViewCtrl', ($scope, $http, $routeParams, $location, infoListService, infoService, tagsListService, subListService, userService)->
@@ -110,31 +125,17 @@ angular.module('episodeGet.controllers', [])
         .error(-> $scope.addListBtn = '咦，好像出错了' )
 
     $scope.calOneClick = ->
-      list = subListService.getUserPreferNum(sort)
-      largestWeight = 0
-      for subList in $scope.subList
-        for tagId in list
-          if tagId in subList.tags
-            tagStyle = $scope.tagsList[tagId].style
-            subList.styleList ?= []
-            if tagStyle not in subList.styleList
-              subList.styleList.push tagStyle
-              subList.weight = subList.styleList.length
-              largestWeight = subList.weight if largestWeight < subList.weight
-      newList = $scope.subList.filter (x) -> x.weight is largestWeight
-
-      newest = newList[0]
-      for list in newList
-        newest = list if list.update_time > newest.update_time
-      $scope.addSubList(newest.id)
+      $http({method: 'POST', url: 'add_list_one_click/', data: $.param(infoId: id)})
+      .success(-> $location.path('/accounts'))
   )
 
-  .controller('UserAccountCtrl', ($scope, $http, userService, $filter)->
+  .controller('UserAccountCtrl', ($scope, $location, $http, userService, $filter, tagsListService)->
     $scope.inAccount = true;
     $scope.user = userService.user
     userService.listUpdate()
     $scope.$on('userService.listUpdate', (event, user)->
       $scope.user = user
+      $scope.feedUrl = "http://episodeget.sinaapp.com/feed/#{$scope.user.username}"
       for list in user.list
         list.tagsString = ''
         for tag in list.tags
@@ -143,16 +144,25 @@ angular.module('episodeGet.controllers', [])
     $scope.removeSubList = ->
       $http({method: 'POST', url: 'remove_list_ajax/', data: $.param(list_id: @list.id)})
         .success(-> userService.listUpdate() )
+
+    for sort in ['an', 'ep']
+      tagsListService.getList(sort)
+
+    $scope.$on('tagsListService.update', (event, list, sort)->
+      $scope.tagsList[sort] = resortTag(list[sort])
+      $scope.unsortTags[sort] = list[sort]
+    )
   )
 
-  .controller('PreferCtrl', ($scope, $http, userService, tagsListService, subListService)->
+  .controller('PreferCtrl', ($scope, $location, $http, userService, tagsListService, subListService)->
     $scope.inAccount = true
     $scope.sort= 'an'
     $scope.user = userService.user
     $scope.tagsList = {}
     $scope.unsortTags = {}
-    $scope.userPrefer = subListService.getUserPrefer()
+    $scope.userPrefer = {}
     $scope.searchInput = ''
+
 
     # cal init data
     resortTag = (tags) ->
@@ -163,11 +173,18 @@ angular.module('episodeGet.controllers', [])
       subListTags
 
     for sort in ['an', 'ep']
-      $scope.$on('tagsListService.update', (event, list)->
-        $scope.tagsList[sort] = resortTag(list[sort])
-        $scope.unsortTags[sort] = list[sort]
-      )
       tagsListService.getList(sort)
+
+    $scope.$on('tagsListService.update', (event, list, sort)->
+      $scope.tagsList[sort] = resortTag(list[sort])
+      $scope.unsortTags[sort] = list[sort]
+
+      subListService.getUserPrefer()
+    )
+
+    $scope.$on('preferList.update', (event, result)->
+      $scope.userPrefer = result
+    )
 
     $scope.searchTags = (sort, input) ->
       return false if not input
@@ -183,11 +200,12 @@ angular.module('episodeGet.controllers', [])
     $scope.removeTag = (key) -> $scope.userPrefer[$scope.sort].splice(key,1)
 
     $scope.savePrefer = ->
-      list = {an: [], ep: []}
-      for sort in ['an', 'ep']
-        list[sort].push tag.id for tag in $scope.userPrefer[sort]
-        localStorage.setItem('test_prefer_list', angular.toJson(list))
-      return list
+      list = {AN: [], EP: []}
+      for sort in ['AN', 'EP']
+        list[sort].push tag.id for tag in $scope.userPrefer[sort.toLowerCase()]
+        #localStorage.setItem('test_prefer_list', angular.toJson(list))
+      $http({method: 'POST', url: '/accounts/prefer/save/', data: $.param({list: angular.toJson(list)})})
+      .success(-> $location.path('/accounts'))
 
     $scope.getSortClass = (sort)->
        if $scope.sort is sort then 'btn btn-primary active' else 'btn btn-primary'

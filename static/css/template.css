@@ -116,6 +116,10 @@ input:-moz-placeholder {
   background-color: #1abc9c;
   color: white;
 }
+.header-container .span9 nav a.link.hover {
+  background-color: #1abc9c;
+  color: white;
+}
 .home-hero {
   position: relative;
   height: 100%;
@@ -286,6 +290,7 @@ input:-moz-placeholder {
   font-size: 14px;
 }
 .info-item {
+  cursor: pointer;
   position: relative;
   width: 160px;
   margin-top: 50px;
@@ -519,6 +524,7 @@ input:-moz-placeholder {
   margin-top: 20px;
   margin-bottom: 70px;
   letter-spacing: 2px;
+  margin-left: 20px;
 }
 .login-screen .login-intro .xingqiniang-img {
   margin-left: auto;

@@ -5,6 +5,12 @@
         <a class="btn btn-primary account-setting-btn" ng-href="" ng-click="closeSettings = !closeSettings">账户设置</a>
     </div>
 </div>
+<div class="container">
+    <span style="margin-top: 20px;background-color: #BDC3C7; padding-left: 20px; border-radius: 4px;" class="span6 pull-right">
+        <span >RSS地址(点击后复制）：</span>
+        <input class="span4" style="margin-top: 9px;" type="text" value="{{ feedUrl }}" onclick="this.focus();this.select();">
+    </span>
+</div>
 <div class="account-center">
     <div collapse="closeSettings" ng-init="closeSettings = true" >
         <div class="account-setting">
@@ -40,16 +46,16 @@
                                 </div>
                             </fieldset>
                         </form>
-                        <fieldset id="xunleiLogined {% if not has_xunlei %} hide {% endif %}">
+                        <fieldset id="xunleiLogined">
                             <legend>迅雷登录</legend>
                             <div class="control-group">
-                                <a class="btn btn-primary btn-large" href="#">已经登录了啦</a>
+                                <a class="btn disabled btn-large" href="#">暂未开放</a>
                             </div>
                         </fieldset>
                     </div>
                     <div class="span4">
                         <form>
-                            <fieldset>
+                            <fieldset class="hide">
                                 <legend>连接微博</legend>
                                 <div class="control-group">
                                     <label class="control-label hide" for="xunlei-id">帐号</label>
@@ -61,6 +67,12 @@
                                     </div>
                                 </div>
                                 <input type="submit" class="btn btn-primary" value="保存">
+                            </fieldset>
+                            <fieldset>
+                                <legend>连接微博</legend>
+                                <div class="control-group">
+                                    <a class="btn disabled btn-large" href="#">暂未开放</a>
+                                </div>
                             </fieldset>
                         </form>
                     </div>
