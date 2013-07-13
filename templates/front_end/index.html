@@ -28,6 +28,165 @@
     {% compressed_css 'main_css' %}
 {% endif %}
     <script src="{% static "js/vendor/modernizr-2.6.2-respond-1.1.0.min.js" %}"></script>
+    <script type="text/ng-template" id="static/partials/home_page.html">
+        <div ng-controller="NavCtrl" class="home-hero clearfix">
+            <div ng-include="'static/partials/nav.html'"></div>
+            <div class="hero-unit-container container">
+                <div class="main wrapper clearfix">
+                    <div class="row ">
+                        <div class="span12">
+                            <span class="hero-word"><span>让我来，</span><span>这一切都会下载好的。</span></span>
+                            <a ng-hide="user.id" class="btn btn-large btn-primary btn-reg-top">注册星祈娘</a>
+                            <a ng-show="user.id" ng-href="/#/accounts/" class="btn btn-large btn-primary btn-reg-top">我的账号</a>
+                            <a class="hero-help" href="#">免费服务，往下拉看看？</a>
+                        </div>
+                    </div>
+                </div><!-- #main -->
+            </div> <!-- .hero-unit -->
+        </div>
+
+        <div id="feature-intro">
+            <div class="feature-intro-word container">
+                <h1>自动下载你在追的剧集</h1>
+                <p>每周四早上下载好中二病，每周五下午下载好生活大爆炸</p>
+                <hr class="nice-hr hide">
+            </div>
+            <div class="container">
+                <div class="all-features">
+                    <div class="row">
+                        <div class="span4">
+                            <div class="feature-item feature-item-1">
+                                <h2>自动下载<small>支持磁力链接和迅雷</small></h2>
+                                <img class="feature-avatar" src="/static/images/avatar1.gif" >
+                                <blockquote class="">
+                                    <p>生活大爆炸一更新，<br>我的电脑就自动开始下载了。</p>
+                                    <small> 秋肉</small>
+                                </blockquote>
+                            </div>
+                        </div>
+                        <div class="offset4 span4">
+                            <div class="feature-item feature-item-2">
+                                <h2>淘新番<small>点击评分进入豆瓣页面</small></h2>
+                                <img class="feature-avatar" src="/static/images/avatar2.gif">
+                                <blockquote class="">
+                                    <p>当我不知道想看什么，<br>就先到星祈娘逛逛。</p>
+                                    <small> 彤呆</small>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span4">
+                            <div class="feature-item feature-item-3">
+                                <h2>通知推送<small>邮件推送磁力链接</small></h2>
+                                <img class="feature-avatar" src="/static/images/avatar3.gif">
+                                <blockquote class="">
+                                    <p>我收到一个邮件，<br>知道我一回家就有银魂看了。</p>
+                                    <small> X葱</small>
+                                </blockquote>
+                            </div>
+                        </div>
+                        <div class="offset4 span4">
+                            <div class="feature-item feature-item-3">
+                                <h2>站娘订阅<small>微博@星祈娘订阅新番</small></h2>
+                                <img class="feature-avatar" src="/static/images/avatar4.gif">
+                                <blockquote class="">
+                                    <p>嵌字的话就简单多了，<br>效率好一口气一晚就能搞定一本。</p>
+                                    <small> E_neko</small>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div id="time-line" class="offset6 span6">
+                        <div class="v-line">
+                            <div class="time-line-item first-item">
+                                <span class="left-icon"><i class="fui-eye-24"></i></span>
+                                <span class="titles"></span>
+                            </div>
+                            <div class="time-line-item right-one">
+                                <span class="left-icon"><i class="icon icon-user"></i></span>
+                                <span class="titles">注册星祈娘</span>
+                            </div>
+                            <div class="time-line-item left-one">
+                                <span class="left-icon"><i class="icon icon-heart"></i></span>
+                                <span class="titles">添加喜爱的番剧</span>
+                            </div>
+                            <div class="time-line-item right-one">
+                                <span class="left-icon"><i class="icon icon-calendar"></i></span>
+                                <span class="titles">等待下一集更新</span>
+                            </div>
+                            <div class="time-line-item left-one">
+                                <span class="left-icon"><i class="icon icon-smile"></i></span>
+                                <span class="titles">更新啦</span>
+                            </div>
+                            <div class="time-line-item right-one">
+                                <span class="left-icon"><i class="icon icon-bullhorn"></i></span>
+                                <span class="titles">收到通知</span>
+                            </div>
+                            <div class="time-line-item left-one">
+                                <span class="left-icon"><i class="icon icon-cloud-download"></i></span>
+                                <span class="titles">自动下载/迅雷离线</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-hide="user.id" ng-controller="NavCtrl" class="" id="info_intro" style="background-color: #1ABC9C;">
+            <div class="container">
+                <div class="row">
+                    <div id="login-screen" style="position: relative" class="login-screen">
+                        <div class="container">
+                            <h1 class="login-ask">那么，要登录还是要注册？</h1>
+                            <div class="row">
+                                <div class="span3">
+                                    <div ng-include="'static/partials/login_form.html'" onload="login.show=true" class="span3"></div>
+                                </div>
+                                <div class="login-intro span6">
+                                    <div class="xingqiniang-img">
+                                        <img src="/static/images/xqn.png">
+                                    </div>
+                                </div>
+                                <div class="span3">
+                                    <div ng-include="'static/partials/reg_form.html'" onload="login.show_reg = true" class="span3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="static/partials/nav.html">
+        <div class="header-container clearfix">
+            <div class="container">
+                <header class="wrapper clearfix">
+                    <div style="position: relative;" class="row">
+                        <a ng-href="/#/" id="logo" class="span3"><h1>星祈娘</h1></a>
+                        <div style="margin-top: 12px;" class="span9">
+                            <nav>
+                                <a ng-class="{'link':true, 'hover': tab()==='an'}" ng-href="/#/list/an/"><i class="icon icon-rocket"></i> 动画</a>
+                                <a ng-class="{'link':true, 'hover': tab()==='ep'}" ng-href="/#/list/ep/"><i class="icon icon-plane"></i> 剧集</a>
+                                <a>|</a>
+                                <!-- login -->
+                                <a ng-show="login.logined" class="link hide" ng-href="/#/accounts/" ><i class="icon icon-rss"></i> 我的订阅 </a>
+                                <a ng-show="login.logined" ng-class="{'link':true, 'hover': tab()==='accounts'}" ng-href="/#/accounts/" ><i class="icon icon-user"></i> {{ user.username }}</a>
+                                <a ng-show="login.logined" ng-click="login.logout()" class="link nav-logout" ng-href="/#/logout" ><i class="icon icon-signout"></i> 退出 </a>
+                                <a ng-hide="login.logined" ng-click="login.show_reg = false; login.show = !login.show" class="link nav-login" href="" ><i class="icon icon-signin"></i> 登录</a>
+                                <a ng-hide="login.logined" ng-click="login.show = false; login.show_reg = !login.show_reg" class="link nav-reg" href="" ><i class="icon icon-bullseye"></i> 注册</a>
+                            </nav>
+                        </div>
+                        <div ng-include="'static/partials/login_form.html'" class="span3 index-upper-login"></div>
+                        <div ng-include="'static/partials/reg_form.html'" class="span3 index-upper-reg"></div>
+                    </div>
+                </header>
+            </div>
+        </div>
+    </script>
 </head>
 <body>
 <div ng-directive class="main-body" ng-view></div>
