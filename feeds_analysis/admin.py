@@ -102,9 +102,14 @@ class FeedInfoAdmin(admin.ModelAdmin):
             first_result = urllib2.urlopen(douban_api_string.encode('utf-8')).read()
             try:
                 first_result = json.loads(first_result)
+                if first_result['total'] == 0:
+                    douban_api_string = 'http://api.douban.com/v2/movie/search?q=%s?apikey=020149640d8ca58a0603dc2c28a5f09e' % info.title.split(',')[0].replace(' ', '%20')
+                    first_result = urllib2.urlopen(douban_api_string.encode('utf-8')).read()
+                    first_result = json.loads(first_result)
             except:
                 douban_api_string = 'http://api.douban.com/v2/movie/search?q=%s?apikey=020149640d8ca58a0603dc2c28a5f09e' % info.title.split(',')[0].replace(' ', '%20')
                 first_result = urllib2.urlopen(douban_api_string.encode('utf-8')).read()
+                first_result = json.loads(first_result)
             if first_result['total'] > 0:
                 douban_id = first_result['subjects'][0]['id']
                 new_douban = get_douban_by_douban_id(douban_id)

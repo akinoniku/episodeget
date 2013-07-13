@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from rest_framework import generics
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny
+from feeds_analysis.admin import FeedInfoAdmin
 from feeds_analysis.analysiser import analysis_tags, send_notification
 from feeds_analysis.models import Rss, Info, SubList, Tags
 from feeds_analysis.serializers import RssSerializer, UserSerializer, InfoSerializer, SubListSerializer, TagsSerializer
@@ -35,7 +36,7 @@ def ana_rss_all(request):
 
 
 def read_old_db(request):
-    old_db_reader(info=True)
+    old_db_reader(rss=True)
     return HttpResponse("Read Old db Done")
 
 
