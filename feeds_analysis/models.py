@@ -106,10 +106,11 @@ class Info(models.Model):
             image = urllib2.urlopen('http://img4.douban.com/view/photo/raw/public/' + match.group()).read()
         else:
             image = urllib2.urlopen(self.douban.images).read()
-        s = sae.storage.Client()
-        image_object = sae.storage.Object(image, expires='A360000', content_type='image/jpg')
-        s.put('images', self.douban.douban_id, image_object)
-        url = s.url('images', self.douban.douban_id)
+        from sae.storage import Bucket
+        bucket = Bucket('infopic')
+        bucket.put()
+        bucket.put_object((self.id + '.jpg'), image)
+        url = bucket.generate_url((self.id + '.jpg'))
         self.images = url
         self.save()
 
