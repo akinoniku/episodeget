@@ -64,12 +64,12 @@ class GetTagsFilter(SimpleListFilter):
 
 class FeedInfoAdmin(admin.ModelAdmin):
     list_display = ('sort', 'title', 'douban', 'now_playing',
-                    'weekday', 'count_sub_list', 'show_tags', 'tag_created', )
+                    'weekday', 'count_sub_list', 'show_tags', 'tag_created', 'images', )
     list_display_links = ('title',)
     list_filter = ('sort', GetTagsFilter, 'now_playing')
     list_editable = ('now_playing',)
     search_fields = ('title',)
-    actions = ['get_douban', 'create_tag', 'create_short_tag']
+    actions = ['get_douban', 'create_tag', 'create_short_tag', 'store_image']
     list_max_show_all = 600
 
     def create_tag(self, request, queryset):
@@ -118,6 +118,13 @@ class FeedInfoAdmin(admin.ModelAdmin):
                     info.save()
 
     get_douban.short_description = 'Get Douban'
+
+    def store_image(self, request, queryset):
+        infos = queryset.select_related().all()
+        for info in infos:
+            info.store_image()
+
+    store_image.short_description = 'Get Image'
 
 
 admin.site.register(Info, FeedInfoAdmin)
