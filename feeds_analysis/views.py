@@ -40,6 +40,13 @@ def read_old_db(request):
     return HttpResponse("Read Old db Done")
 
 
+def update_image(request):
+    info = Info.objects.filter(douban__isnull=False).filter(images__isnull=True)[0]
+    info.store_image()
+    return HttpResponse(info.images)
+
+
+
 @permission_classes((AllowAny, ))
 class InfoList(generics.ListCreateAPIView):
     model = Info

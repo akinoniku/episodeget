@@ -22,3 +22,4 @@ cron:
 - description: update_epi_new
   url: /updater/get_epi_new
   schedule: "*/20 * * * *"
+

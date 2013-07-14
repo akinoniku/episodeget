@@ -12,16 +12,16 @@ def get_ani_rss(request):
     rss_json = urllib2.urlopen(
         'http://pipes.yahoo.com/pipes/pipe.run?_id=2a1aee3dda9a657eaa4d8eece5441f8f&_render=json').read()
     rss_json = json.loads(rss_json)['value']['items']
-    loopToStoreRss(rss_json, 'AN')
-    return HttpResponse("Get ani rss done!")
+    counter = loopToStoreRss(rss_json, 'AN')
+    return HttpResponse("Get %s ani rss done!" % counter)
 
 
 def get_epi_rss(request):
     rss_json = urllib2.urlopen(
         'http://pipes.yahoo.com/pipes/pipe.run?_id=4059b898dc1eef8661b3eabcfc1d905a&_render=json').read()
     rss_json = json.loads(rss_json)['value']['items']
-    loopToStoreRss(rss_json, 'EP')
-    return HttpResponse("Get epi rss done!")
+    counter = loopToStoreRss(rss_json, 'EP')
+    return HttpResponse("Get %s epi rss done!" % counter)
 
 
 def loopToStoreRss(rss_json, sort, episode_id=0):

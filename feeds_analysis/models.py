@@ -109,8 +109,9 @@ class Info(models.Model):
         from sae.storage import Bucket
         bucket = Bucket('infopic')
         bucket.put()
-        bucket.put_object((self.id + '.jpg'), image)
-        url = bucket.generate_url((self.id + '.jpg'))
+        filename = '%s.jpg' % self.id
+        bucket.put_object(filename, image)
+        url = bucket.generate_url(filename)
         self.images = url
         self.save()
 
