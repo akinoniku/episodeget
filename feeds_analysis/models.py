@@ -1,5 +1,6 @@
 # coding=utf-8
 import json
+import re
 import sae
 import urllib2
 from django.contrib.auth.models import User
@@ -100,9 +101,13 @@ class Info(models.Model):
         return SubList.objects.filter(info=self)
 
     def store_image(self):
-        image = urllib2.urlopen(self.douban.images).read()
+        match = re.search(r'p[\d]+.jpg', self.douban.images)
+        if match:
+            image = urllib2.urlopen('http://img4.douban.com/view/photo/raw/public/' + match.group()).read()
+        else:
+            image = urllib2.urlopen(self.douban.images).read()
         s = sae.storage.Client()
-        image_object = sae.storage.Object(image, expires='A360000', content_type='text/html')
+        image_object = sae.storage.Object(image, expires='A360000', content_type='image/jpg')
         s.put('images', self.douban.douban_id, image_object)
         url = s.url('images', self.douban.douban_id)
         self.images = url
