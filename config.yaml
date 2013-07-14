@@ -12,19 +12,13 @@ handlers:
 cron:
 - description: update_ani_rss
   url: /updater/get_ani_rss
-  schedule: "*/8 * * * *"
-
-cron:
+  schedule: "*/9 * * * *"
 - description: update_epi_rss
   url: /updater/get_epi_rss
-  schedule: "*/8 * * * *"
-
-cron:
+  schedule: "*/7 * * * *"
 - description: update_ani_new
   url: /updater/get_ani_new
-  schedule: "*/8 * * * *"
-
-cron:
+  schedule: "*/20 * * * *"
 - description: update_epi_new
   url: /updater/get_epi_new
-  schedule: "*/8 * * * *"
+  schedule: "*/20 * * * *"

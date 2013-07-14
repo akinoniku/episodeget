@@ -68,7 +68,7 @@ def analysis_tags(rss):
             if rss.timestamp > resultList.update_time:
                 resultList.update_time = rss.timestamp
             resultList.save()
-            # send_notification(rss, rows[0])
+            send_notification(rss, resultList)
         else:
             #already added
             pass
@@ -86,7 +86,7 @@ def analysis_tags(rss):
         for tags in tags_list:
             new_list.tags.add(tags)
         new_list.save()
-        # send_notification(rss, new_list)
+        send_notification(rss, new_list)
     return True
 
 
