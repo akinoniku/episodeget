@@ -1,9 +1,6 @@
 # Django settings for episodeget project.
 import os
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
 SAE_VERSION = 0
 if 'APP_VERSION' in os.environ:
     SAE_VERSION = os.environ['APP_VERSION']
@@ -12,6 +9,15 @@ if 'APP_VERSION' in os.environ:
 ADMINS = (
 # ('Your Name', 'your_email@example.com'),
 )
+
+
+if SAE_VERSION:
+    DEBUG = False
+else:
+    DEBUG = True
+
+
+TEMPLATE_DEBUG = DEBUG
 
 MANAGERS = ADMINS
 
