@@ -1,6 +1,42 @@
 <div ng-controller="NavCtrl" ng-include="'static/partials/nav.html'"></div>
 <div class="list_prefer">
     <div class="container">
+        <h2 style="font-size: 40px; margin-top: 30px;">我要...<small style="float: right; margin-top: 13px">这是“一键添加”的设置</small></h2>
+        <div style="margin-top: 80px" class="row">
+            <div class="span3">
+                <div ng-click="selectExample('normal')" class="type-in">
+                    <h3> <i class="icon icon-dashboard"></i>
+                        速度快!</h3>
+                    <h4>更新了就下载～<br><small>即使没那么高清</small></h4>
+                </div>
+            </div>
+            <div class="span3">
+                <div ng-click="selectExample('clear')" class="type-in">
+                    <h3><i class="icon icon-desktop"></i>
+                        清晰度!</h3>
+                    <h4>质量优先～<br><small>即使没那么快下载</small></h4>
+                </div>
+            </div>
+            <div class="span3">
+                <div ng-click="selectExample('learner')" class="type-in">
+                    <h3> <i class="icon icon-globe"></i>
+                        学外语!</h3>
+                    <h4>双语字幕才是最重要的
+                        <br><small>别的都随便啦</small></h4>
+                </div>
+            </div>
+            <div class="span3">
+                <div ng-click="closeSettings = false" class="type-in">
+                    <h3> <i class="icon icon-cogs"></i>
+                        自定义!</h3>
+                    <h4>让开，让专业的来～
+                        <br><small>我New type</small> </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-init="closeSettings = true" collapse="closeSettings">
+    <div style="margin-top: 50px;" class="container">
         <div class="type-select pull-left">
             <div class="btn-toolbar">
                 <div class="btn-group">
@@ -38,5 +74,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>

@@ -18,7 +18,7 @@ urlpatterns = patterns('',
                        # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
                        # Uncomment the next line to enable the admin:
-                       url(r'^admin/', include(admin.site.urls)),
+                       url(r'^akino_admin/', include(admin.site.urls)),
 
                        # user setting
                        # url(r'^accounts/login/$', 'django.contrib.auth.views.login',
@@ -43,7 +43,7 @@ urlpatterns = patterns('',
                        url(r'^add_list_ajax/$', front_end.views.add_sub_list),
                        url(r'^add_list_one_click/$', one_click_add),
                        url(r'^remove_list_ajax/$', front_end.views.remove_sub_list),
-                       url(r'^feed/(?P<userId>\w{1,255})$', UserFeed()),
+                       url(r'^feed/(?P<userId>\w\w{1,255}).rss$', UserFeed()),
 
                        # feed_analysis
                        url(r'^updater/get_ani_new$', get_ani_new),

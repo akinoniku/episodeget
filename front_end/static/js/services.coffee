@@ -22,6 +22,7 @@ angular.module('episodeGet.services', [])
       .success( (data) =>
           @user = data.user if data.status
           $rootScope.$broadcast('userService.reg', @user, data.status, data.msg)
+          $rootScope.$broadcast('userService.update', @user)
           )
     logoutSubmit: ->
       $http({method: 'GET', url: '/accounts/logout/'})
@@ -33,6 +34,7 @@ angular.module('episodeGet.services', [])
             email: null
             list: null
           $rootScope.$broadcast('userService.logout', @user)
+          $rootScope.$broadcast('userService.update', @user)
         )
     listUpdate: ->
       $http({method: 'GET', url: '/sub_list/.json', params:{user: 'me'}})

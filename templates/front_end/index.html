@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{% block title %}Title {% endblock title %}</title>
+    <title>{% if IS_SAE %}星祈娘 {% else %}  404 NOT FOUND {% endif %}</title>
     <meta name="description" content="{% block description %}description {% endblock description %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% if page == 'old_page' %}
@@ -174,7 +174,7 @@
                                 <a>|</a>
                                 <!-- login -->
                                 <a ng-show="login.logined" class="link hide" ng-href="/#/accounts/" ><i class="icon icon-rss"></i> 我的订阅 </a>
-                                <a ng-show="login.logined" ng-class="{'link':true, 'hover': tab()==='accounts'}" ng-href="/#/accounts/" ><i class="icon icon-user"></i> {{ user.username }}</a>
+                                <a ng-show="login.logined" ng-class="{'link':true, 'hover': tab()==='accounts'}" ng-href="/#/accounts/" ><i class="icon icon-user"></i>{% templatetag openvariable %}  user.username {% templatetag closevariable %}</a>
                                 <a ng-show="login.logined" ng-click="login.logout()" class="link nav-logout" ng-href="/#/logout" ><i class="icon icon-signout"></i> 退出 </a>
                                 <a ng-hide="login.logined" ng-click="login.show_reg = false; login.show = !login.show" class="link nav-login" href="" ><i class="icon icon-signin"></i> 登录</a>
                                 <a ng-hide="login.logined" ng-click="login.show = false; login.show_reg = !login.show_reg" class="link nav-reg" href="" ><i class="icon icon-bullseye"></i> 注册</a>

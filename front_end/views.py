@@ -47,7 +47,16 @@ def user_reg(request):
         username = request.POST['username']
         password = request.POST['password']
         email = request.POST['email']
-        if len(User.objects.filter(email=email)):
+        if not email:
+            status = False
+            msg = "要填上邮箱啦"
+        elif not username:
+            status = False
+            msg = "要填上用户名啦"
+        elif not password:
+            status = False
+            msg = "要填上密码啦"
+        elif len(User.objects.filter(email=email)):
             status = False
             msg = "Email 已经被注册过了"
         elif username and password and email:

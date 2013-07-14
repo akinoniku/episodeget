@@ -1,13 +1,15 @@
 # Create your views here.
 from datetime import timedelta, datetime
 import json
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from feeds_analysis.models import SubList, Info
 from user_settings.models import SubListPrefer
 
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated, ))
 def save_prefer(request):
     user = request.user
     prefer_list = request.POST['list']
@@ -22,6 +24,7 @@ def save_prefer(request):
 
 
 @api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
 def get_prefer(request):
     user = request.user
     try:
@@ -33,6 +36,7 @@ def get_prefer(request):
 
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated, ))
 def one_click_add(request):
     user = request.user
     try:
