@@ -277,9 +277,9 @@ PIPELINE_YUGLIFY_BINARY = 'C:/Users/Richard/node_modules/.bin/yuglify.cmd'
 PIPELINE_CSS = {
     'main_css': {
         'source_filenames': (
-            #"css/bootstrap.min.css",
-            #"css/font-awesome.min.css",
+            "css/bootstrap.min.css",
             "css/bootstrap-responsive.min.css",
+            "css/font-awesome.min.css",
             "css/flat-ui.css",
             "css/animate.min.css",
             "css/main.css",
