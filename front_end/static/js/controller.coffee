@@ -120,7 +120,6 @@ angular.module('episodeGet.controllers', [])
 
     $scope.sortInfo = infoListService.sortInfo
     $scope.inListView = true;
-    $scope.createPage(infoListService.list, sort, $scope.page)
   )
 
   .controller('InfoViewCtrl', ($scope, $http, $routeParams, $location, infoListService, infoService, tagsListService, subListService, userService)->

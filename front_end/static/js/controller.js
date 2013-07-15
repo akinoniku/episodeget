@@ -148,8 +148,7 @@
       return $scope.createPage(List, sort, $scope.page);
     });
     $scope.sortInfo = infoListService.sortInfo;
-    $scope.inListView = true;
-    return $scope.createPage(infoListService.list, sort, $scope.page);
+    return $scope.inListView = true;
   }).controller('InfoViewCtrl', function($scope, $http, $routeParams, $location, infoListService, infoService, tagsListService, subListService, userService) {
     var id, sort, _ref;
     _ref = [$routeParams.id, $routeParams.sort], id = _ref[0], sort = _ref[1];
