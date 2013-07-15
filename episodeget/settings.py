@@ -96,7 +96,10 @@ STATIC_ROOT = os.path.join(PROJECT_PATH, '../static')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/static/'
+if SAE_VERSION:
+    STATIC_URL = 'http://episodeget.sinaapp.com/static/'
+else:
+    STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -274,10 +277,10 @@ PIPELINE_YUGLIFY_BINARY = '~/node_modules/yuglify/bin/yuglify'
 PIPELINE_CSS = {
     'main_css': {
         'source_filenames': (
-            "css/bootstrap.min.css",
+            #"css/bootstrap.min.css",
+            #"css/font-awesome.min.css",
             "css/bootstrap-responsive.min.css",
             "css/flat-ui.css",
-            "css/font-awesome.min.css",
             "css/animate.min.css",
             "css/main.css",
             "css/template.css",
