@@ -17,9 +17,22 @@
       return $.scrollTo('.feature-intro-word', 800);
     });
   }).controller('NavCtrl', function($scope, $location, $http, userService) {
-    $scope.user = userService.user;
-    $scope.$on('userService.update', function(event, user) {
-      return $scope.user = user;
+    var now;
+
+    now = Date.parse(new Date());
+    if ((localStorage.getItem('info_timeout') != null) && now - localStorage.getItem('info_timeout') > 259200000) {
+      localStorage.removeItem('infoList_an');
+      localStorage.removeItem('infoList_ep');
+    }
+    if ((localStorage.getItem('tags_timeout') != null) && now - localStorage.getItem('tags_timeout') > 259200000) {
+      localStorage.removeItem('tagsList_an');
+      localStorage.removeItem('tagsList_ep');
+    }
+    $scope.$on('infoListService.update', function(event, List) {
+      return localStorage.setItem('info_timeout', now);
+    });
+    $scope.$on('tagsListService.update', function(event, list) {
+      return localStorage.setItem('tags_timeout', now);
     });
     $scope.login = {
       email: '',
@@ -41,7 +54,7 @@
         return userService.logoutSubmit();
       },
       checkLogin: function() {
-        if (!$scope.login.logined) {
+        if (!$scope.login.logined || this.username !== $scope.user.username) {
           return $http({
             method: 'GET',
             url: '/accounts/current/'
@@ -69,6 +82,10 @@
         }
       }
     });
+    $scope.user = userService.user;
+    $scope.$on('userService.update', function(event, user) {
+      return $scope.user = user;
+    });
     $scope.$on('userService.reg', function(event, user, status, msg) {
       $scope.user = user;
       $scope.login.status = status;
@@ -78,7 +95,7 @@
         $scope.login.show = false;
         $scope.login.show_reg = false;
         if ($location.path() === '/') {
-          return $location.path('/accounts/');
+          return $location.path('/accounts/prefer');
         }
       } else {
         return $scope.login.msg = msg;
@@ -184,7 +201,7 @@
       var list, tag, _i, _len, _ref, _results;
 
       $scope.user = user;
-      $scope.feedUrl = "http://episodeget.sinaapp.com/feed/" + $scope.user.username;
+      $scope.feedUrl = "http://episodeget.sinaapp.com/feed/" + $scope.user.username + ".rss";
       _ref = user.list;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -232,8 +249,26 @@
     $scope.user = userService.user;
     $scope.tagsList = {};
     $scope.unsortTags = {};
-    $scope.userPrefer = {};
+    $scope.userPrefer = angular.fromJson('{"AN":[128,10,15,13,50,11,14,41,51,123,126,133],"EP":[170,844,186]}');
     $scope.searchInput = '';
+    $scope.selectExample = function(listType) {
+      var preferExample;
+
+      preferExample = {
+        normal: '{"AN":[128,10,15,13,50,11,14,41,51,123,126,133],"EP":[170,844,186]}',
+        clear: '{"AN":[128,10,15,13,50,11,14,41,51,124,129],"EP":[170,844,184]}',
+        learner: '{"AN":[138,128,129],"EP":[181,183]}'
+      };
+      return $http({
+        method: 'POST',
+        url: '/accounts/prefer/save/',
+        data: $.param({
+          list: preferExample[listType]
+        })
+      }).success(function() {
+        return $location.path('/accounts');
+      });
+    };
     resortTag = function(tags) {
       var k, preSubListTags, subListTags, tag;
 
@@ -254,16 +289,16 @@
       }
       return subListTags;
     };
-    _ref = ['an', 'ep'];
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      sort = _ref[_i];
-      tagsListService.getList(sort);
-    }
     $scope.$on('tagsListService.update', function(event, list, sort) {
       $scope.tagsList[sort] = resortTag(list[sort]);
       $scope.unsortTags[sort] = list[sort];
       return subListService.getUserPrefer();
     });
+    _ref = ['an', 'ep'];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      sort = _ref[_i];
+      tagsListService.getList(sort);
+    }
     $scope.$on('preferList.update', function(event, result) {
       return $scope.userPrefer = result;
     });
@@ -307,6 +342,7 @@
           tag = _ref2[_k];
           list[sort].push(tag.id);
         }
+        localStorage.setItem('test_prefer_list', angular.toJson(list));
       }
       return $http({
         method: 'POST',

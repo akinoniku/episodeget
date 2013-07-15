@@ -50,7 +50,8 @@
             if (data.status) {
               _this.user = data.user;
             }
-            return $rootScope.$broadcast('userService.reg', _this.user, data.status, data.msg);
+            $rootScope.$broadcast('userService.reg', _this.user, data.status, data.msg);
+            return $rootScope.$broadcast('userService.update', _this.user);
           });
         },
         logoutSubmit: function() {
@@ -67,7 +68,8 @@
               email: null,
               list: null
             };
-            return $rootScope.$broadcast('userService.logout', _this.user);
+            $rootScope.$broadcast('userService.logout', _this.user);
+            return $rootScope.$broadcast('userService.update', _this.user);
           });
         },
         listUpdate: function() {

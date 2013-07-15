@@ -555,7 +555,7 @@ input:-moz-placeholder {
 }
 .list_prefer {
   min-height: 100%;
-  margin-top: 100px;
+  margin-top: 20px;
 }
 .list_prefer .tagsinput .tag .icon-plus:hover {
   color: white;
@@ -588,6 +588,29 @@ input:-moz-placeholder {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
+}
+.list_prefer .type-in {
+  cursor: pointer;
+  background-color: white;
+  padding: 10px;
+  padding-left: 15px;
+  border-radius: 5px;
+}
+.list_prefer .type-in h3 {
+  font-size: 30px;
+}
+.list_prefer .type-in h3 .icon {
+  width: 29px;
+  display: inline-block;
+  color: #16a085;
+}
+.list_prefer .type-in h4 {
+  color: #34495e;
+  margin-top: 15px;
+  margin-left: 41px;
+}
+.list_prefer .type-in:hover {
+  background-color: #bdc3c7;
 }
 .account-center {
   min-height: 90%;

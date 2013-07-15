@@ -8,8 +8,21 @@ angular.module('episodeGet.controllers', [])
   )
 
   .controller('NavCtrl', ($scope,$location, $http, userService)->
-    $scope.user = userService.user
-    $scope.$on('userService.update', (event, user)-> $scope.user = user )
+    now = Date.parse(new Date())
+    if localStorage.getItem('info_timeout')? and now - localStorage.getItem('info_timeout') > 259200000
+      localStorage.removeItem('infoList_an')
+      localStorage.removeItem('infoList_ep')
+
+    if localStorage.getItem('tags_timeout')? and now - localStorage.getItem('tags_timeout') > 259200000
+      localStorage.removeItem('tagsList_an')
+      localStorage.removeItem('tagsList_ep')
+
+    $scope.$on('infoListService.update', (event, List)->
+      localStorage.setItem('info_timeout', now)
+    )
+    $scope.$on('tagsListService.update', (event, list)->
+      localStorage.setItem('tags_timeout', now)
+    )
 
     $scope.login =
       email:''
@@ -25,7 +38,7 @@ angular.module('episodeGet.controllers', [])
       regSubmit: -> userService.regSubmit(@email ,@username, @password)
       logout: -> userService.logoutSubmit()
       checkLogin:  ->
-        if not $scope.login.logined
+        if not $scope.login.logined or @username isnt $scope.user.username
           $http({method: 'GET', url: '/accounts/current/'})
             .success((data)->
               if data
@@ -46,6 +59,9 @@ angular.module('episodeGet.controllers', [])
           $location.path('/accounts/')
     )
 
+    $scope.user = userService.user
+    $scope.$on('userService.update', (event, user)-> $scope.user = user )
+
     $scope.$on('userService.reg', (event, user, status, msg)->
       $scope.user = user
       $scope.login.status = status
@@ -55,7 +71,7 @@ angular.module('episodeGet.controllers', [])
         $scope.login.show = false
         $scope.login.show_reg = false
         if $location.path() is '/'
-          $location.path('/accounts/')
+          $location.path('/accounts/prefer')
       else
         $scope.login.msg = msg
     )
@@ -135,7 +151,7 @@ angular.module('episodeGet.controllers', [])
     userService.listUpdate()
     $scope.$on('userService.listUpdate', (event, user)->
       $scope.user = user
-      $scope.feedUrl = "http://episodeget.sinaapp.com/feed/#{$scope.user.username}"
+      $scope.feedUrl = "http://episodeget.sinaapp.com/feed/#{$scope.user.username}.rss"
       for list in user.list
         list.tagsString = ''
         for tag in list.tags
@@ -160,8 +176,16 @@ angular.module('episodeGet.controllers', [])
     $scope.user = userService.user
     $scope.tagsList = {}
     $scope.unsortTags = {}
-    $scope.userPrefer = {}
+    $scope.userPrefer = angular.fromJson('{"AN":[128,10,15,13,50,11,14,41,51,123,126,133],"EP":[170,844,186]}')
     $scope.searchInput = ''
+
+    $scope.selectExample = (listType)->
+      preferExample =
+        normal: '{"AN":[128,10,15,13,50,11,14,41,51,123,126,133],"EP":[170,844,186]}'
+        clear: '{"AN":[128,10,15,13,50,11,14,41,51,124,129],"EP":[170,844,184]}'
+        learner: '{"AN":[138,128,129],"EP":[181,183]}'
+      $http({method: 'POST', url: '/accounts/prefer/save/', data: $.param({list:preferExample[listType]})})
+      .success(-> $location.path('/accounts'))
 
 
     # cal init data
@@ -172,15 +196,15 @@ angular.module('episodeGet.controllers', [])
       subListTags.push tags for k,tags of preSubListTags
       subListTags
 
-    for sort in ['an', 'ep']
-      tagsListService.getList(sort)
-
     $scope.$on('tagsListService.update', (event, list, sort)->
       $scope.tagsList[sort] = resortTag(list[sort])
       $scope.unsortTags[sort] = list[sort]
 
       subListService.getUserPrefer()
     )
+
+    for sort in ['an', 'ep']
+      tagsListService.getList(sort)
 
     $scope.$on('preferList.update', (event, result)->
       $scope.userPrefer = result
@@ -203,7 +227,7 @@ angular.module('episodeGet.controllers', [])
       list = {AN: [], EP: []}
       for sort in ['AN', 'EP']
         list[sort].push tag.id for tag in $scope.userPrefer[sort.toLowerCase()]
-        #localStorage.setItem('test_prefer_list', angular.toJson(list))
+        localStorage.setItem('test_prefer_list', angular.toJson(list))
       $http({method: 'POST', url: '/accounts/prefer/save/', data: $.param({list: angular.toJson(list)})})
       .success(-> $location.path('/accounts'))
 

@@ -568,7 +568,7 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
 
 .list_prefer{
   min-height: 100%;
-  margin-top: 100px;
+  margin-top: 20px;
       .tagsinput{
         .tag .icon-plus:hover{
           color: white;
@@ -598,7 +598,29 @@ input::-webkit-input-placeholder, input:-moz-placeholder{
     margin-bottom: 3px;
     .border-radius(6px);
   }
-
+  .type-in{
+    cursor: pointer;
+    background-color: white;
+    padding: 10px;
+    padding-left: 15px;
+    border-radius: 5px;
+    h3{
+      font-size: 30px;
+      .icon{
+        width: 29px;
+        display: inline-block;
+        color: @GREENSEA;
+      }
+    }
+    h4{
+      color: @WETASPHALT;
+      margin-top: 15px;
+      margin-left: 41px;
+    }
+  }
+  .type-in:hover{
+    background-color: @SILVER;
+  }
 }
 
 .account-center{
