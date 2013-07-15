@@ -7,8 +7,15 @@
         <div ng-controller="InfoListCtrl" class="row">
             <div style="width: 72px; margin-left: auto; margin-right: auto; margin-top: 5%;" ng-hide="currentList">
                 <i style="font-size: 72px; color: white;" class="icon-refresh icon-spin"></i></div>
-            <div ng-repeat="info in currentList | filter:search | orderBy:sortInfo" ng-include="'static/partials/info_item.html'" class="span3">
+            <div ng-repeat="info in currentPage | filter:search | orderBy:sortInfo" ng-include="'static/partials/info_item.html'" class="span3">
             </div>
         </div>
+        <div style="margin-right: 53px; margin-top: 45px;" class="pagination pull-right">
+            <ul>
+              <li class="previous"><a href="{{ '/#/list/'+sort+'/'+ previewPage }}" class=""><i class="icon-chevron-left"></i> </a></li>
+              <li ng-repeat="pageNum in pages" ng-class="{'active':page==pageNum}"><a href="{{ '/#/list/'+sort+'/'+pageNum}}">{{ pageNum }}</a></li>
+              <li class="next"><a href="{{ '/#/list/'+sort+'/'+ nextPage }}" class=""><i class="icon-chevron-right"></i></a></li>
+            </ul>
+          </div>
     </div>
 </div>

@@ -124,7 +124,7 @@ def rss_feed(userId):
     sub_lists = SubList.objects.filter(user=user).select_related()
     all_rss = []
     for sub_list in sub_lists:
-        all_rss = all_rss + list(sub_list.rss.all())
+        all_rss = all_rss + list(sub_list.rss.all().reverse()[:5])
         if len(all_rss) > 50:
             break
     all_rss.sort(key=lambda x: x.timestamp, reverse=True)

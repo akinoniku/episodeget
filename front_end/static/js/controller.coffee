@@ -98,11 +98,29 @@ angular.module('episodeGet.controllers', [])
   .controller('InfoListCtrl', ($scope, $http, $routeParams, infoListService)->
     sort = $routeParams.sort
     $scope.sort = sort
+    $scope.page = if $routeParams.page? then $routeParams.page else 1
+    $scope.sort = sort
     infoListService.getList(sort)
-    $scope.$on('infoListService.update', (event, List)-> $scope.currentList = List[sort] )
-    $scope.currentList = infoListService.list[sort]
+    $scope.createPage = (list, sort, page) ->
+      $scope.currentList = list[sort]
+      totalPage = parseInt($scope.currentList.length/8)
+      $scope.pages = [1..totalPage]
+      $scope.previewPage = if parseInt($scope.page) is 1 then 1 else page-1
+      $scope.nextPage = if parseInt($scope.page) is totalPage then 1 else parseInt(page)+1
+      startItem = if 0 < parseInt(page) <= totalPage then (page - 1) * 8 else 0
+      endItem = if parseInt(page) > totalPage then false else startItem + 7
+      if endItem
+        $scope.currentPage = list[sort][startItem..endItem]
+      else
+        $scope.currentPage = list[sort][startItem..]
+
+    $scope.$on('infoListService.update', (event, List)->
+      $scope.createPage(List, sort, $scope.page)
+    )
+
     $scope.sortInfo = infoListService.sortInfo
     $scope.inListView = true;
+    $scope.createPage(infoListService.list, sort, $scope.page)
   )
 
   .controller('InfoViewCtrl', ($scope, $http, $routeParams, $location, infoListService, infoService, tagsListService, subListService, userService)->

@@ -124,13 +124,35 @@
 
     sort = $routeParams.sort;
     $scope.sort = sort;
+    $scope.page = $routeParams.page != null ? $routeParams.page : 1;
+    $scope.sort = sort;
     infoListService.getList(sort);
+    $scope.createPage = function(list, sort, page) {
+      var endItem, startItem, totalPage, _i, _ref, _results;
+
+      $scope.currentList = list[sort];
+      totalPage = parseInt($scope.currentList.length / 8);
+      $scope.pages = (function() {
+        _results = [];
+        for (var _i = 1; 1 <= totalPage ? _i <= totalPage : _i >= totalPage; 1 <= totalPage ? _i++ : _i--){ _results.push(_i); }
+        return _results;
+      }).apply(this);
+      $scope.previewPage = parseInt($scope.page) === 1 ? 1 : page - 1;
+      $scope.nextPage = parseInt($scope.page) === totalPage ? 1 : parseInt(page) + 1;
+      startItem = (0 < (_ref = parseInt(page)) && _ref <= totalPage) ? (page - 1) * 8 : 0;
+      endItem = parseInt(page) > totalPage ? false : startItem + 7;
+      if (endItem) {
+        return $scope.currentPage = list[sort].slice(startItem, +endItem + 1 || 9e9);
+      } else {
+        return $scope.currentPage = list[sort].slice(startItem);
+      }
+    };
     $scope.$on('infoListService.update', function(event, List) {
-      return $scope.currentList = List[sort];
+      return $scope.createPage(List, sort, $scope.page);
     });
-    $scope.currentList = infoListService.list[sort];
     $scope.sortInfo = infoListService.sortInfo;
-    return $scope.inListView = true;
+    $scope.inListView = true;
+    return $scope.createPage(infoListService.list, sort, $scope.page);
   }).controller('InfoViewCtrl', function($scope, $http, $routeParams, $location, infoListService, infoService, tagsListService, subListService, userService) {
     var id, sort, _ref;
 
