@@ -53,7 +53,7 @@
         return userService.logoutSubmit();
       },
       checkLogin: function() {
-        if (!$scope.login.logined || this.username !== $scope.user.username) {
+        if (!$scope.login.logined) {
           return $http({
             method: 'GET',
             url: '/accounts/current/'
@@ -128,6 +128,9 @@
     $scope.createPage = function(list, sort, page) {
       var endItem, startItem, totalPage, _i, _ref, _results;
       $scope.currentList = list[sort];
+      if ($scope.currentList == null) {
+        return false;
+      }
       totalPage = parseInt($scope.currentList.length / 8);
       $scope.pages = (function() {
         _results = [];
@@ -148,7 +151,8 @@
       return $scope.createPage(List, sort, $scope.page);
     });
     $scope.sortInfo = infoListService.sortInfo;
-    return $scope.inListView = true;
+    $scope.inListView = true;
+    return $scope.createPage(infoListService.list, sort, $scope.page);
   }).controller('InfoViewCtrl', function($scope, $http, $routeParams, $location, infoListService, infoService, tagsListService, subListService, userService) {
     var id, sort, _ref;
     _ref = [$routeParams.id, $routeParams.sort], id = _ref[0], sort = _ref[1];

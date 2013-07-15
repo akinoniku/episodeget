@@ -38,7 +38,7 @@ angular.module('episodeGet.controllers', [])
       regSubmit: -> userService.regSubmit(@email ,@username, @password)
       logout: -> userService.logoutSubmit()
       checkLogin:  ->
-        if not $scope.login.logined or @username isnt $scope.user.username
+        if not $scope.login.logined
           $http({method: 'GET', url: '/accounts/current/'})
             .success((data)->
               if data
@@ -103,6 +103,8 @@ angular.module('episodeGet.controllers', [])
     infoListService.getList(sort)
     $scope.createPage = (list, sort, page) ->
       $scope.currentList = list[sort]
+      if not $scope.currentList?
+        return false
       totalPage = parseInt($scope.currentList.length/8)
       $scope.pages = [1..totalPage]
       $scope.previewPage = if parseInt($scope.page) is 1 then 1 else page-1
@@ -120,6 +122,7 @@ angular.module('episodeGet.controllers', [])
 
     $scope.sortInfo = infoListService.sortInfo
     $scope.inListView = true;
+    $scope.createPage(infoListService.list, sort, $scope.page)
   )
 
   .controller('InfoViewCtrl', ($scope, $http, $routeParams, $location, infoListService, infoService, tagsListService, subListService, userService)->
