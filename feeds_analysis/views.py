@@ -83,6 +83,7 @@ class RssDetail(generics.RetrieveAPIView):
     serializer_class = RssSerializer
 
 
+@permission_classes((AllowAny, ))
 class TagsList(generics.ListAPIView):
     model = Tags
     serializer_class = TagsSerializer
