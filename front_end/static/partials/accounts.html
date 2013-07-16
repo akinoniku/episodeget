@@ -91,8 +91,9 @@
             </div>
         </div>
     </div>
-    <div class="sub-lists">
+    <div ng-show="!!feedUrl" class="sub-lists">
         <div class="container">
+            <h2 ng-hide="user.list" style="margin-top: 120px; text-align: center;">啊咧？你还什么都没有订阅。<br><small>订阅点什么后把上面的RSS地址添加到下载工具吧（比如utorrent）</small></h2>
             <div class="row">
                     <div ng-include="'static/partials/info_item_in_account.html'" ng-init="info = list.info" ng-repeat="list in user.list" class="span3">
                     </div>
