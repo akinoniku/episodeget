@@ -278,7 +278,7 @@ PIPELINE_CSS = {
     'main_css': {
         'source_filenames': (
             "css/bootstrap.min.css",
-            "css/bootstrap-responsive.min.css",
+            #"css/bootstrap-responsive.min.css",
             "css/font-awesome.min.css",
             "css/flat-ui.css",
             "css/animate.min.css",
