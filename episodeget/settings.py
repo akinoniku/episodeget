@@ -97,7 +97,7 @@ STATIC_ROOT = os.path.join(PROJECT_PATH, '../static')
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 if SAE_VERSION:
-    STATIC_URL = 'http://episodeget.sinaapp.com/static/'
+    STATIC_URL = '/static/'
 else:
     STATIC_URL = '/static/'
 
