@@ -38,7 +38,7 @@ angular.module('episodeGet.controllers', [])
       regSubmit: -> userService.regSubmit(@email ,@username, @password)
       logout: -> userService.logoutSubmit()
       checkLogin:  ->
-        if not $scope.login.logined or @username isnt $scope.user.username
+        if not $scope.login.logined
           $http({method: 'GET', url: '/accounts/current/'})
             .success((data)->
               if data
@@ -98,15 +98,17 @@ angular.module('episodeGet.controllers', [])
   .controller('InfoListCtrl', ($scope, $http, $routeParams, infoListService)->
     sort = $routeParams.sort
     $scope.sort = sort
-    $scope.page = if $routeParams.page? then $routeParams.page else 1
+    $scope.page = if $routeParams.page then $routeParams.page else 1
     $scope.sort = sort
     infoListService.getList(sort)
     $scope.createPage = (list, sort, page) ->
       $scope.currentList = list[sort]
+      if not $scope.currentList?
+        return false
       totalPage = parseInt($scope.currentList.length/8)
       $scope.pages = [1..totalPage]
       $scope.previewPage = if parseInt($scope.page) is 1 then 1 else page-1
-      $scope.nextPage = if parseInt($scope.page) is totalPage then 1 else parseInt(page)+1
+      $scope.nextPage = if parseInt($scope.page) is totalPage then parseInt($scope.page) else parseInt($scope.page)+1
       startItem = if 0 < parseInt(page) <= totalPage then (page - 1) * 8 else 0
       endItem = if parseInt(page) > totalPage then false else startItem + 7
       if endItem
