@@ -105,12 +105,12 @@ angular.module('episodeGet.controllers', [])
       $scope.currentList = list[sort]
       if not $scope.currentList?
         return false
-      totalPage = parseInt($scope.currentList.length/8)
+      totalPage = parseInt($scope.currentList.length/12)
       $scope.pages = [1..totalPage]
       $scope.previewPage = if parseInt($scope.page) is 1 then 1 else page-1
       $scope.nextPage = if parseInt($scope.page) is totalPage then parseInt($scope.page) else parseInt($scope.page)+1
-      startItem = if 0 < parseInt(page) <= totalPage then (page - 1) * 8 else 0
-      endItem = if parseInt(page) > totalPage then false else startItem + 7
+      startItem = if 0 < parseInt(page) <= totalPage then (page - 1) * 12 else 0
+      endItem = if parseInt(page) > totalPage then false else startItem + 11
       if endItem
         $scope.currentPage = list[sort][startItem..endItem]
       else
