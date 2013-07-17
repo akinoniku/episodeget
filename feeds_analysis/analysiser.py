@@ -91,6 +91,7 @@ def analysis_tags(rss):
 
 
 def send_notification(rss, sub_list):
+    qq = sub_list.user.all()
     for user in sub_list.user.all():
         info = sub_list.info.get()
         fromEmail = 'aki@foxmail.com'
@@ -100,7 +101,7 @@ def send_notification(rss, sub_list):
         msg['From'] = fromEmail
         msg['To'] = toEmail
 
-        html = """<h3>%s,</h3><p>请点击下载</p><a href=%s>%s</a>""" % (user.username, rss.link, rss.title)
+        html = u"""<h3>%s,</h3><p>请点击下载</p><a href=%s>%s</a>""" % (user.username, rss.link, rss.title)
         part = MIMEText(html.encode('utf-8'), 'html')
         msg.attach(part)
 

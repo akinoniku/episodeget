@@ -141,8 +141,9 @@ def add_task_test(request):
 
 def test_notification(request, rssId, listId):
     rss = Rss.objects.get(id=rssId)
-    sub_list = SubList.objects.get(id=listId)
+    sub_list = SubList.objects.prefetch_related().get(id=listId)
     send_notification(rss, sub_list)
+    return HttpResponse('All Done')
 
 
 def init_test(request):
