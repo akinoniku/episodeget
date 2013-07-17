@@ -269,8 +269,8 @@ PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.slimit.SlimItCompressor'
 #PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.cssmin.CSSMinCompressor'
 #PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
 
-PIPELINE_YUGLIFY_BINARY = 'C:/Users/Richard/node_modules/.bin/yuglify.cmd'
-#PIPELINE_YUGLIFY_BINARY = '~/node_modules/yuglify/bin/yuglify'
+#PIPELINE_YUGLIFY_BINARY = 'C:/Users/Richard/node_modules/.bin/yuglify.cmd'
+PIPELINE_YUGLIFY_BINARY = '~/node_modules/yuglify/bin/yuglify'
 # PIPELINE_CSSMIN_BINARY = 'C:/Users/Richard/node_modules/.bin/cssmin.cmd'
 # PIPELINE_ENABLED = True
 

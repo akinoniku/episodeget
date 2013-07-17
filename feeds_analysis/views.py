@@ -139,9 +139,9 @@ def add_task_test(request):
     add_task('', Rss.objects.get(pk=5))
 
 
-def test_notification(request):
-    rss = Rss.objects.get(id=30710)
-    sub_list = SubList.objects.get(id=2668)
+def test_notification(request, rssId, listId):
+    rss = Rss.objects.get(id=rssId)
+    sub_list = SubList.objects.get(id=listId)
     send_notification(rss, sub_list)
 
 

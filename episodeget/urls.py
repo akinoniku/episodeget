@@ -56,7 +56,7 @@ urlpatterns = patterns('',
                        url(r'^ana_rss_all$', ana_rss_all),
                        url(r'^read_old_db$', read_old_db),
                        url(r'^add_task$', add_task_test),
-                       #url(r'^test_notification$', test_notification),
+                       url(r'^test_notification/(?P<rssId>\d+)/(?P<listId>\d+)$', test_notification),
 
 
                        # rest
