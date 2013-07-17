@@ -101,7 +101,7 @@ def send_notification(rss, sub_list):
         msg['From'] = fromEmail
         msg['To'] = toEmail
 
-        html = u"""<h3>%s,</h3><p>请点击下载</p><a href=%s>%s</a>""" % (user.username, rss.link, rss.title)
+        html = u"""<h3>%s,</h3><p>请点击下载</p><a href="%s">%s</a>""" % (user.username, rss.link, rss.title)
         part = MIMEText(html.encode('utf-8'), 'html')
         msg.attach(part)
 
