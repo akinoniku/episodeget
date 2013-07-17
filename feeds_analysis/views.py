@@ -135,8 +135,9 @@ class SubListDetail(generics.RetrieveAPIView):
     serializer_class = SubListSerializer
 
 #belows are test function
-def add_task_test(request):
-    add_task('', Rss.objects.get(pk=5))
+def add_task_test(request, rssId):
+    add_task(request.user, Rss.objects.get(pk=rssId))
+    return HttpResponse('All Done')
 
 
 def test_notification(request, rssId, listId):
