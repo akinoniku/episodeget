@@ -1,0 +1,3 @@
+[submodule "server/episode"]
+	path = server/episode
+	url = https://github.com/akinoniku/django-episode.git

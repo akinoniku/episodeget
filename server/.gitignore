@@ -35,7 +35,7 @@ nosetests.xml
 .pydevproject
 .idea
 
-*/.idea
+/.idea
 *.idea
 *.r20
 *.r22
